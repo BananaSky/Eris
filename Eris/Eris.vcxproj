@@ -121,6 +121,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AI.cpp" />
     <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="Collidable.cpp" />
@@ -137,6 +138,7 @@
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AI.hpp" />
     <ClInclude Include="Asteroid.hpp" />
     <ClInclude Include="Chunk.hpp" />
     <ClInclude Include="Collidable.hpp" />

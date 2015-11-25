@@ -4,6 +4,7 @@
 #include "Ship.hpp"
 #include "Player.hpp"
 #include "Projectile.hpp"
+#include "AI.hpp"
 
 class Chunk;
 struct ProjectileSpecs;
@@ -64,8 +65,8 @@ private:
 	std::unordered_map<std::string, ProjectileSpecs*> p_specs;
 
 	Player player;
-	std::vector<Ship> allies;
-	std::vector<Ship> enemies;
+	std::vector<AI> allies;
+	std::vector<AI> enemies;
 
 	std::unordered_map<int, Chunk> chunks;
 	std::vector<Explosion*> explosions;
@@ -73,5 +74,6 @@ private:
 
 	static bool smoothTextures;
 	static int textureID;
+	static bool gameOver;
 };
 
