@@ -83,6 +83,8 @@ private:
 	std::unordered_map<std::string, ProjectileSpecs*> p_specs;
 
 	Player player;
+	int score;
+
 	std::vector<AI> allies;
 	std::vector<Enemy> enemies;
 
