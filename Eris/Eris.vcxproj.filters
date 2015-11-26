@@ -84,6 +84,9 @@
     <ClCompile Include="AI.cpp">
       <Filter>Source Files\Ship</Filter>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Ship</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.hpp">
@@ -91,9 +94,6 @@
     </ClInclude>
     <ClInclude Include="Includes.hpp">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Asteroid.hpp">
-      <Filter>Header Files\Environment</Filter>
     </ClInclude>
     <ClInclude Include="Chunk.hpp">
       <Filter>Header Files\Environment</Filter>
@@ -132,6 +132,12 @@
       <Filter>Header Files\Environment</Filter>
     </ClInclude>
     <ClInclude Include="AI.hpp">
+      <Filter>Header Files\Ship</Filter>
+    </ClInclude>
+    <ClInclude Include="Asteroid.hpp">
+      <Filter>Header Files\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.hpp">
       <Filter>Header Files\Ship</Filter>
     </ClInclude>
   </ItemGroup>

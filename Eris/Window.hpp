@@ -10,6 +10,7 @@ class Chunk;
 struct ProjectileSpecs;
 struct ShipSpecs;
 class Explosion;
+class Enemy;
 
 class Window
 {
@@ -21,11 +22,16 @@ public:
 	void run();
 	sf::Texture* loadTexture(std::string textureLocation);
 	void loadBackground(std::string location, sf::Vector2f scale);
+	void loadFuel(std::string location, sf::Vector2f scale);
+	void loadHealth(std::string location, sf::Vector2f size);
+	void loadGUI(std::string location, sf::Vector2f scale);
+	void loadAmmo(std::string location, sf::Vector2f size);
 	void loadShipSpecs(std::string filename);
 	void loadProjectileSpecs(std::string filename);
 	void loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name);
 
 	void addProjectile(Projectile * projectile, std::string type);
+	void addEnemyProjectile(Projectile * projectile, std::string type);
 	void spawn(sf::Vector2f position, sf::Vector2f scale, std::string name, bool enemy);
 	void addExplosion(Explosion* explosion) { explosions.push_back(explosion); }
 
@@ -33,6 +39,7 @@ public:
 	void updateChunks();
 
 	void gui();
+	void addBox(sf::Vector2f, sf::Vector2f);
 
 	void loadPlanetTexture(std::string textureLocation);
 	void loadAsteroidTexture(std::string textureLocation);
@@ -44,10 +51,11 @@ public:
 
 	void update();
 
-	std::vector<sf::Texture*>* getAsteroidTextures() { return &asteroidTextures; }
-	std::vector<sf::Texture*>* getPlanetTextures() { return &planetTextures; }
+	std::vector<sf::Texture*>* getAsteroidTextures()  { return &asteroidTextures; }
+	std::vector<sf::Texture*>* getPlanetTextures()    { return &planetTextures; }
 	std::vector<sf::Texture*>* getExplosionTextures() { return &explosionTextures; }
-	std::vector<sf::Texture*>* getStationTextures() { return &stationTextures; }
+	std::vector<sf::Texture*>* getStationTextures()   { return &stationTextures; }
+	sf::RectangleShape* getFuel() { return &fuel; }
 
 private:
 
@@ -55,6 +63,16 @@ private:
 	sf::View view;
 	float modifier = 1.0;
 	sf::Sprite background;
+	sf::RectangleShape fuel;
+	sf::RectangleShape health;
+	sf::RectangleShape ammo;
+	sf::Texture guiBox;
+	std::vector<sf::RectangleShape> guiBoxes;
+
+	float fps;
+	sf::Font font;
+	sf::Clock clock;
+	float lastTime = 0;
 
 	std::unordered_map<std::string, sf::Texture*> textures;
 	std::vector<sf::Texture*> planetTextures;
@@ -66,11 +84,13 @@ private:
 
 	Player player;
 	std::vector<AI> allies;
-	std::vector<AI> enemies;
+	std::vector<Enemy> enemies;
 
 	std::unordered_map<int, Chunk> chunks;
 	std::vector<Explosion*> explosions;
 	std::vector<Projectile*> projectiles;
+	std::vector<Projectile*> enemyProjectiles;
+
 
 	static bool smoothTextures;
 	static int textureID;

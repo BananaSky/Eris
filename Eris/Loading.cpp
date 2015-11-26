@@ -71,6 +71,35 @@ void Window::loadBackground(std::string location, sf::Vector2f scale = sf::Vecto
 	background.setScale(scale);
 }
 
+void Window::loadFuel(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
+{
+	fuel.setTexture(loadTexture(location));
+	fuel.setSize(size);
+	fuel.setPosition(0, 30);
+	player.syncFuel(&fuel);
+}
+
+void Window::loadHealth(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
+{
+	health.setTexture(loadTexture(location));
+	health.setSize(size);
+	health.setPosition(fuel.getPosition().x + fuel.getSize().x, 30);
+	player.syncHealth(&health);
+}
+
+void Window::loadGUI(std::string location, sf::Vector2f scale = sf::Vector2f(.5f, .5f))
+{
+	guiBox = *loadTexture(location);
+}
+
+void Window::loadAmmo(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
+{
+	ammo.setTexture(loadTexture(location));
+	ammo.setSize(size);
+	ammo.setPosition(0, 330);
+	player.syncAmmo(&ammo);
+}
+
 void Window::loadShipSpecs(std::string filename)
 {
 	std::ifstream indata;

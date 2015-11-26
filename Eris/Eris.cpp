@@ -30,6 +30,12 @@ int main(int argc, char** argv)
 	gamewindow.loadStationTexture("Graphics/Stations/station_3.png");
 
 	gamewindow.loadBackground("Graphics/Backgrounds/space_12.jpg", sf::Vector2f(0.5, 0.5));
+	gamewindow.loadFuel("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
+	gamewindow.loadHealth("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
+	gamewindow.loadAmmo("Graphics/FuelMeter.png", sf::Vector2f(30, 200));
+	gamewindow.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
+	gamewindow.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
+
 	gamewindow.loadShipSpecs("ShipData.csv");
 	gamewindow.loadProjectileSpecs("ProjectileData.csv");
 	gamewindow.loadPlayer(sf::Vector2f(0, 0), sf::Vector2f(.3f, .3f), "Frigate");
