@@ -143,6 +143,7 @@
     <ClInclude Include="Asteroid.hpp" />
     <ClInclude Include="Chunk.hpp" />
     <ClInclude Include="Collidable.hpp" />
+    <ClInclude Include="Constants.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Explosion.hpp" />
     <ClInclude Include="Includes.hpp" />

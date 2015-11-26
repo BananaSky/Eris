@@ -23,7 +23,6 @@ public:
 	void applyDamage(int damage) { life -= damage; }
 
 	int getLife() { return life; }
-	double getMass() { return mass; }
 
 private:
 	int life;

@@ -57,7 +57,16 @@ public:
 	std::vector<sf::Texture*>* getStationTextures()   { return &stationTextures; }
 	sf::RectangleShape* getFuel() { return &fuel; }
 
+
+	void addScore(int n) { score += n; credits += n; }
+
+	void spend(int i = 1) { credits -= i; }
+	int getBalance() { return credits; }
+
+	bool isNearStation() { return nearStation; }
+
 private:
+	bool nearStation;
 
 	sf::RenderWindow window;
 	sf::View view;
@@ -84,6 +93,7 @@ private:
 
 	Player player;
 	int score;
+	int credits;
 
 	std::vector<AI> allies;
 	std::vector<Enemy> enemies;
