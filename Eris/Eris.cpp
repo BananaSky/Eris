@@ -30,6 +30,8 @@ int main(int argc, char** argv)
 	gamewindow.loadStationTexture("Graphics/Stations/station_3.png");
 
 	gamewindow.loadBackground("Graphics/Backgrounds/space_12.jpg", sf::Vector2f(0.5, 0.5));
+	gamewindow.loadStartScreen("Eris.jpg", sf::Vector2f(.25, .25));
+
 	gamewindow.loadFuel("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
 	gamewindow.loadHealth("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
 	gamewindow.loadAmmo("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
