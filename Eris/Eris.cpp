@@ -34,6 +34,7 @@ int main(int argc, char** argv)
 	gamewindow.loadHealth("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
 	gamewindow.loadAmmo("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
 	gamewindow.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
+	gamewindow.loadStart("Eris.jpg", sf::Vector2f(.25, .25));
 	gamewindow.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
 
 	gamewindow.loadShipSpecs("ShipData.csv");

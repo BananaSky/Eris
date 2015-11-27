@@ -22,6 +22,7 @@ public:
 	void run();
 	sf::Texture* loadTexture(std::string textureLocation);
 	void loadBackground(std::string location, sf::Vector2f scale);
+	void loadStart(std::string location, sf::Vector2f scale);
 	void loadFuel(std::string location, sf::Vector2f scale);
 	void loadHealth(std::string location, sf::Vector2f size);
 	void loadGUI(std::string location, sf::Vector2f scale);
@@ -77,6 +78,7 @@ private:
 	sf::RectangleShape ammo;
 	sf::Texture guiBox;
 	std::vector<sf::RectangleShape> guiBoxes;
+	sf::Sprite startScreen;
 
 	float fps;
 	sf::Font font;
@@ -95,11 +97,10 @@ private:
 	int score;
 	int credits;
 
-	std::vector<AI> allies;
-	std::vector<Enemy> enemies;
-
 	std::unordered_map<int, Chunk> chunks;
 	std::vector<Explosion*> explosions;
+	std::vector<Enemy> enemies;
+	std::vector<AI> allies;
 	std::vector<Projectile*> projectiles;
 	std::vector<Projectile*> enemyProjectiles;
 
@@ -107,5 +108,10 @@ private:
 	static bool smoothTextures;
 	static int textureID;
 	static bool gameOver;
+
+	int counter = 1;
+	int spawnrate = 900;
+
+	bool start = true;
 };
 

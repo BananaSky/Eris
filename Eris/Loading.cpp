@@ -71,6 +71,13 @@ void Window::loadBackground(std::string location, sf::Vector2f scale = sf::Vecto
 	background.setScale(scale);
 }
 
+void Window::loadStart(std::string location, sf::Vector2f scale = sf::Vector2f(.5f, .5f))
+{
+	startScreen.setTexture(*loadTexture(location));
+	startScreen.setScale(scale);
+}
+
+
 void Window::loadFuel(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
 {
 	fuel.setTexture(loadTexture(location));
