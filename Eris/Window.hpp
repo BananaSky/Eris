@@ -29,6 +29,7 @@ public:
 	void loadShipSpecs(std::string filename);
 	void loadProjectileSpecs(std::string filename);
 	void loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name);
+	void loadStartScreen(std::string location, sf::Vector2f scale);
 
 	void addProjectile(Projectile * projectile, std::string type);
 	void addEnemyProjectile(Projectile * projectile, std::string type);
@@ -55,6 +56,7 @@ public:
 	std::vector<sf::Texture*>* getPlanetTextures()    { return &planetTextures; }
 	std::vector<sf::Texture*>* getExplosionTextures() { return &explosionTextures; }
 	std::vector<sf::Texture*>* getStationTextures()   { return &stationTextures; }
+	std::unordered_map<std::string, sf::Texture*>* getTextures() { return &textures; }
 	sf::RectangleShape* getFuel() { return &fuel; }
 
 
@@ -64,6 +66,9 @@ public:
 	int getBalance() { return credits; }
 
 	bool isNearStation() { return nearStation; }
+
+	std::unordered_map<std::string, ProjectileSpecs*>* getPSpecs() { return &p_specs; }
+	std::unordered_map<std::string, ShipSpecs*>* getSpecs() { return &specs; }
 
 private:
 	bool nearStation;
@@ -77,11 +82,14 @@ private:
 	sf::RectangleShape ammo;
 	sf::Texture guiBox;
 	std::vector<sf::RectangleShape> guiBoxes;
+	sf::Sprite startScreen;
 
 	float fps;
 	sf::Font font;
 	sf::Clock clock;
 	float lastTime = 0;
+
+	bool start = true;
 
 	std::unordered_map<std::string, sf::Texture*> textures;
 	std::vector<sf::Texture*> planetTextures;

@@ -293,3 +293,9 @@ void Window::loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string n
 	player.scale(scale);
 	player.setOrigin(player.getLocalBounds().width / 2, player.getLocalBounds().height / 2);
 }
+
+void Window::loadStartScreen(std::string location, sf::Vector2f scale)
+{
+	startScreen.setTexture(*loadTexture(location));
+	startScreen.setScale(scale);
+}
