@@ -36,6 +36,10 @@ int main(int argc, char** argv)
 	gamewindow.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
 	gamewindow.loadStart("Eris.jpg", sf::Vector2f(.25, .25));
 	gamewindow.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
+	gamewindow.loadInfo("Graphics/Buttons-Icons/Info_2.png", sf::Vector2f(180, 400));
+	gamewindow.loadHide("Graphics/Buttons-Icons/hide.png", sf::Vector2f(1, 1));
+	gamewindow.loadShow("Graphics/Buttons-Icons/show.png", sf::Vector2f(1, 1));
+	gamewindow.loadInv("Graphics/Buttons-Icons/Inv4x4.jpg", sf::Vector2f(200, 200));
 
 	gamewindow.loadShipSpecs("ShipData.csv");
 	gamewindow.loadProjectileSpecs("ProjectileData.csv");

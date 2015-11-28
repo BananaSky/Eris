@@ -87,6 +87,9 @@
     <ClCompile Include="Enemy.cpp">
       <Filter>Source Files\Ship</Filter>
     </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Source Files\Board</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.hpp">
@@ -140,11 +143,14 @@
     <ClInclude Include="Enemy.hpp">
       <Filter>Header Files\Ship</Filter>
     </ClInclude>
-    <ClInclude Include="Constants.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Wave.hpp">
       <Filter>Header Files\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Constants.hpp">
+      <Filter>Header Files\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.hpp">
+      <Filter>Header Files\Board</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

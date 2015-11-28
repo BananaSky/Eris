@@ -106,6 +106,34 @@ void Window::loadAmmo(std::string location, sf::Vector2f size = sf::Vector2f(50,
 	player.syncAmmo(&ammo);
 }
 
+void Window::loadInfo(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
+{
+	info.setTexture(loadTexture(location));
+	info.setSize(size);
+	info.setPosition(window.getSize().x - info.getGlobalBounds().width, 0);
+}
+
+void Window::loadHide(std::string location, sf::Vector2f scale = sf::Vector2f(1, 1))
+{
+	hideButton.setTexture(*loadTexture(location));
+	hideButton.setScale(scale);
+	hideButton.setPosition(window.getSize().x - hideButton.getGlobalBounds().width, info.getSize().y);
+}
+
+void Window::loadShow(std::string location, sf::Vector2f scale = sf::Vector2f(1, 1))
+{
+	showButton.setTexture(*loadTexture(location));
+	showButton.setScale(scale);
+	showButton.setPosition(window.getSize().x - hideButton.getGlobalBounds().width, 0);
+}
+
+void Window::loadInv(std::string location, sf::Vector2f size)
+{
+	inventory.setTexture(loadTexture(location));
+	inventory.setSize(size);
+}
+
+
 void Window::loadShipSpecs(std::string filename)
 {
 	std::ifstream indata;

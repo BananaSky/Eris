@@ -1,5 +1,7 @@
 #include "AI.hpp"
 #include "Ship.hpp"
+#include "Window.hpp"
+#include "ProjectileSpecs.hpp"
 
 AI::AI() { this->shooting = true; selectedType = 0; }
 AI::~AI(){}
@@ -41,37 +43,46 @@ void AI::turnTo()
 				turningLeft = false;
 			}
 		}
-		forward(d_x, d_y);
 	}
 }
 
-void AI::forward(float d_x, float d_y)
+void AI::forward()
 {
-	float distance = sqrt(abs(d_x * d_x + d_y *d_y));
-	if (distance > followDistance)
+	if (target != NULL)
 	{
-		accelerating = true;
-		decelerating = false;
-	}
-	else
-	{
-		accelerating = false;
-
-		if (getVelocity() > 0)
+		float d_x = target->getPosition().x - getPosition().x;
+		float d_y = target->getPosition().y - getPosition().y;
+		float distance = sqrt(abs(d_x * d_x + d_y *d_y));
+		if (distance > followDistance)
 		{
-			decelerating = true;
+			accelerating = true;
+			decelerating = false;
 		}
 		else
 		{
-			decelerating = false;
+			accelerating = false;
+
+			if (getVelocity() > 0)
+			{
+				decelerating = true;
+			}
+			else
+			{
+				decelerating = false;
+			}
 		}
 	}
 }
 
 void AI::update(Window* board, sf::RenderWindow* window)
 {
+	if (keepAtRange)
+	{
+		followDistance = board->getPSpecs()->at(missleTypes[selectedType])->calcRange(velocity);
+	}
 	turnTo(); // Will also call forward()
 	turn();
+	forward();
 	if (shootCount > 0)
 	{
 		shootCount--;
