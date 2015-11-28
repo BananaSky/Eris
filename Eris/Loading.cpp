@@ -5,6 +5,7 @@
 #include "ProjectileSpecs.hpp"
 #include "Chunk.hpp"
 #include "Explosion.hpp"
+#include "Wave.hpp"
 
 void Window::loadPlanetTexture(std::string textureLocation)
 {
@@ -46,7 +47,6 @@ void Window::loadMultiTexture(std::string location, std::vector<sf::Texture*>* s
 	}
 }
 
-
 sf::Texture* Window::loadTexture(std::string textureLocation)
 {
 	//This is to keep track of our textures, and ensure they are freed when we delete the gameboard
@@ -76,7 +76,6 @@ void Window::loadStart(std::string location, sf::Vector2f scale = sf::Vector2f(.
 	startScreen.setTexture(*loadTexture(location));
 	startScreen.setScale(scale);
 }
-
 
 void Window::loadFuel(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
 {
@@ -283,6 +282,39 @@ void Window::loadProjectileSpecs(std::string filename)
 	}
 	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
 }
+
+void Window::loadWaves(std::string filename)
+{
+	std::ifstream indata;
+
+	indata.open(filename);
+
+	int dispersion;
+	std::string type;
+
+	std::string                line;
+	std::getline(indata, line); //Skip first line
+	while (getline(indata, line))
+	{
+		Wave currentwave;
+		std::vector<std::string> units;
+
+		std::stringstream          lineStream(line);
+		std::string                cell;
+
+		std::getline(lineStream, cell, ',');
+		dispersion = std::stoi(cell);
+
+		while (std::getline(lineStream, type, ','))
+		{
+			units.push_back(type);
+		}
+
+		waves.push_back(Wave{ dispersion, units });
+	}
+	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
+}
+
 
 void Window::loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name = "Frigate")
 {

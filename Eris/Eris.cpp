@@ -39,6 +39,7 @@ int main(int argc, char** argv)
 
 	gamewindow.loadShipSpecs("ShipData.csv");
 	gamewindow.loadProjectileSpecs("ProjectileData.csv");
+	gamewindow.loadWaves("Waves.csv");
 	gamewindow.loadPlayer(sf::Vector2f(0, 0), sf::Vector2f(.3f, .3f), "Frigate");
 
 	gamewindow.genChunks(sf::Vector2f(50000, 50000));

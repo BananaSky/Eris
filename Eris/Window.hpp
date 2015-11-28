@@ -5,6 +5,7 @@
 #include "Player.hpp"
 #include "Projectile.hpp"
 #include "AI.hpp"
+#include "Wave.hpp"
 
 class Chunk;
 struct ProjectileSpecs;
@@ -27,13 +28,17 @@ public:
 	void loadHealth(std::string location, sf::Vector2f size);
 	void loadGUI(std::string location, sf::Vector2f scale);
 	void loadAmmo(std::string location, sf::Vector2f size);
+
 	void loadShipSpecs(std::string filename);
 	void loadProjectileSpecs(std::string filename);
+	void loadWaves(std::string filename);
 	void loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name);
 
 	void addProjectile(Projectile * projectile, std::string type);
 	void addEnemyProjectile(Projectile * projectile, std::string type);
 	void spawn(sf::Vector2f position, sf::Vector2f scale, std::string name, bool enemy);
+	void spawnWave(const std::vector<std::string>& wave);
+	void cycleWave();
 	void addExplosion(Explosion* explosion) { explosions.push_back(explosion); }
 
 	void genChunks(sf::Vector2f size);
@@ -50,7 +55,15 @@ public:
 
 	void draw();
 
+	void updateProjectiles();
+
+	void updateShips();
+
 	void update();
+
+	void displayStartScreen();
+	void displayGameScreen();
+	void displayGameOverScreen();
 
 	std::vector<sf::Texture*>* getAsteroidTextures()  { return &asteroidTextures; }
 	std::vector<sf::Texture*>* getPlanetTextures()    { return &planetTextures; }
@@ -65,6 +78,9 @@ public:
 	int getBalance() { return credits; }
 
 	bool isNearStation() { return nearStation; }
+
+	std::mutex* getProjectileMutex() { return &all_projectiles_mutex; }
+	std::mutex* getShipMutex() { return &all_ships_mutex; }
 
 private:
 	bool nearStation;
@@ -94,6 +110,8 @@ private:
 	std::unordered_map<std::string, ProjectileSpecs*> p_specs;
 
 	Player player;
+	std::mutex all_projectiles_mutex;
+	std::mutex all_ships_mutex;
 	int score;
 	int credits;
 
@@ -104,13 +122,15 @@ private:
 	std::vector<Projectile*> projectiles;
 	std::vector<Projectile*> enemyProjectiles;
 
+	std::vector<Wave> waves;
 
 	static bool smoothTextures;
 	static int textureID;
 	static bool gameOver;
 
 	int counter = 1;
-	int spawnrate = 900;
+	int spawnrate = 100;
+	int wavenum = 0;
 
 	bool start = true;
 };

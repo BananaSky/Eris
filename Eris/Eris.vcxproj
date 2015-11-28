@@ -156,6 +156,7 @@
     <ClInclude Include="ShipSpecs.hpp" />
     <ClInclude Include="Station.hpp" />
     <ClInclude Include="Tilemap.hpp" />
+    <ClInclude Include="Wave.hpp" />
     <ClInclude Include="Window.hpp" />
   </ItemGroup>
   <ItemGroup>
