@@ -113,7 +113,7 @@ void Window::loadShipSpecs(std::string filename)
 	indata.open(filename);
 
 	std::string name;
-	int shootDelay;
+	float shootDelayModifier;
 	float engineForce;
 	float mass;
 	float maxVelocity;
@@ -121,13 +121,15 @@ void Window::loadShipSpecs(std::string filename)
 	float structuralIntegrity;
 	float repair;
 	std::string texture;
-
-	std::string missleType;
+	std::vector<std::string> missleTypes;
+	int cost;
 
 	std::string                line;
 	std::getline(indata, line);
-	while (getline(indata, line))
+	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
 	{
+		missleTypes.clear();
+
 		std::stringstream          lineStream(line);
 
 		//This would be better with some operator overloading, but for now....?
@@ -136,7 +138,7 @@ void Window::loadShipSpecs(std::string filename)
 		std::getline(lineStream, name, ',');
 
 		std::getline(lineStream, cell, ',');
-		shootDelay = std::stoi(cell);
+		shootDelayModifier = std::stof(cell);
 
 		std::getline(lineStream, cell, ',');
 		engineForce = std::stof(cell);
@@ -158,23 +160,49 @@ void Window::loadShipSpecs(std::string filename)
 
 		std::getline(lineStream, texture, ',');
 
-		std::getline(lineStream, missleType, ',');
+		while (std::getline(lineStream, cell, ','))
+		{
+			if (cell != "none")
+			{
+				missleTypes.push_back(cell);
+			}
+			else
+			{
+				break; //Discard the none value
+			}
+		}
 
+		while (std::getline(lineStream, cell, ','))
+		{
+			if (cell != "none")
+			{
+				cost = std::stoi(cell);
+			}
+			else if (cell == "")
+			{
+				break;
+			}
+		}
+
+
+		spec_Keys.push_back(name);
 		specs.insert(
 			std::pair<std::string, ShipSpecs*>
 			(
 				name,
 				new ShipSpecs
 		{
-			shootDelay,
+			name,
+			shootDelayModifier,
 			engineForce,
-				mass,
-				maxVelocity,
-				maxAngularVelocity,
-				structuralIntegrity,
-				repair,
-				texture,
-				missleType
+			mass,
+			maxVelocity,
+			maxAngularVelocity,
+			structuralIntegrity,
+			repair,
+			texture,
+			missleTypes, 
+			cost
 		}
 				)
 			);
@@ -194,13 +222,14 @@ void Window::loadShipSpecs(std::string filename)
 		}
 
 		std::cout << name << ": " << std::endl
-			<< "Shoot Delay: " << shootDelay << std::endl
+			<< "Shoot Delay: " << shootDelayModifier << std::endl
 			<< "Engine Force: " << engineForce << std::endl
 			<< "Mass: " << mass << std::endl
 			<< "Maximum Velocity: " << maxVelocity << std::endl
 			<< "Maximum Angular Velocity: " << maxAngularVelocity << std::endl
 			<< "Structure: " << structuralIntegrity << std::endl
-			<< "Repair Rate: \n" << repair << std::endl;
+			<< "Repair Rate: " << repair << std::endl
+			<< "Cost" << cost << std::endl;
 
 	}
 	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
@@ -219,6 +248,7 @@ void Window::loadProjectileSpecs(std::string filename)
 	float maxVelocity;
 	float acceleration;
 	std::string texture;
+	int baseRate;
 
 	std::string                line;
 	std::getline(indata, line);
@@ -248,6 +278,9 @@ void Window::loadProjectileSpecs(std::string filename)
 
 		std::getline(lineStream, texture, ',');
 
+		std::getline(lineStream, cell, ',');
+		baseRate = std::stoi(cell);
+
 		p_specs.insert(
 			std::pair<std::string, ProjectileSpecs*>
 			(
@@ -259,7 +292,8 @@ void Window::loadProjectileSpecs(std::string filename)
 				damage,
 				maxVelocity,
 				acceleration,
-				texture
+				texture,
+				baseRate
 		}
 				)
 			);
@@ -307,7 +341,15 @@ void Window::loadWaves(std::string filename)
 
 		while (std::getline(lineStream, type, ','))
 		{
-			units.push_back(type);
+			if (type != "")
+			{
+				units.push_back(type);
+			}
+			else
+			{
+				break;
+
+			}
 		}
 
 		waves.push_back(Wave{ dispersion, units });
@@ -318,7 +360,7 @@ void Window::loadWaves(std::string filename)
 
 void Window::loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name = "Frigate")
 {
-	player.loadType(*specs[name]);
+	player.loadType(*specs[name], this);
 	std::unordered_map<std::string, sf::Texture*>::const_iterator got = textures.find(specs[name]->texture);
 	if (got == textures.end())
 	{

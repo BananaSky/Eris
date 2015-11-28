@@ -69,6 +69,7 @@ public:
 	std::vector<sf::Texture*>* getPlanetTextures()    { return &planetTextures; }
 	std::vector<sf::Texture*>* getExplosionTextures() { return &explosionTextures; }
 	std::vector<sf::Texture*>* getStationTextures()   { return &stationTextures; }
+	std::unordered_map<std::string, sf::Texture*>* getTextures() { return &textures; }
 	sf::RectangleShape* getFuel() { return &fuel; }
 
 
@@ -81,6 +82,10 @@ public:
 
 	std::mutex* getProjectileMutex() { return &all_projectiles_mutex; }
 	std::mutex* getShipMutex() { return &all_ships_mutex; }
+
+	std::unordered_map<std::string, ShipSpecs*>* getShipSpecs() { return &specs; }
+	std::unordered_map<std::string, ProjectileSpecs*>* getPSpecs() { return &p_specs; }
+	std::vector<std::string>* getSpec_Keys() { return &spec_Keys; }
 
 private:
 	bool nearStation;
@@ -106,6 +111,9 @@ private:
 	std::vector<sf::Texture*> asteroidTextures;
 	std::vector<sf::Texture*> explosionTextures;
 	std::vector<sf::Texture*> stationTextures;
+
+	std::vector<std::string> spec_Keys;
+
 	std::unordered_map<std::string, ShipSpecs*> specs;
 	std::unordered_map<std::string, ProjectileSpecs*> p_specs;
 

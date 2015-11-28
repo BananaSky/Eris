@@ -1,7 +1,7 @@
 #include "AI.hpp"
 #include "Ship.hpp"
 
-AI::AI() { this->shooting = true; }
+AI::AI() { this->shooting = true; selectedType = 0; }
 AI::~AI(){}
 
 AI::AI(Ship* target)
@@ -71,6 +71,7 @@ void AI::forward(float d_x, float d_y)
 void AI::update(Window* board, sf::RenderWindow* window)
 {
 	turnTo(); // Will also call forward()
+	turn();
 	if (shootCount > 0)
 	{
 		shootCount--;
@@ -88,7 +89,6 @@ void AI::update(Window* board, sf::RenderWindow* window)
 	{
 		decelerate();
 	}
-	turn();
 
 	float yChange = getVelocity() * sinf(getRotation() * (float)0.01745329); //Radian Conversion
 	float xChange = getVelocity() * cosf(getRotation() * (float)0.01745329);
