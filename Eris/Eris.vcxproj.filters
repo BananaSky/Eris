@@ -96,6 +96,9 @@
     <ClCompile Include="Fragment.cpp">
       <Filter>Source Files\Projectile</Filter>
     </ClCompile>
+    <ClCompile Include="GuiManager.cpp">
+      <Filter>Source Files\Board</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.hpp">
@@ -163,6 +166,9 @@
     </ClInclude>
     <ClInclude Include="Fragment.hpp">
       <Filter>Header Files\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiManager.hpp">
+      <Filter>Header Files\Board</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

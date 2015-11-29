@@ -8,6 +8,7 @@
 #include "Inventory.hpp"
 #include "Fragment.hpp"
 #include "Wave.hpp"
+#include "GuiManager.hpp"
 
 class Chunk;
 struct ProjectileSpecs;
@@ -38,6 +39,10 @@ public:
 
 	void loadInv(std::string location, sf::Vector2f size);
 
+	void loadStationMenu(std::string location, sf::Vector2f size);
+
+	void loadPlanetMenu(std::string location, sf::Vector2f size);
+
 	void loadShipSpecs(std::string filename);
 	void loadProjectileSpecs(std::string filename);
 	void loadWaves(std::string filename);
@@ -55,7 +60,15 @@ public:
 	void genChunks(sf::Vector2f size);
 	void updateChunks();
 
+	void buyIron();
+
 	void stationGUI();
+
+	void stationMenuListener(sf::Vector2i pos);
+
+	void planetMenuListener(sf::Vector2i pos);
+
+	void planetGUI();
 
 	void DrawCascadingText(std::string output, int offset);
 
@@ -97,6 +110,7 @@ public:
 	int getBalance() { return credits; }
 
 	bool isNearStation() { return nearStation; }
+	bool isNearPlanet() { return nearPlanet; }
 
 	std::unordered_map<std::string, ShipSpecs*>* getShipSpecs() { return &specs; }
 	std::unordered_map<std::string, ProjectileSpecs*>* getPSpecs() { return &p_specs; }
@@ -105,9 +119,13 @@ public:
 	sf::RenderWindow* getWindow() { return &window; }
 
 	void toggleInv() { invScreen = !invScreen; inventory.format(&window); }
+	void openStationMenu() { stationMenuOpen = !stationMenuOpen; }
+	void openPlanetMenu() { planetMenuOpen = !planetMenuOpen; }
+
+public:
+	GuiManager GUImanager;
 
 private:
-	bool nearStation;
 
 	float modifier = 1.0;
 	sf::Sprite background;
@@ -120,6 +138,8 @@ private:
 	sf::RectangleShape info;
 	sf::Sprite hideButton;
 	sf::Sprite showButton;
+	sf::RectangleShape stationMenu;
+	sf::RectangleShape planetMenu;
 
 	sf::RenderWindow window;
 	sf::View view;
@@ -136,7 +156,6 @@ private:
 	std::vector<sf::Texture*> explosionTextures;
 	std::vector<sf::Texture*> stationTextures;
 	std::vector<sf::Texture*> fragTextures;
-
 	std::vector<std::string> spec_Keys;
 
 	std::unordered_map<std::string, ShipSpecs*> specs;
@@ -166,7 +185,11 @@ private:
 	int wavenum = 0;
 
 	bool start = true;
-	bool infoHidden;
-	bool invScreen;
+	bool infoHidden = false;
+	bool invScreen = false;
+	bool nearStation = false;
+	bool nearPlanet = false;
+	bool stationMenuOpen = false;
+	bool planetMenuOpen = false;
 };
 

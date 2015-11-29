@@ -67,6 +67,8 @@ int main(int argc, char** argv)
 	gamewindow.loadHide("Graphics/Buttons-Icons/hide.png", sf::Vector2f(1, 1));
 	gamewindow.loadShow("Graphics/Buttons-Icons/show.png", sf::Vector2f(1, 1));
 	gamewindow.loadInv("Graphics/Buttons-Icons/Inv6x4.png", sf::Vector2f(472, 365));
+	gamewindow.loadStationMenu("Graphics/Buttons-Icons/StationMenu.png", sf::Vector2f(64, 128));
+	gamewindow.loadPlanetMenu("Graphics/Buttons-Icons/PlanetMenu.png",   sf::Vector2f(64, 128));
 
 	gamewindow.loadShipSpecs("ShipData.csv");
 	gamewindow.loadProjectileSpecs("ProjectileData.csv");

@@ -139,6 +139,19 @@ void Window::loadInv(std::string location, sf::Vector2f size)
 	inventory.setPosition(window.getSize().x / 2 - inventory.getLocalBounds().width / 2, 0);
 }
 
+void Window::loadStationMenu(std::string location, sf::Vector2f size)
+{
+	stationMenu.setTexture(loadTexture(location));
+	stationMenu.setSize(size);
+	stationMenu.setPosition(132, 2);
+}
+
+void Window::loadPlanetMenu(std::string location, sf::Vector2f size)
+{
+	planetMenu.setTexture(loadTexture(location));
+	planetMenu.setSize(size);
+	planetMenu.setPosition(132, 2);
+}
 
 void Window::loadShipSpecs(std::string filename)
 {
