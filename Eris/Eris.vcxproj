@@ -133,6 +133,7 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Loading.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Perlin.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -155,6 +156,7 @@
     <ClInclude Include="Includes.hpp" />
     <ClInclude Include="Inventory.hpp" />
     <ClInclude Include="Item.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Perlin.hpp" />
     <ClInclude Include="Planet.hpp" />
     <ClInclude Include="Player.hpp" />

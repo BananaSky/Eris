@@ -6,6 +6,8 @@
 #include "Chunk.hpp"
 #include "Explosion.hpp"
 #include "Wave.hpp"
+#include "GuiManager.hpp"
+#include "Loading.h"
 
 void Window::loadPlanetTexture(std::string textureLocation)
 {
@@ -82,54 +84,54 @@ void Window::loadStart(std::string location, sf::Vector2f scale = sf::Vector2f(.
 	startScreen.setScale(scale);
 }
 
-void Window::loadFuel(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
+void GuiManager::loadFuel(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
 {
-	fuel.setTexture(loadTexture(location));
+	fuel.setTexture(parent->loadTexture(location));
 	fuel.setSize(size);
 	fuel.setPosition(0, 30);
-	player.syncFuel(&fuel);
+	parent->getPlayer()->syncFuel(&fuel);
 }
 
-void Window::loadHealth(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
+void GuiManager::loadHealth(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
 {
-	health.setTexture(loadTexture(location));
+	health.setTexture(parent->loadTexture(location));
 	health.setSize(size);
 	health.setPosition(fuel.getPosition().x + fuel.getSize().x, 30);
-	player.syncHealth(&health);
+	parent->getPlayer()->syncHealth(&health);
 }
 
-void Window::loadGUI(std::string location, sf::Vector2f scale = sf::Vector2f(.5f, .5f))
+void GuiManager::loadGUI(std::string location, sf::Vector2f scale = sf::Vector2f(.5f, .5f))
 {
-	guiBox = *loadTexture(location);
+	guiBox = *parent->loadTexture(location);
 }
 
-void Window::loadAmmo(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
+void GuiManager::loadAmmo(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
 {
-	ammo.setTexture(loadTexture(location));
+	ammo.setTexture(parent->loadTexture(location));
 	ammo.setSize(size);
 	ammo.setPosition(0, 330);
-	player.syncAmmo(&ammo);
+	parent->getPlayer()->syncAmmo(&ammo);
 }
 
-void Window::loadInfo(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
+void GuiManager::loadInfo(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
 {
-	info.setTexture(loadTexture(location));
+	info.setTexture(parent->loadTexture(location));
 	info.setSize(size);
-	info.setPosition(window.getSize().x - info.getGlobalBounds().width, 0);
+	info.setPosition(target->getSize().x - info.getGlobalBounds().width, 0);
 }
 
-void Window::loadHide(std::string location, sf::Vector2f scale = sf::Vector2f(1, 1))
+void GuiManager::loadHide(std::string location, sf::Vector2f scale = sf::Vector2f(1, 1))
 {
-	hideButton.setTexture(*loadTexture(location));
+	hideButton.setTexture(*parent->loadTexture(location));
 	hideButton.setScale(scale);
-	hideButton.setPosition(window.getSize().x - hideButton.getGlobalBounds().width, info.getSize().y);
+	hideButton.setPosition(target->getSize().x - hideButton.getGlobalBounds().width, info.getSize().y);
 }
 
-void Window::loadShow(std::string location, sf::Vector2f scale = sf::Vector2f(1, 1))
+void GuiManager::loadShow(std::string location, sf::Vector2f scale = sf::Vector2f(1, 1))
 {
-	showButton.setTexture(*loadTexture(location));
+	showButton.setTexture(*parent->loadTexture(location));
 	showButton.setScale(scale);
-	showButton.setPosition(window.getSize().x - hideButton.getGlobalBounds().width, 0);
+	showButton.setPosition(target->getSize().x - showButton.getGlobalBounds().width, 0);
 }
 
 void Window::loadInv(std::string location, sf::Vector2f size)
@@ -139,18 +141,20 @@ void Window::loadInv(std::string location, sf::Vector2f size)
 	inventory.setPosition(window.getSize().x / 2 - inventory.getLocalBounds().width / 2, 0);
 }
 
-void Window::loadStationMenu(std::string location, sf::Vector2f size)
+void GuiManager::loadStationMenu(std::string location, sf::Vector2f size)
 {
-	stationMenu.setTexture(loadTexture(location));
+	stationMenu.setTexture(parent->loadTexture(location));
 	stationMenu.setSize(size);
 	stationMenu.setPosition(132, 2);
+	stationMenu.setSections(4);
 }
 
-void Window::loadPlanetMenu(std::string location, sf::Vector2f size)
+void GuiManager::loadPlanetMenu(std::string location, sf::Vector2f size)
 {
-	planetMenu.setTexture(loadTexture(location));
+	planetMenu.setTexture(parent->loadTexture(location));
 	planetMenu.setSize(size);
 	planetMenu.setPosition(132, 2);
+	planetMenu.setSections(4);
 }
 
 void Window::loadShipSpecs(std::string filename)

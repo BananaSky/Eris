@@ -57,18 +57,19 @@ int main(int argc, char** argv)
 	gamewindow.loadStationTexture("Graphics/Stations/station_3.png");
 
 	gamewindow.loadBackground("Graphics/Backgrounds/space_12.jpg", sf::Vector2f(0.5, 0.5));
-	gamewindow.loadFuel("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
-	gamewindow.loadHealth("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
-	gamewindow.loadAmmo("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
-	gamewindow.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
 	gamewindow.loadStart("Eris.jpg", sf::Vector2f(.25, .25));
-	gamewindow.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
-	gamewindow.loadInfo("Graphics/Buttons-Icons/Info_2.png", sf::Vector2f(180, 400));
-	gamewindow.loadHide("Graphics/Buttons-Icons/hide.png", sf::Vector2f(1, 1));
-	gamewindow.loadShow("Graphics/Buttons-Icons/show.png", sf::Vector2f(1, 1));
 	gamewindow.loadInv("Graphics/Buttons-Icons/Inv6x4.png", sf::Vector2f(472, 365));
-	gamewindow.loadStationMenu("Graphics/Buttons-Icons/StationMenu.png", sf::Vector2f(64, 128));
-	gamewindow.loadPlanetMenu("Graphics/Buttons-Icons/PlanetMenu.png",   sf::Vector2f(64, 128));
+
+	gamewindow.GUImanager.loadFuel("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
+	gamewindow.GUImanager.loadHealth("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
+	gamewindow.GUImanager.loadAmmo("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
+	gamewindow.GUImanager.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
+	gamewindow.GUImanager.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
+	gamewindow.GUImanager.loadInfo("Graphics/Buttons-Icons/Info_2.png", sf::Vector2f(180, 400));
+	gamewindow.GUImanager.loadHide("Graphics/Buttons-Icons/hide.png", sf::Vector2f(1, 1));
+	gamewindow.GUImanager.loadShow("Graphics/Buttons-Icons/show.png", sf::Vector2f(1, 1));
+	gamewindow.GUImanager.loadStationMenu("Graphics/Buttons-Icons/StationMenu.png", sf::Vector2f(64, 128));
+	gamewindow.GUImanager.loadPlanetMenu("Graphics/Buttons-Icons/PlanetMenu.png",   sf::Vector2f(64, 128));
 
 	gamewindow.loadShipSpecs("ShipData.csv");
 	gamewindow.loadProjectileSpecs("ProjectileData.csv");

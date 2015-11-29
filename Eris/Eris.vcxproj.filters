@@ -37,6 +37,12 @@
     <Filter Include="Source Files\Projectile">
       <UniqueIdentifier>{34de7100-b252-4684-a54b-0b4adf61468b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Board\GUI">
+      <UniqueIdentifier>{4e13fe5b-b5c9-44af-87f0-a5245ffa7481}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Board\GUI">
+      <UniqueIdentifier>{f013646a-b4a3-4410-a739-57f24c9751e8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -97,7 +103,10 @@
       <Filter>Source Files\Projectile</Filter>
     </ClCompile>
     <ClCompile Include="GuiManager.cpp">
-      <Filter>Source Files\Board</Filter>
+      <Filter>Source Files\Board\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\Board\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -168,7 +177,10 @@
       <Filter>Header Files\Projectile</Filter>
     </ClInclude>
     <ClInclude Include="GuiManager.hpp">
-      <Filter>Header Files\Board</Filter>
+      <Filter>Header Files\Board\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.hpp">
+      <Filter>Header Files\Board\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
