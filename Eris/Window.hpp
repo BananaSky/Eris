@@ -6,6 +6,7 @@
 #include "Projectile.hpp"
 #include "AI.hpp"
 #include "Inventory.hpp"
+#include "Fragment.hpp"
 #include "Wave.hpp"
 
 class Chunk;
@@ -47,7 +48,9 @@ public:
 	void spawn(sf::Vector2f position, sf::Vector2f scale, std::string name, bool enemy);
 	void spawnWave(const std::vector<std::string>& wave);
 	void cycleWave();
-	void addExplosion(Explosion* explosion) { explosions.push_back(explosion); }
+	void addExplosion(Explosion* explosion);
+
+	void addFragments(sf::Vector2f position);
 
 	void genChunks(sf::Vector2f size);
 	void updateChunks();
@@ -63,6 +66,7 @@ public:
 
 	void loadPlanetTexture(std::string textureLocation);
 	void loadAsteroidTexture(std::string textureLocation);
+	void loadFragmentTexture(std::string textureLocation);
 	void loadStationTexture(std::string textureLocation);
 	void loadTextureSquare(std::string textureLocation, sf::IntRect rect, std::vector<sf::Texture*>* storeLocation);
 	void loadMultiTexture(std::string location, std::vector<sf::Texture*>* storeLocation, int size, int rows, int columns);
@@ -88,7 +92,6 @@ public:
 	std::unordered_map<std::string, sf::Texture*>* getTextures() { return &textures; }
 	sf::RectangleShape* getFuel() { return &fuel; }
 
-
 	void addScore(int n) { score += n; credits += n; }
 	void spend(int i = 1) { credits -= i; }
 	int getBalance() { return credits; }
@@ -101,13 +104,11 @@ public:
 
 	sf::RenderWindow* getWindow() { return &window; }
 
-	void toggleInv() { invScreen = !invScreen; }
+	void toggleInv() { invScreen = !invScreen; inventory.format(&window); }
 
 private:
 	bool nearStation;
 
-	sf::RenderWindow window;
-	sf::View view;
 	float modifier = 1.0;
 	sf::Sprite background;
 	sf::RectangleShape fuel;
@@ -120,6 +121,9 @@ private:
 	sf::Sprite hideButton;
 	sf::Sprite showButton;
 
+	sf::RenderWindow window;
+	sf::View view;
+	sf::View guiView;
 	float fps;
 	sf::Text text;
 	sf::Font font;
@@ -131,6 +135,7 @@ private:
 	std::vector<sf::Texture*> asteroidTextures;
 	std::vector<sf::Texture*> explosionTextures;
 	std::vector<sf::Texture*> stationTextures;
+	std::vector<sf::Texture*> fragTextures;
 
 	std::vector<std::string> spec_Keys;
 
@@ -143,6 +148,7 @@ private:
 	Inventory inventory;
 
 	std::unordered_map<int, Chunk> chunks;
+	std::vector<Fragment> fragments;
 	std::vector<Explosion*> explosions;
 	std::vector<Enemy> enemies;
 	std::vector<AI> allies;

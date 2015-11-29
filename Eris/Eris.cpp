@@ -23,6 +23,33 @@ int main(int argc, char** argv)
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_9.png");
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_10.png");
 
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_2.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_3.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_4.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_5.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_6.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_7.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_8.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_9.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_10.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_11.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_12.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_13.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_14.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_15.png");
+
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_2.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_3.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_4.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_5.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_6.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_7.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_8.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_9.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_10.png");
+
 	gamewindow.loadPlanetTexture("Graphics/Planets/exo_2.jpg");
 
 	gamewindow.loadStationTexture("Graphics/Stations/station.png");
@@ -39,7 +66,7 @@ int main(int argc, char** argv)
 	gamewindow.loadInfo("Graphics/Buttons-Icons/Info_2.png", sf::Vector2f(180, 400));
 	gamewindow.loadHide("Graphics/Buttons-Icons/hide.png", sf::Vector2f(1, 1));
 	gamewindow.loadShow("Graphics/Buttons-Icons/show.png", sf::Vector2f(1, 1));
-	gamewindow.loadInv("Graphics/Buttons-Icons/Inv4x4.jpg", sf::Vector2f(200, 200));
+	gamewindow.loadInv("Graphics/Buttons-Icons/Inv6x4.png", sf::Vector2f(472, 365));
 
 	gamewindow.loadShipSpecs("ShipData.csv");
 	gamewindow.loadProjectileSpecs("ProjectileData.csv");

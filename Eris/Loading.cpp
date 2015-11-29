@@ -18,6 +18,11 @@ void Window::loadAsteroidTexture(std::string textureLocation)
 	asteroidTextures.push_back(loadTexture(textureLocation));
 }
 
+void Window::loadFragmentTexture(std::string textureLocation)
+{
+	fragTextures.push_back(loadTexture(textureLocation));
+}
+
 void Window::loadStationTexture(std::string textureLocation)
 {
 	stationTextures.push_back(loadTexture(textureLocation));
@@ -131,6 +136,7 @@ void Window::loadInv(std::string location, sf::Vector2f size)
 {
 	inventory.setTexture(loadTexture(location));
 	inventory.setSize(size);
+	inventory.setPosition(window.getSize().x / 2 - inventory.getLocalBounds().width / 2, 0);
 }
 
 

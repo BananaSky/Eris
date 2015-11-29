@@ -90,6 +90,12 @@
     <ClCompile Include="Inventory.cpp">
       <Filter>Source Files\Board</Filter>
     </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Source Files\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="Fragment.cpp">
+      <Filter>Source Files\Projectile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.hpp">
@@ -151,6 +157,12 @@
     </ClInclude>
     <ClInclude Include="Inventory.hpp">
       <Filter>Header Files\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.hpp">
+      <Filter>Header Files\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Fragment.hpp">
+      <Filter>Header Files\Projectile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
