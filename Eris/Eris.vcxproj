@@ -141,6 +141,8 @@
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Station.cpp" />
     <ClCompile Include="Tilemap.cpp" />
+    <ClCompile Include="TimedText.cpp" />
+    <ClCompile Include="TimedTextBox.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -166,6 +168,8 @@
     <ClInclude Include="ShipSpecs.hpp" />
     <ClInclude Include="Station.hpp" />
     <ClInclude Include="Tilemap.hpp" />
+    <ClInclude Include="TimedText.hpp" />
+    <ClInclude Include="TimedTextBox.hpp" />
     <ClInclude Include="Wave.hpp" />
     <ClInclude Include="Window.hpp" />
   </ItemGroup>

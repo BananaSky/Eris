@@ -10,6 +10,12 @@ GuiManager::GuiManager()
 	}
 	text.setFont(font);
 	text.setColor(sf::Color::White);
+
+	output.setSize(sf::Vector2f(100, 200));
+	output.loadTextSize(12);
+	output.setSpace(14);
+	output.loadFont(font);
+	output.setPosition(32, 72);
 }
 GuiManager::~GuiManager(){}
 
@@ -23,6 +29,11 @@ GuiManager::GuiManager(Window* board, sf::RenderWindow* window)
 	}
 	text.setFont(font);
 	text.setColor(sf::Color::White);
+
+	output.setPosition(sf::Vector2f(window->getSize().x - output.getSize().x, 0));
+	output.loadTextSize(16);
+	output.setSpace(20);
+	output.loadFont(font);
 }
 
 void GuiManager::addBox(sf::Vector2f position, sf::Vector2f size)
@@ -36,11 +47,6 @@ void GuiManager::guiListener(sf::Event* event, Window* board, sf::RenderWindow* 
 {
 	
 	if (event->type == sf::Event::MouseButtonPressed && event->mouseButton.button == sf::Mouse::Left)
-	{
-		mouseBeingHeld = true;
-	}
-
-	if (mouseBeingHeld)
 	{
 		sf::Vector2i pos = sf::Vector2i(event->mouseButton.x, event->mouseButton.y);
 
@@ -56,10 +62,9 @@ void GuiManager::guiListener(sf::Event* event, Window* board, sf::RenderWindow* 
 			infoHidden = false;
 		}
 	}
-
 	if (event->type == sf::Event::MouseButtonReleased && event->mouseButton.button == sf::Mouse::Left)
 	{
-		mouseBeingHeld = false;
+		
 	}
 }
 
@@ -182,6 +187,10 @@ void GuiManager::stationGUI(sf::RenderWindow* window)
 
 void GuiManager::draw(sf::RenderWindow* window)
 {
+	window->draw(output);
+	output.draw(window);
+	output.update();
+
 	for (sf::RectangleShape& box : guiBoxes)
 	{
 		window->draw(box);
@@ -192,40 +201,23 @@ void GuiManager::draw(sf::RenderWindow* window)
 	text.setCharacterSize(24);
 	window->draw(text);
 
+	text.setCharacterSize(16);
 	text.setString("Score: " + std::to_string(parent->getScore()));
-	text.setPosition(32, 2);
+	text.setPosition(36, 2);
 	window->draw(text);
 
 	text.setString("Credits: " + std::to_string(parent->getBalance()));
-	text.setPosition(32, 32);
+	text.setPosition(36, 32);
 	window->draw(text);
 
-	if (nearStation) //Can change this to display an actual GUI in the future
-	{
-		stationGUI(window);
-	}
-	else
-	{
-		stationMenuOpen = false;
-	}
+	if (nearStation) { stationGUI(window); }
+	else             { stationMenuOpen = false; }
 
-	if (nearPlanet)
-	{
-		planetGUI(target);
-	}
-	else
-	{
-		planetMenuOpen = false;
-	}
+	if (nearPlanet)  { planetGUI(target);  }
+	else             { planetMenuOpen = false; }
 
-	if (!infoHidden)
-	{
-		InfoGUI();
-	}
-	else
-	{
-		window->draw(showButton);
-	}
+	if (!infoHidden) { InfoGUI(); }
+	else             { window->draw(showButton); }
 
 	window->draw(*parent->getPlayer()->getFuel());
 	window->draw(*parent->getPlayer()->getHealth());

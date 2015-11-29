@@ -10,11 +10,11 @@
 #include "Wave.hpp"
 #include "GuiManager.hpp"
 
-class Chunk;
+class  Chunk;
 struct ProjectileSpecs;
 struct ShipSpecs;
-class Explosion;
-class Enemy;
+class  Explosion;
+class  Enemy;
 
 class Window
 {
@@ -27,6 +27,8 @@ public:
 	void draw();
 
 	void buyIron(); //Move this to a different class, please :)
+
+	//All Loading Functions here
 
 	sf::Texture* loadTexture(std::string textureLocation);
 
@@ -47,14 +49,20 @@ public:
 	void loadProjectileSpecs(std::string filename);
 	void loadWaves          (std::string filename);
 
+	//Functions for adding types of projectiles
+
 	void addExplosion(Explosion* explosion);
 	void addFragments(sf::Vector2f position);
 	void addProjectile(Projectile * projectile, std::string type);
 	void addEnemyProjectile(Projectile * projectile, std::string type);
 
+	//Enemy management
+
 	void spawn(sf::Vector2f position, sf::Vector2f scale, std::string name, bool enemy);
 	void spawnWave(const std::vector<std::string>& wave);
 	void cycleWave();
+
+	//Chunks and update
 
 	void genChunks(sf::Vector2f size);
 
@@ -63,10 +71,18 @@ public:
 	void updateChunks();
 	void update();
 
+	//Screen and GUI managers
+
 	void displayInv();
 	void displayStartScreen();
 	void displayGameScreen();
 	void displayGameOverScreen();
+
+	void addMessage(std::string m) { GUImanager.addMessage(m); }
+	void toggleInv()			   { invScreen = !invScreen; inventory.format(&window); pause(); }
+	void pause()				   { paused = !paused; }
+
+	//Lots of getters
 
 	std::vector<sf::Texture*>* getAsteroidTextures()               { return &asteroidTextures; }
 	std::vector<sf::Texture*>* getPlanetTextures()                 { return &planetTextures; }
@@ -80,14 +96,13 @@ public:
 	float getFps()                                                 { return fps; }
 	Player* getPlayer()                                            { return &player; };
 
+	//Score-Related
+
 	int getBalance() { return credits; }
 	int getScore()   { return score; }
 
 	void addScore(int n)  { if (n > 0)       { score += n; credits += n; } }
 	void spend(int i = 1) { if (credits > i) { credits -= i; } }
-
-	void toggleInv() { invScreen = !invScreen; inventory.format(&window); pause(); }
-	void pause()     { paused = !paused; }
 
 public:
 	GuiManager GUImanager;

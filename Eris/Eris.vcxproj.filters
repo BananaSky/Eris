@@ -37,10 +37,10 @@
     <Filter Include="Source Files\Projectile">
       <UniqueIdentifier>{34de7100-b252-4684-a54b-0b4adf61468b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Board\GUI">
+    <Filter Include="Header Files\GUI">
       <UniqueIdentifier>{4e13fe5b-b5c9-44af-87f0-a5245ffa7481}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Board\GUI">
+    <Filter Include="Source Files\GUI">
       <UniqueIdentifier>{f013646a-b4a3-4410-a739-57f24c9751e8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -103,10 +103,16 @@
       <Filter>Source Files\Projectile</Filter>
     </ClCompile>
     <ClCompile Include="GuiManager.cpp">
-      <Filter>Source Files\Board\GUI</Filter>
+      <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="Menu.cpp">
-      <Filter>Source Files\Board\GUI</Filter>
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TimedText.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TimedTextBox.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,10 +183,16 @@
       <Filter>Header Files\Projectile</Filter>
     </ClInclude>
     <ClInclude Include="GuiManager.hpp">
-      <Filter>Header Files\Board\GUI</Filter>
+      <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Menu.hpp">
-      <Filter>Header Files\Board\GUI</Filter>
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TimedText.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TimedTextBox.hpp">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

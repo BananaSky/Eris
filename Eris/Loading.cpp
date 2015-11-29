@@ -7,7 +7,6 @@
 #include "Explosion.hpp"
 #include "Wave.hpp"
 #include "GuiManager.hpp"
-#include "Loading.h"
 
 void Window::loadPlanetTexture(std::string textureLocation)
 {
@@ -155,6 +154,11 @@ void GuiManager::loadPlanetMenu(std::string location, sf::Vector2f size)
 	planetMenu.setSize(size);
 	planetMenu.setPosition(132, 2);
 	planetMenu.setSections(4);
+}
+
+void GuiManager::loadTextBox(std::string location)
+{
+	output.setTexture(parent->loadTexture(location));
 }
 
 void Window::loadShipSpecs(std::string filename)
