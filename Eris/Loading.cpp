@@ -164,21 +164,6 @@ void GuiManager::loadSliderTexture(std::string location)
 	stationMenu.loadSliderTexture(&sliderTexture);
 }
 
-void GuiManager::loadStationMenu(std::string location, sf::Vector2f size)
-{
-	//stationMenu.setTexture(parent->loadTexture(location));
-	//stationMenu.setSize(size);
-	//stationMenu.setPosition(132, 2);
-}
-
-void GuiManager::loadPlanetMenu(std::string location, sf::Vector2f size)
-{
-	planetMenu.setTexture(parent->loadTexture(location));
-	planetMenu.setSize(size);
-	planetMenu.setPosition(132, 2);
-	planetMenu.setSections(4);
-}
-
 void GuiManager::loadTextBox(std::string location)
 {
 	output.setTexture(parent->loadTexture(location));

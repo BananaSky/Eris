@@ -75,8 +75,6 @@ int main(int argc, char** argv)
 	gamewindow.GUImanager.loadSliderTexture("Graphics/Buttons-Icons/slideBar.png");
 	gamewindow.GUImanager.loadSliderButtonTexture("Graphics/Buttons-Icons/slideButton.png");
 
-	gamewindow.GUImanager.loadStationMenu("Graphics/Buttons-Icons/StationMenu.png", sf::Vector2f(64, 128));
-	gamewindow.GUImanager.loadPlanetMenu("Graphics/Buttons-Icons/PlanetMenu.png",   sf::Vector2f(64, 128));
 	gamewindow.GUImanager.loadTextBox("Graphics/Buttons-Icons/TextBox.png");
 
 	gamewindow.loadShipSpecs("ShipData.csv");

@@ -35,7 +35,7 @@ public:
 
 	void guiListener         (sf::Event * event, Window * board, sf::RenderWindow * window);
 	void stationMenuListener(sf::Event * event);
-	void planetMenuListener  (sf::Vector2i pos);
+	void planetMenuListener (sf::Event * event);
 
 	void planetGUI (sf::RenderWindow * window);
 	void stationGUI(sf::RenderWindow * window);
@@ -48,8 +48,8 @@ public:
 
 	void setTarget     (sf::RenderWindow* window) { target = window; }
 	void setParent     (Window* board)            { parent = board; }
-	void setNearStation(bool set)                 { nearStation = set; }
-	void setNearPlanet (bool set)                 { nearPlanet = set; }
+	void setNearStation(bool set);
+	void setNearPlanet(bool set);
 
 	void openStationMenu();
 	void openPlanetMenu(); 
@@ -98,6 +98,6 @@ private:
 	bool stationMenuOpen = false;
 	bool planetMenuOpen  = false;
 
-	bool showAimingLine  = true;
+	bool showAimingLine  = false;
 };
 

@@ -40,13 +40,13 @@ GuiManager::GuiManager()
 
 	planetMenu.setPosition(154, 0);
 	planetMenu.setSize(sf::Vector2f(200, 200));
-	planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Upgrade", text), sf::Vector2f(10, 10));
-	planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Refuel", text), sf::Vector2f(10, 50));
-	planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Refill", text), sf::Vector2f(10, 90));
-	planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Repair", text), sf::Vector2f(10, 130));
-	planetMenu.insertSlider(Slider(), sf::Vector2f(70, 50));
-	planetMenu.insertSlider(Slider(), sf::Vector2f(70, 90));
-	planetMenu.insertSlider(Slider(), sf::Vector2f(70, 130));
+	planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Buy Iron", text), sf::Vector2f(10, 10));
+	//planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Refuel", text), sf::Vector2f(10, 50));
+	//planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Refill", text), sf::Vector2f(10, 90));
+	//planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Repair", text), sf::Vector2f(10, 130));
+	//planetMenu.insertSlider(Slider(), sf::Vector2f(70, 50));
+	//planetMenu.insertSlider(Slider(), sf::Vector2f(70, 90));
+	//planetMenu.insertSlider(Slider(), sf::Vector2f(70, 130));
 } 
 
 GuiManager::~GuiManager(){}
@@ -105,11 +105,12 @@ void GuiManager::stationMenuListener(sf::Event* event)
 	}
 }
 
-void GuiManager::planetMenuListener(sf::Vector2i pos)
+void GuiManager::planetMenuListener(sf::Event* event)
 {
 	if (planetMenuOpen)
 	{
-		switch (planetMenu.clickListener(pos))
+		planetMenu.sliderListener(event);
+		switch (planetMenu.buttonListener(event))
 		{
 		case 1:
 			parent->buyIron();
@@ -128,15 +129,7 @@ void GuiManager::planetMenuListener(sf::Vector2i pos)
 
 void GuiManager::planetGUI(sf::RenderWindow* window)
 {
-	if (!planetMenuOpen)
-	{
-		text.setCharacterSize(30);
-		text.setPosition(142, 2);
-		text.setColor(sf::Color(255, 163, 102));
-		text.setString("X to open planet menu");
-		window->draw(text);
-	}
-	else
+	if (planetMenuOpen)
 	{
 		window->draw(planetMenu);
 	}
@@ -147,6 +140,24 @@ void GuiManager::DrawCascadingText(std::string output, int offset)
 	text.setPosition(text.getPosition().x, text.getPosition().y + offset);
 	text.setString(output);
 	target->draw(text);
+}
+
+void GuiManager::setNearStation(bool set)
+{
+	if (set && !nearStation) //If the player came within bounds of a station
+	{
+		addMessage("X to open station menu");
+	}
+	nearStation = set;
+}
+
+void GuiManager::setNearPlanet(bool set)
+{
+	if (set && !nearPlanet) //If the player came within bounds of a planet
+	{
+		addMessage("X to open planet menu");
+	}
+	nearPlanet = set;
 }
 
 void GuiManager::openStationMenu()
@@ -194,11 +205,7 @@ void GuiManager::InfoGUI()
 
 void GuiManager::stationGUI(sf::RenderWindow* window)
 {
-	if (!stationMenuOpen)
-	{
-		parent->addMessage("X to open station menu");
-	}
-	else
+	if (stationMenuOpen)
 	{
 		stationMenu.draw(window);
 	}
