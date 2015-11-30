@@ -23,6 +23,33 @@ int main(int argc, char** argv)
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_9.png");
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_10.png");
 
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_2.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_3.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_4.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_5.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_6.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_7.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_8.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_9.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_10.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_11.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_12.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_13.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_14.png");
+	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_15.png");
+
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_2.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_3.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_4.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_5.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_6.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_7.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_8.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_9.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_10.png");
+
 	gamewindow.loadPlanetTexture("Graphics/Planets/exo_2.jpg");
 
 	gamewindow.loadStationTexture("Graphics/Stations/station.png");
@@ -30,16 +57,25 @@ int main(int argc, char** argv)
 	gamewindow.loadStationTexture("Graphics/Stations/station_3.png");
 
 	gamewindow.loadBackground("Graphics/Backgrounds/space_12.jpg", sf::Vector2f(0.5, 0.5));
-	gamewindow.loadStartScreen("Eris.jpg", sf::Vector2f(.25, .25));
+	gamewindow.loadStart("Eris.jpg", sf::Vector2f(.25, .25));
+	gamewindow.loadInv("Graphics/Buttons-Icons/Inv6x4.png", sf::Vector2f(472, 365));
 
-	gamewindow.loadFuel("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
-	gamewindow.loadHealth("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
-	gamewindow.loadAmmo("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
-	gamewindow.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
-	gamewindow.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
+	gamewindow.GUImanager.loadFuel("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
+	gamewindow.GUImanager.loadHealth("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
+	gamewindow.GUImanager.loadAmmo("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
+	gamewindow.GUImanager.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
+	gamewindow.GUImanager.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
+	gamewindow.GUImanager.addBox(sf::Vector2f(32, 0), sf::Vector2f(200, 70));
+	gamewindow.GUImanager.loadInfo("Graphics/Buttons-Icons/Info_2.png", sf::Vector2f(180, 400));
+	gamewindow.GUImanager.loadHide("Graphics/Buttons-Icons/hide.png", sf::Vector2f(1, 1));
+	gamewindow.GUImanager.loadShow("Graphics/Buttons-Icons/show.png", sf::Vector2f(1, 1));
+	gamewindow.GUImanager.loadStationMenu("Graphics/Buttons-Icons/StationMenu.png", sf::Vector2f(64, 128));
+	gamewindow.GUImanager.loadPlanetMenu("Graphics/Buttons-Icons/PlanetMenu.png",   sf::Vector2f(64, 128));
+	gamewindow.GUImanager.loadTextBox("Graphics/Buttons-Icons/TextBox.png");
 
 	gamewindow.loadShipSpecs("ShipData.csv");
 	gamewindow.loadProjectileSpecs("ProjectileData.csv");
+	gamewindow.loadWaves("Waves.csv");
 	gamewindow.loadPlayer(sf::Vector2f(0, 0), sf::Vector2f(.3f, .3f), "Frigate");
 
 	gamewindow.genChunks(sf::Vector2f(50000, 50000));

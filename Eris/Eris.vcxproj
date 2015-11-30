@@ -128,7 +128,12 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Eris.cpp" />
     <ClCompile Include="Explosion.cpp" />
+    <ClCompile Include="Fragment.cpp" />
+    <ClCompile Include="GuiManager.cpp" />
+    <ClCompile Include="Inventory.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="Loading.cpp" />
+    <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Perlin.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -136,6 +141,8 @@
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Station.cpp" />
     <ClCompile Include="Tilemap.cpp" />
+    <ClCompile Include="TimedText.cpp" />
+    <ClCompile Include="TimedTextBox.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -146,7 +153,12 @@
     <ClInclude Include="Constants.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Explosion.hpp" />
+    <ClInclude Include="Fragment.hpp" />
+    <ClInclude Include="GuiManager.hpp" />
     <ClInclude Include="Includes.hpp" />
+    <ClInclude Include="Inventory.hpp" />
+    <ClInclude Include="Item.hpp" />
+    <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Perlin.hpp" />
     <ClInclude Include="Planet.hpp" />
     <ClInclude Include="Player.hpp" />
@@ -156,6 +168,9 @@
     <ClInclude Include="ShipSpecs.hpp" />
     <ClInclude Include="Station.hpp" />
     <ClInclude Include="Tilemap.hpp" />
+    <ClInclude Include="TimedText.hpp" />
+    <ClInclude Include="TimedTextBox.hpp" />
+    <ClInclude Include="Wave.hpp" />
     <ClInclude Include="Window.hpp" />
   </ItemGroup>
   <ItemGroup>
