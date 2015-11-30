@@ -65,10 +65,16 @@ int main(int argc, char** argv)
 	gamewindow.GUImanager.loadAmmo("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
 	gamewindow.GUImanager.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
 	gamewindow.GUImanager.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
-	gamewindow.GUImanager.addBox(sf::Vector2f(32, 0), sf::Vector2f(200, 70));
+	gamewindow.GUImanager.addBox(sf::Vector2f(32, 0), sf::Vector2f(120, 70));
 	gamewindow.GUImanager.loadInfo("Graphics/Buttons-Icons/Info_2.png", sf::Vector2f(180, 400));
 	gamewindow.GUImanager.loadHide("Graphics/Buttons-Icons/hide.png", sf::Vector2f(1, 1));
 	gamewindow.GUImanager.loadShow("Graphics/Buttons-Icons/show.png", sf::Vector2f(1, 1));
+
+	gamewindow.GUImanager.loadMenuBacking("Graphics/FuelMeter.png");
+	gamewindow.GUImanager.loadButtonTexture("Graphics/Buttons-Icons/Button.png");
+	gamewindow.GUImanager.loadSliderTexture("Graphics/Buttons-Icons/slideBar.png");
+	gamewindow.GUImanager.loadSliderButtonTexture("Graphics/Buttons-Icons/slideButton.png");
+
 	gamewindow.GUImanager.loadStationMenu("Graphics/Buttons-Icons/StationMenu.png", sf::Vector2f(64, 128));
 	gamewindow.GUImanager.loadPlanetMenu("Graphics/Buttons-Icons/PlanetMenu.png",   sf::Vector2f(64, 128));
 	gamewindow.GUImanager.loadTextBox("Graphics/Buttons-Icons/TextBox.png");

@@ -10,6 +10,7 @@ GuiManager::GuiManager()
 	}
 	text.setFont(font);
 	text.setColor(sf::Color::White);
+	text.setCharacterSize(16);
 
 	output.setSize(sf::Vector2f(200, 200));
 	output.loadTextSize(12);
@@ -26,6 +27,26 @@ GuiManager::GuiManager()
 	aimingLine.setFillColor(sf::Color(204, 255, 255, 200));
 	aimingLine.setSize(sf::Vector2f(10000000, 2));
 	aimingLine.setOrigin(5000000, 1);
+
+	stationMenu.setPosition(154, 0);
+	stationMenu.setSize(sf::Vector2f(200, 200));
+	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Upgrade", text), sf::Vector2f(10, 10));
+	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Refuel", text),  sf::Vector2f(10, 50));
+	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Refill", text),  sf::Vector2f(10, 90));
+	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Repair", text),  sf::Vector2f(10, 130));
+	stationMenu.insertSlider(Slider(), sf::Vector2f(70, 50));
+	stationMenu.insertSlider(Slider(), sf::Vector2f(70, 90));
+	stationMenu.insertSlider(Slider(), sf::Vector2f(70, 130));
+
+	planetMenu.setPosition(154, 0);
+	planetMenu.setSize(sf::Vector2f(200, 200));
+	planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Upgrade", text), sf::Vector2f(10, 10));
+	planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Refuel", text), sf::Vector2f(10, 50));
+	planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Refill", text), sf::Vector2f(10, 90));
+	planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Repair", text), sf::Vector2f(10, 130));
+	planetMenu.insertSlider(Slider(), sf::Vector2f(70, 50));
+	planetMenu.insertSlider(Slider(), sf::Vector2f(70, 90));
+	planetMenu.insertSlider(Slider(), sf::Vector2f(70, 130));
 } 
 
 GuiManager::~GuiManager(){}
@@ -39,13 +60,9 @@ void GuiManager::addBox(sf::Vector2f position, sf::Vector2f size)
 
 void GuiManager::guiListener(sf::Event* event, Window* board, sf::RenderWindow* window)
 {
-	
 	if (event->type == sf::Event::MouseButtonPressed && event->mouseButton.button == sf::Mouse::Left)
 	{
 		sf::Vector2i pos = sf::Vector2i(event->mouseButton.x, event->mouseButton.y);
-
-		stationMenuListener(pos);
-		planetMenuListener(pos);
 
 		if (hideButton.getGlobalBounds().contains((sf::Vector2f)pos))
 		{
@@ -56,29 +73,31 @@ void GuiManager::guiListener(sf::Event* event, Window* board, sf::RenderWindow* 
 			infoHidden = false;
 		}
 	}
-	if (event->type == sf::Event::MouseButtonReleased && event->mouseButton.button == sf::Mouse::Left)
-	{
-		
-	}
+
+	stationMenuListener(event);
 }
 
-void GuiManager::stationMenuListener(sf::Vector2i pos)
+void GuiManager::stationMenuListener(sf::Event* event)
 {
 	if (stationMenuOpen)
 	{
-		switch (stationMenu.clickListener(pos))
+		stationMenu.sliderListener(event);
+		switch (stationMenu.buttonListener(event))
 		{
 		case 1:
 			parent->getPlayer()->upgrade(parent);
 			break;
 		case 2:
-			parent->getPlayer()->refuel(parent);
+			std::cout << stationMenu.getRatioOf(0) << std::endl;
+			parent->getPlayer()->refuel(parent, stationMenu.getRatioOf(0));
 			break;
 		case 3:
-			parent->getPlayer()->refill(parent);
+			std::cout << stationMenu.getRatioOf(1)  << std::endl;
+			parent->getPlayer()->refill(parent, stationMenu.getRatioOf(1));
 			break;
 		case 4:
-			parent->getPlayer()->repair(parent);
+			std::cout << stationMenu.getRatioOf(2) << std::endl;
+			parent->getPlayer()->repair(parent, stationMenu.getRatioOf(2));
 			break;
 		default:
 			break;
@@ -130,6 +149,16 @@ void GuiManager::DrawCascadingText(std::string output, int offset)
 	target->draw(text);
 }
 
+void GuiManager::openStationMenu()
+{
+	stationMenuOpen = !stationMenuOpen; parent->pause();
+}
+
+void GuiManager::openPlanetMenu()
+{
+	planetMenuOpen = !planetMenuOpen;  parent->pause();
+}
+
 void GuiManager::InfoGUI()
 {
 	text.setFont(font);
@@ -167,15 +196,11 @@ void GuiManager::stationGUI(sf::RenderWindow* window)
 {
 	if (!stationMenuOpen)
 	{
-		text.setCharacterSize(30);
-		text.setString("X to open station menu");
-		text.setColor(sf::Color(255, 163, 102));
-		text.setPosition(142, 2);
-		window->draw(text);
+		parent->addMessage("X to open station menu");
 	}
 	else
 	{
-		window->draw(stationMenu);
+		stationMenu.draw(window);
 	}
 }
 
@@ -192,7 +217,7 @@ void GuiManager::draw(sf::RenderWindow* window)
 
 	text.setPosition(2, 2);
 	text.setString(std::to_string((int)parent->getFps()));
-	text.setCharacterSize(24);
+	text.setCharacterSize(18);
 	window->draw(text);
 
 	text.setString("Score: " + std::to_string(parent->getScore()));

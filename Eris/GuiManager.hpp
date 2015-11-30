@@ -1,7 +1,8 @@
 #pragma once
 #include "Includes.hpp"
-#include "Menu.hpp"
+#include "CascadingButtons.hpp"
 #include "TimedTextBox.hpp"
+#include "Menu.hpp"
 
 class Window;
 
@@ -24,9 +25,16 @@ public:
 	void loadStationMenu (std::string location, sf::Vector2f size);
 	void loadPlanetMenu  (std::string location, sf::Vector2f size);
 	void loadTextBox     (std::string location);
+	void loadMenuBacking (std::string location);
+
+	void loadButtonTexture(std::string location);
+
+	void loadSliderButtonTexture(std::string location);
+
+	void loadSliderTexture(std::string location);
 
 	void guiListener         (sf::Event * event, Window * board, sf::RenderWindow * window);
-	void stationMenuListener (sf::Vector2i pos);
+	void stationMenuListener(sf::Event * event);
 	void planetMenuListener  (sf::Vector2i pos);
 
 	void planetGUI (sf::RenderWindow * window);
@@ -43,8 +51,8 @@ public:
 	void setNearStation(bool set)                 { nearStation = set; }
 	void setNearPlanet (bool set)                 { nearPlanet = set; }
 
-	void openStationMenu() { stationMenuOpen = !stationMenuOpen; }
-	void openPlanetMenu()  { planetMenuOpen = !planetMenuOpen; }
+	void openStationMenu();
+	void openPlanetMenu(); 
 
 	bool isNearStation() { return nearStation; }
 	bool isNearPlanet()  { return nearPlanet; }
@@ -68,13 +76,19 @@ private:
 	sf::Texture                     guiBox;  //Non interactive boxes
 	std::vector<sf::RectangleShape> guiBoxes;
 
-	Menu stationMenu;
+	//Textures for menus
+	sf::Texture                     menuBacking;
+	sf::Texture                     buttonTexture;
+	sf::Texture                     sliderButtonTexture;
+	sf::Texture                     sliderTexture;
+
 	Menu planetMenu;
+	Menu stationMenu;
 
 	TimedTextBox output;
 
 	sf::RectangleShape info;
-	sf::Sprite         hideButton; //Should make a button class
+	sf::Sprite         hideButton; //Should be updated to be buttons instead of sprites
 	sf::Sprite         showButton;
 
 

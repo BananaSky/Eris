@@ -123,6 +123,7 @@
   <ItemGroup>
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Asteroid.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="Collidable.cpp" />
     <ClCompile Include="Enemy.cpp" />
@@ -133,12 +134,14 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="Loading.cpp" />
+    <ClCompile Include="CascadingButtons.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Perlin.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projectile.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Slider.cpp" />
     <ClCompile Include="Station.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TimedText.cpp" />
@@ -148,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="AI.hpp" />
     <ClInclude Include="Asteroid.hpp" />
+    <ClInclude Include="Button.hpp" />
     <ClInclude Include="Chunk.hpp" />
     <ClInclude Include="Collidable.hpp" />
     <ClInclude Include="Constants.hpp" />
@@ -158,6 +162,7 @@
     <ClInclude Include="Includes.hpp" />
     <ClInclude Include="Inventory.hpp" />
     <ClInclude Include="Item.hpp" />
+    <ClInclude Include="CascadingButtons.hpp" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Perlin.hpp" />
     <ClInclude Include="Planet.hpp" />
@@ -166,6 +171,7 @@
     <ClInclude Include="ProjectileSpecs.hpp" />
     <ClInclude Include="Ship.hpp" />
     <ClInclude Include="ShipSpecs.hpp" />
+    <ClInclude Include="Slider.hpp" />
     <ClInclude Include="Station.hpp" />
     <ClInclude Include="Tilemap.hpp" />
     <ClInclude Include="TimedText.hpp" />

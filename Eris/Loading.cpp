@@ -140,12 +140,35 @@ void Window::loadInv(std::string location, sf::Vector2f size)
 	inventory.setPosition(window.getSize().x / 2 - inventory.getLocalBounds().width / 2, 0);
 }
 
+void GuiManager::loadMenuBacking(std::string location)
+{
+	menuBacking = *parent->loadTexture(location);
+	stationMenu.setTexture(&menuBacking);
+}
+
+void GuiManager::loadButtonTexture(std::string location)
+{
+	buttonTexture = *parent->loadTexture(location);
+	stationMenu.loadButtonTexture(&buttonTexture);
+}
+
+void GuiManager::loadSliderButtonTexture(std::string location)
+{
+	sliderButtonTexture = *parent->loadTexture(location);
+	stationMenu.loadSliderButtonTexture(&sliderButtonTexture);
+}
+
+void GuiManager::loadSliderTexture(std::string location)
+{
+	sliderTexture = *parent->loadTexture(location);
+	stationMenu.loadSliderTexture(&sliderTexture);
+}
+
 void GuiManager::loadStationMenu(std::string location, sf::Vector2f size)
 {
-	stationMenu.setTexture(parent->loadTexture(location));
-	stationMenu.setSize(size);
-	stationMenu.setPosition(132, 2);
-	stationMenu.setSections(4);
+	//stationMenu.setTexture(parent->loadTexture(location));
+	//stationMenu.setSize(size);
+	//stationMenu.setPosition(132, 2);
 }
 
 void GuiManager::loadPlanetMenu(std::string location, sf::Vector2f size)
@@ -440,8 +463,3 @@ void Window::loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string n
 	player.setOrigin(player.getLocalBounds().width / 2, player.getLocalBounds().height / 2);
 }
 
-void Window::loadStartScreen(std::string location, sf::Vector2f scale)
-{
-	startScreen.setTexture(*loadTexture(location));
-	startScreen.setScale(scale);
-}

@@ -53,7 +53,7 @@ public:
 	//Functions for adding types of projectiles
 
 	void addExplosion(Explosion* explosion);
-	void addFragments(sf::Vector2f position);
+	void addFragments(sf::Vector2f position, int amount, int spread);
 	void addProjectile(float rotation, sf::Vector2f position, float velocity, std::string type);
 	void addEnemyProjectile(float rotation, sf::Vector2f position, float velocity, std::string type);
 
@@ -108,8 +108,8 @@ public:
 	void addScore(int n)  { if (n > 0)       { score += n; credits += n; } }
 	void spend(int i = 1) { if (credits > i) { credits -= i; } }
 
-public:
-	GuiManager GUImanager;
+public: //Another public declaration to show intent
+	GuiManager GUImanager; //Only public temporarily- Will probably change this before the next update
 
 private:
 

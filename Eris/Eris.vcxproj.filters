@@ -105,13 +105,22 @@
     <ClCompile Include="GuiManager.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="TimedText.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="TimedTextBox.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Slider.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CascadingButtons.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -185,13 +194,22 @@
     <ClInclude Include="GuiManager.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.hpp">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="TimedText.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="TimedTextBox.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Slider.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CascadingButtons.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
   </ItemGroup>
