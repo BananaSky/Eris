@@ -11,30 +11,24 @@ GuiManager::GuiManager()
 	text.setFont(font);
 	text.setColor(sf::Color::White);
 
-	output.setSize(sf::Vector2f(100, 200));
+	output.setSize(sf::Vector2f(200, 200));
 	output.loadTextSize(12);
 	output.setSpace(14);
 	output.loadFont(font);
 	output.setPosition(32, 72);
-}
+
+	recticle.setOutlineColor(sf::Color(204, 255, 255, 200));
+	recticle.setFillColor(sf::Color::Transparent);
+	recticle.setOutlineThickness(3);
+	recticle.setRadius(20);
+	recticle.setOrigin(20, 20);
+
+	aimingLine.setFillColor(sf::Color(204, 255, 255, 200));
+	aimingLine.setSize(sf::Vector2f(10000000, 2));
+	aimingLine.setOrigin(5000000, 1);
+} 
+
 GuiManager::~GuiManager(){}
-
-GuiManager::GuiManager(Window* board, sf::RenderWindow* window)
-{
-	parent = board;
-	target = window;
-	if (!font.loadFromFile("Graphics/Fonts/SUSANNA_.ttf"))
-	{
-
-	}
-	text.setFont(font);
-	text.setColor(sf::Color::White);
-
-	output.setPosition(sf::Vector2f(window->getSize().x - output.getSize().x, 0));
-	output.loadTextSize(16);
-	output.setSpace(20);
-	output.loadFont(font);
-}
 
 void GuiManager::addBox(sf::Vector2f position, sf::Vector2f size)
 {
@@ -187,7 +181,7 @@ void GuiManager::stationGUI(sf::RenderWindow* window)
 
 void GuiManager::draw(sf::RenderWindow* window)
 {
-	window->draw(output);
+	//window->draw(output);
 	output.draw(window);
 	output.update();
 
@@ -201,7 +195,6 @@ void GuiManager::draw(sf::RenderWindow* window)
 	text.setCharacterSize(24);
 	window->draw(text);
 
-	text.setCharacterSize(16);
 	text.setString("Score: " + std::to_string(parent->getScore()));
 	text.setPosition(36, 2);
 	window->draw(text);
@@ -225,10 +218,36 @@ void GuiManager::draw(sf::RenderWindow* window)
 	window->draw(ammo);
 	window->draw(fuel);
 	window->draw(health);
+
+
+	if (showAimingLine)
+	{
+		window->setView(parent->getNormalView());
+		window->draw(aimingLine);
+		window->draw(recticle);
+		window->setView(parent->getGUIview());
+	}
 }
 
 void GuiManager::update()
 {
-	
+	aimingLine.setRotation(parent->getPlayer()->getRotation());
+	aimingLine.setPosition(parent->getPlayer()->getPosition());
+
+	float range = (float)parent->getPlayer()->getRange(parent) * 3;
+
+	float d_x = (float)(range * cos(parent->getPlayer()->getRotation() * 0.0174533));
+	float d_y = (float)(range * sin(parent->getPlayer()->getRotation() * 0.0174533));
+	recticle.setOutlineThickness(2*log10(range));
+	recticle.setRadius(2 * 6.6666666666667 * log10(range));
+
+	if (parent->getPlayer()->isAimingFront())
+	{
+		recticle.setPosition(aimingLine.getPosition().x + d_x, aimingLine.getPosition().y + d_y);
+	}
+	else
+	{
+		recticle.setPosition(aimingLine.getPosition().x - d_x, aimingLine.getPosition().y - d_y);
+	}
 }
 

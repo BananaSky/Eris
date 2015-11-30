@@ -26,6 +26,7 @@ public:
 	void run();
 	void draw();
 
+
 	void buyIron(); //Move this to a different class, please :)
 
 	//All Loading Functions here
@@ -53,8 +54,8 @@ public:
 
 	void addExplosion(Explosion* explosion);
 	void addFragments(sf::Vector2f position);
-	void addProjectile(Projectile * projectile, std::string type);
-	void addEnemyProjectile(Projectile * projectile, std::string type);
+	void addProjectile(float rotation, sf::Vector2f position, float velocity, std::string type);
+	void addEnemyProjectile(float rotation, sf::Vector2f position, float velocity, std::string type);
 
 	//Enemy management
 
@@ -92,9 +93,12 @@ public:
 	std::unordered_map<std::string, ShipSpecs*>* getShipSpecs()    { return &specs; }
 	std::unordered_map<std::string, ProjectileSpecs*>* getPSpecs() { return &p_specs; }
 	std::vector<std::string>* getSpec_Keys()                       { return &spec_Keys; }
+
 	sf::RenderWindow* getWindow()                                  { return &window; }
-	float getFps()                                                 { return fps; }
-	Player* getPlayer()                                            { return &player; };
+	float             getFps()                                     { return fps; }
+	Player*           getPlayer()                                  { return &player; }
+	sf::View          getNormalView()							   { return view; }
+	sf::View          getGUIview()								   { return guiView; }
 
 	//Score-Related
 

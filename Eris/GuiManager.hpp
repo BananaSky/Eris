@@ -10,7 +10,6 @@ class GuiManager
 public:
 	GuiManager();
 	~GuiManager();
-	GuiManager(Window * window, sf::RenderWindow*);
 
 	void update();
 	void draw(sf::RenderWindow * window);
@@ -63,6 +62,9 @@ private:
 	sf::RectangleShape health;
 	sf::RectangleShape ammo;
 
+	sf::RectangleShape aimingLine;
+	sf::CircleShape    recticle;
+
 	sf::Texture                     guiBox;  //Non interactive boxes
 	std::vector<sf::RectangleShape> guiBoxes;
 
@@ -81,5 +83,7 @@ private:
 	bool nearPlanet      = false;
 	bool stationMenuOpen = false;
 	bool planetMenuOpen  = false;
+
+	bool showAimingLine  = true;
 };
 

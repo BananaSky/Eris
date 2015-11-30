@@ -300,10 +300,12 @@ void Window::loadProjectileSpecs(std::string filename)
 	int lifetime;
 	float hitRadius;
 	float damage;
-	float maxVelocity;
 	float acceleration;
 	std::string texture;
 	int baseRate;
+	uint8_t amount;
+	uint8_t spread;
+	uint8_t accuracy;
 
 	std::string                line;
 	std::getline(indata, line);
@@ -326,15 +328,21 @@ void Window::loadProjectileSpecs(std::string filename)
 		damage = std::stof(cell);
 
 		std::getline(lineStream, cell, ',');
-		maxVelocity = std::stof(cell);
-
-		std::getline(lineStream, cell, ',');
 		acceleration = std::stof(cell);
 
 		std::getline(lineStream, texture, ',');
 
 		std::getline(lineStream, cell, ',');
 		baseRate = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		amount = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		spread = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		accuracy = std::stoi(cell);
 
 		p_specs.insert(
 			std::pair<std::string, ProjectileSpecs*>
@@ -345,10 +353,12 @@ void Window::loadProjectileSpecs(std::string filename)
 			lifetime,
 			hitRadius,
 				damage,
-				maxVelocity,
 				acceleration,
 				texture,
-				baseRate
+				baseRate,
+				amount,
+				spread,
+				accuracy
 		}
 				)
 			);
