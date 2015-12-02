@@ -84,8 +84,9 @@ void AI::update(Window* board, sf::RenderWindow* window)
 {
 	if (keepAtRange)
 	{
-		followDistance = (int)board->getPSpecs()->at(missleTypes[selectedType])->calcRange(velocity) % 100000;
+		followDistance = (int)board->getPSpecs()->at(missleTypes[selectedType])->calcRange(velocity);
 	}
-	turnTo(); // Will also call forward()
+	turnTo();
+	forward();
 	Ship::update(board, window);
 }

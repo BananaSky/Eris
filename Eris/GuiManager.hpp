@@ -25,6 +25,8 @@ public:
 	void loadStationMenu (std::string location, sf::Vector2f size);
 	void loadPlanetMenu  (std::string location, sf::Vector2f size);
 	void loadTextBox     (std::string location);
+	void loadWASD(std::string location);
+	void loadSPACE(std::string location);
 	void loadMenuBacking (std::string location);
 
 	void loadButtonTexture(std::string location);
@@ -74,6 +76,9 @@ private:
 
 	sf::RectangleShape aimingLine;
 	sf::CircleShape    recticle;
+
+	sf::Sprite wasd;
+	sf::Sprite space;
 
 	sf::Texture                     guiBox;  //Non interactive boxes
 	std::vector<sf::RectangleShape> guiBoxes;

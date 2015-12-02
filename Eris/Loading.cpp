@@ -58,17 +58,24 @@ sf::Texture* Window::loadTexture(std::string textureLocation)
 	//This is to keep track of our textures, and ensure they are freed when we delete the gameboard
 	textureID++;
 
-	textures.insert(std::pair<std::string, sf::Texture*>(std::to_string(textureID), new sf::Texture));
-	//Allocate and load a new texture into memory
-
-	if (!textures[std::to_string(textureID)]->loadFromFile(textureLocation))
+	auto got = textures.find(textureLocation);
+	if (got == textures.end())
 	{
-		std::cout << "Error Loading Texture" << std::endl;
+		textures.insert(std::pair<std::string, sf::Texture*>(textureLocation, new sf::Texture()));
+		if (!textures[textureLocation]->loadFromFile(textureLocation))
+		{
+			std::cout << "Error Loading Texture" << std::endl;
+		}
+		
+	}
+	else
+	{
+		std::cout << "Already Loaded: " << textureLocation << std::endl;
 	}
 
-	textures[std::to_string(textureID)]->setSmooth(smoothTextures);
+	textures[textureLocation]->setSmooth(smoothTextures);
 
-	return textures[std::to_string(textureID)];
+	return textures[textureLocation];
 }
 
 void Window::loadBackground(std::string location, sf::Vector2f scale = sf::Vector2f(.5f,.5f))
@@ -172,6 +179,16 @@ void GuiManager::loadSliderTexture(std::string location)
 void GuiManager::loadTextBox(std::string location)
 {
 	output.setTexture(parent->loadTexture(location));
+}
+
+void GuiManager::loadWASD(std::string location)
+{
+	wasd.setTexture(*parent->loadTexture(location));
+}
+
+void GuiManager::loadSPACE(std::string location)
+{
+	space.setTexture(*parent->loadTexture(location));
 }
 
 void Window::loadShipSpecs(std::string filename)

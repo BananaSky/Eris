@@ -144,19 +144,11 @@ void GuiManager::DrawCascadingText(std::string output, int offset)
 
 void GuiManager::setNearStation(bool set)
 {
-	if (set && !nearStation) //If the player came within bounds of a station
-	{
-		addMessage("X to open station menu");
-	}
 	nearStation = set;
 }
 
 void GuiManager::setNearPlanet(bool set)
 {
-	if (set && !nearPlanet) //If the player came within bounds of a planet
-	{
-		addMessage("X to open planet menu");
-	}
 	nearPlanet = set;
 }
 
@@ -276,8 +268,6 @@ void GuiManager::update()
 
 	float d_x = (float)(range * cos(parent->getPlayer()->getRotation() * 0.0174533));
 	float d_y = (float)(range * sin(parent->getPlayer()->getRotation() * 0.0174533));
-	//recticle.setOutlineThickness(2*log10(range));
-	//recticle.setRadius(2 * 6.6666666666667 * log10(range));
 
 	if (parent->getPlayer()->isAimingFront())
 	{

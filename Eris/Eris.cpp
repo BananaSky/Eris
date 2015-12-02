@@ -73,6 +73,8 @@ int main(int argc, char** argv)
 	gamewindow.GUImanager.loadInfo("Graphics/Buttons-Icons/Info_2.png", sf::Vector2f(180, 600));
 	gamewindow.GUImanager.loadHide("Graphics/Buttons-Icons/hide.png", sf::Vector2f(1, 1));
 	gamewindow.GUImanager.loadShow("Graphics/Buttons-Icons/show.png", sf::Vector2f(1, 1));
+	gamewindow.GUImanager.loadWASD("Graphics/Buttons-Icons/WASD.png");
+	gamewindow.GUImanager.loadWASD("Graphics/Buttons-Icons/Space.png");
 
 	gamewindow.GUImanager.loadMenuBacking("Graphics/FuelMeter.png");
 	gamewindow.GUImanager.loadButtonTexture("Graphics/Buttons-Icons/Button.png");

@@ -36,6 +36,14 @@ public:
 
 	void buyIron(); //Move this to a different class, please :)
 
+	void updateCrates();
+
+	void updateEnemies();
+
+	void updateEnemyProjectiles();
+
+	void updateExplosions();
+
 	//All Loading Functions here
 
 	sf::Texture* loadTexture(std::string textureLocation);
@@ -79,7 +87,8 @@ public:
 	void genChunks(sf::Vector2f size);
 
 	void updateProjectiles();
-	void updateShips();
+	void updateAllies();
+	void updatePlayer();
 	void updateChunks();
 	void update();
 
