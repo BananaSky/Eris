@@ -20,13 +20,13 @@ GuiManager::GuiManager()
 
 	recticle.setOutlineColor(sf::Color(204, 255, 255, 200));
 	recticle.setFillColor(sf::Color::Transparent);
-	recticle.setOutlineThickness(3);
-	recticle.setRadius(20);
-	recticle.setOrigin(20, 20);
+	recticle.setOutlineThickness(10);
+	recticle.setRadius(50);
+	recticle.setOrigin(50, 50);
 
-	aimingLine.setFillColor(sf::Color(204, 255, 255, 200));
-	aimingLine.setSize(sf::Vector2f(10000000, 2));
-	aimingLine.setOrigin(5000000, 1);
+	aimingLine.setFillColor(sf::Color(204, 255, 255, 255));
+	aimingLine.setSize(sf::Vector2f(10000000, 4));
+	aimingLine.setOrigin(5000000, 2);
 
 	stationMenu.setPosition(154, 0);
 	stationMenu.setSize(sf::Vector2f(200, 200));
@@ -187,18 +187,19 @@ void GuiManager::InfoGUI()
 	target->draw(text);
 
 	text.setCharacterSize(20);
-	DrawCascadingText("Equipped: " + parent->getPlayer()->getEquipped(), 50);
+	DrawCascadingText("Equipped: " + parent->getPlayer()->getEquipped(), 75);
 	int spacing = 30;
-	DrawCascadingText("Range: " + std::to_string(parent->getPlayer()->getRange(parent)), spacing);
-	DrawCascadingText("Max DPS: " + std::to_string(parent->getPlayer()->getDPS(parent)), spacing);
-	DrawCascadingText("Aiming: " + parent->getPlayer()->getAiming(), spacing);
-	DrawCascadingText("Velocity: " + std::to_string(parent->getPlayer()->getVelocity()), spacing);
-	DrawCascadingText("Mass: " + std::to_string(parent->getPlayer()->getMass()), spacing);
+	DrawCascadingText("Range: "            + std::to_string(parent->getPlayer()->getRange(parent)), spacing);
+	DrawCascadingText("Max DPS: "          + std::to_string(parent->getPlayer()->getDPS(parent)), spacing);
+	DrawCascadingText("Accuracy: "         + parent->getPlayer()->getAccString(), spacing);
+	DrawCascadingText("Aiming: "           + parent->getPlayer()->getAiming(), spacing);
+	DrawCascadingText("Velocity: "         + std::to_string(parent->getPlayer()->getVelocity()), spacing);
+	DrawCascadingText("Strafe Velocity: "  + std::to_string((int)parent->getPlayer()->getStrafe()), spacing);
 	DrawCascadingText("Max Acceleration: " + std::to_string(parent->getPlayer()->getAccel()), spacing);
-	DrawCascadingText("Efficiency: " + std::to_string(parent->getPlayer()->getEfficiency()), spacing);
-	DrawCascadingText("Fuel: " + parent->getPlayer()->getFuelString(), spacing);
-	DrawCascadingText("Ammo: " + parent->getPlayer()->getAmmoString(), spacing);
-	DrawCascadingText("Structure: " + parent->getPlayer()->getStructString(), spacing);
+	DrawCascadingText("Efficiency: "       + std::to_string(parent->getPlayer()->getEfficiency()), spacing);
+	DrawCascadingText("Fuel: "             + parent->getPlayer()->getFuelString(), spacing);
+	DrawCascadingText("Ammo: "             + parent->getPlayer()->getAmmoString(), spacing);
+	DrawCascadingText("Structure: "        + parent->getPlayer()->getStructString(), spacing);
 
 	text.setColor(sf::Color::White);
 }
@@ -208,6 +209,17 @@ void GuiManager::stationGUI(sf::RenderWindow* window)
 	if (stationMenuOpen)
 	{
 		stationMenu.draw(window);
+	}
+}
+
+void GuiManager::drawBacking(sf::RenderWindow* window)
+{
+	if (showAimingLine)
+	{
+		window->setView(parent->getNormalView());
+		window->draw(aimingLine);
+		window->draw(recticle);
+		window->setView(parent->getGUIview());
 	}
 }
 
@@ -252,13 +264,7 @@ void GuiManager::draw(sf::RenderWindow* window)
 	window->draw(health);
 
 
-	if (showAimingLine)
-	{
-		window->setView(parent->getNormalView());
-		window->draw(aimingLine);
-		window->draw(recticle);
-		window->setView(parent->getGUIview());
-	}
+	
 }
 
 void GuiManager::update()
@@ -266,12 +272,12 @@ void GuiManager::update()
 	aimingLine.setRotation(parent->getPlayer()->getRotation());
 	aimingLine.setPosition(parent->getPlayer()->getPosition());
 
-	float range = (float)parent->getPlayer()->getRange(parent) * 3;
+	float range = (float)parent->getPlayer()->getRange(parent);
 
 	float d_x = (float)(range * cos(parent->getPlayer()->getRotation() * 0.0174533));
 	float d_y = (float)(range * sin(parent->getPlayer()->getRotation() * 0.0174533));
-	recticle.setOutlineThickness(2*log10(range));
-	recticle.setRadius(2 * 6.6666666666667 * log10(range));
+	//recticle.setOutlineThickness(2*log10(range));
+	//recticle.setRadius(2 * 6.6666666666667 * log10(range));
 
 	if (parent->getPlayer()->isAimingFront())
 	{

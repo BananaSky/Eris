@@ -8,7 +8,7 @@ AI::~AI(){}
 
 AI::AI(Ship* target)
 {
-	target = target;
+	this->target = target;
 	this->shooting = true;
 }
 
@@ -61,14 +61,20 @@ void AI::forward()
 		else
 		{
 			accelerating = false;
-
-			if (getVelocity() > 0)
+			if (keepAtRange)
 			{
 				decelerating = true;
 			}
 			else
 			{
-				decelerating = false;
+				if (getVelocity() > 0)
+				{
+					decelerating = true;
+				}
+				else
+				{
+					decelerating = false;
+				}
 			}
 		}
 	}
@@ -78,31 +84,8 @@ void AI::update(Window* board, sf::RenderWindow* window)
 {
 	if (keepAtRange)
 	{
-		followDistance = board->getPSpecs()->at(missleTypes[selectedType])->calcRange(velocity);
+		followDistance = (int)board->getPSpecs()->at(missleTypes[selectedType])->calcRange(velocity) % 100000;
 	}
 	turnTo(); // Will also call forward()
-	turn();
-	forward();
-	if (shootCount > 0)
-	{
-		shootCount--;
-	}
-	if (shooting)
-	{
-		shoot(board);
-	}
-
-	if (accelerating)
-	{
-		accelerate();
-	}
-	if (decelerating)
-	{
-		decelerate();
-	}
-
-	float yChange = getVelocity() * sinf(getRotation() * (float)0.01745329); //Radian Conversion
-	float xChange = getVelocity() * cosf(getRotation() * (float)0.01745329);
-
-	move(xChange, yChange);
+	Ship::update(board, window);
 }

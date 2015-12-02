@@ -9,6 +9,7 @@
 #include "Fragment.hpp"
 #include "Wave.hpp"
 #include "GuiManager.hpp"
+#include "Crate.hpp"
 
 class  Chunk;
 struct ProjectileSpecs;
@@ -22,6 +23,12 @@ public:
 	Window();
 	Window(std::string title);
 	~Window();
+
+	//Some typdefs to make migration to safer memory management also look clean (Limit these)
+	typedef std::shared_ptr<Explosion>  explosion_ptr;
+	typedef std::shared_ptr<Projectile> projectile_ptr;
+	typedef std::shared_ptr<Enemy>	    enemy_ptr;
+	typedef std::shared_ptr<AI>         ally_ptr;
 
 	void run();
 	void draw();
@@ -38,7 +45,8 @@ public:
 
 	void loadBackground     (std::string location, sf::Vector2f scale);
 	void loadStart          (std::string location, sf::Vector2f scale);
-	void loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name);
+	void loadCrate          (std::string location);
+	void loadPlayer         (sf::Vector2f position, sf::Vector2f scale, std::string name);
 	void loadInv            (std::string location, sf::Vector2f size);
 
 	void loadPlanetTexture  (std::string textureLocation);
@@ -52,10 +60,13 @@ public:
 
 	//Functions for adding types of projectiles
 
-	void addExplosion(Explosion* explosion);
-	void addFragments(sf::Vector2f position, int amount, int spread);
+	//void addExplosion(Explosion* explosion);
+	void addFragments(sf::Vector2f position, int amount=40, int spread=1);
+	void addCrate(sf::Vector2f position);
 	void addProjectile(float rotation, sf::Vector2f position, float velocity, std::string type);
 	void addEnemyProjectile(float rotation, sf::Vector2f position, float velocity, std::string type);
+
+	void addExplosion(explosion_ptr explosion);
 
 	//Enemy management
 
@@ -135,6 +146,7 @@ private:
 	std::vector<sf::Texture*>                     stationTextures;
 	std::vector<sf::Texture*>                     fragTextures;
 	std::vector<std::string>                      spec_Keys;
+	sf::Texture                                   crateTexture;
 
 	std::unordered_map<std::string, ShipSpecs*>       specs;
 	std::unordered_map<std::string, ProjectileSpecs*> p_specs;
@@ -147,11 +159,12 @@ private:
 	std::unordered_map<int, Chunk> chunks;
 	std::vector<Wave>              waves;
 	std::vector<Fragment>          fragments;
-	std::vector<Explosion*>        explosions;
-	std::vector<Projectile*>       projectiles;
-	std::vector<Projectile*>       enemyProjectiles;
-	std::vector<Enemy>             enemies;
-	std::vector<AI>                allies;
+	std::vector<explosion_ptr>     explosions;
+	std::vector<projectile_ptr>    projectiles;
+	std::vector<projectile_ptr>    enemyProjectiles;
+	std::vector<enemy_ptr>         enemies;
+	std::vector<ally_ptr>          allies;
+	std::vector<Crate>             crates;
 
 	static bool smoothTextures;
 	static int  textureID;

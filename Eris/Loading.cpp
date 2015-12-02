@@ -83,6 +83,11 @@ void Window::loadStart(std::string location, sf::Vector2f scale = sf::Vector2f(.
 	startScreen.setScale(scale);
 }
 
+void Window::loadCrate(std::string location)
+{
+	crateTexture = *loadTexture(location);
+}
+
 void GuiManager::loadFuel(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
 {
 	fuel.setTexture(parent->loadTexture(location));
@@ -239,11 +244,7 @@ void Window::loadShipSpecs(std::string filename)
 		{
 			if (cell != "none")
 			{
-				cost = std::stoi(cell);
-			}
-			else if (cell == "")
-			{
-				break;
+				cost = std::stoi(cell); break;
 			}
 		}
 

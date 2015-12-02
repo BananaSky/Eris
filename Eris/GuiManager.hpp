@@ -39,6 +39,8 @@ public:
 
 	void planetGUI (sf::RenderWindow * window);
 	void stationGUI(sf::RenderWindow * window);
+	void drawBacking(sf::RenderWindow * window);
+
 	void InfoGUI();
 
 	void addBox            (sf::Vector2f position, sf::Vector2f size);
@@ -98,6 +100,6 @@ private:
 	bool stationMenuOpen = false;
 	bool planetMenuOpen  = false;
 
-	bool showAimingLine  = false;
+	bool showAimingLine  = true;
 };
 

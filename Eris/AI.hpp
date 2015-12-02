@@ -22,7 +22,6 @@ public:
 protected:
 	bool keepAtRange = true;
 
-private:
 	Ship* target;
 	float angleRange = 30;
 	float followDistance = 200;
