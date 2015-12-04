@@ -10,6 +10,7 @@
 #include "Wave.hpp"
 #include "GuiManager.hpp"
 #include "Crate.hpp"
+#include "ItemSpecs.hpp"
 
 class  Chunk;
 struct ProjectileSpecs;
@@ -54,6 +55,7 @@ public:
 	void loadBackground     (std::string location, sf::Vector2f scale);
 	void loadStart          (std::string location, sf::Vector2f scale);
 	void loadCrate          (std::string location);
+	void loadItems(std::string filename);
 	void loadPlayer         (sf::Vector2f position, sf::Vector2f scale, std::string name);
 	void loadInv            (std::string location, sf::Vector2f size);
 
@@ -81,6 +83,8 @@ public:
 	void spawn(sf::Vector2f position, sf::Vector2f scale, std::string name, bool enemy);
 	void spawnWave(const std::vector<std::string>& wave);
 	void cycleWave();
+
+	void calcNextWave();
 
 	//Chunks and update
 
@@ -113,6 +117,7 @@ public:
 	std::unordered_map<std::string, ShipSpecs*>* getShipSpecs()    { return &specs; }
 	std::unordered_map<std::string, ProjectileSpecs*>* getPSpecs() { return &p_specs; }
 	std::vector<std::string>* getSpec_Keys()                       { return &spec_Keys; }
+	std::unordered_map<std::string, ItemSpecs>* getItems()              { return &itemList; }
 
 	sf::RenderWindow* getWindow()                                  { return &window; }
 	float             getFps()                                     { return fps; }
@@ -174,6 +179,8 @@ private:
 	std::vector<enemy_ptr>         enemies;
 	std::vector<ally_ptr>          allies;
 	std::vector<Crate>             crates;
+
+	std::unordered_map<std::string, ItemSpecs> itemList;
 
 	static bool smoothTextures;
 	static int  textureID;

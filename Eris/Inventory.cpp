@@ -16,7 +16,7 @@ Inventory::~Inventory()
 {
 }
 
-bool Inventory::insertNew(std::string location, Window* board)
+bool Inventory::insertNew(std::string type, Window* board)
 {
 	bool foundSpace = false;
 	for (auto it = contents.begin(); it != contents.end(); ++it)
@@ -24,7 +24,8 @@ bool Inventory::insertNew(std::string location, Window* board)
 		if (it->isEmpty)
 		{
 			*it = Item(false);
-			it->setTexture(*board->loadTexture(location));
+			it->setName(board->getItems()->at(type).name);
+			it->setTexture(*board->loadTexture(board->getItems()->at(type).texture));
 			it->scale(sf::Vector2f(.9, .9));
 			foundSpace = true;
 			break;

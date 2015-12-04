@@ -22,12 +22,12 @@ public:
 	void loadHealth		 (std::string location, sf::Vector2f size);
 	void loadAmmo		 (std::string location, sf::Vector2f size);
 	void loadInfo		 (std::string location, sf::Vector2f size);
-	void loadStationMenu (std::string location, sf::Vector2f size);
-	void loadPlanetMenu  (std::string location, sf::Vector2f size);
 	void loadTextBox     (std::string location);
-	void loadWASD(std::string location);
-	void loadSPACE(std::string location);
+	void loadWASD        (std::string location);
+	void loadSPACE       (std::string location);
 	void loadMenuBacking (std::string location);
+
+	int counter = 1;
 
 	void loadButtonTexture(std::string location);
 
@@ -52,8 +52,8 @@ public:
 
 	void setTarget     (sf::RenderWindow* window) { target = window; }
 	void setParent     (Window* board)            { parent = board; }
-	void setNearStation(bool set);
-	void setNearPlanet(bool set);
+	void setNearStation (bool set);
+	void setNearPlanet  (bool set);
 
 	void openStationMenu();
 	void openPlanetMenu(); 
@@ -62,6 +62,7 @@ public:
 	bool isNearPlanet()  { return nearPlanet; }
 
 	sf::RectangleShape* getFuel() { return &fuel; }
+	sf::Text* getText() { return &text; }
 
 private:
 	Window*           parent;

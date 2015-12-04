@@ -1,4 +1,5 @@
 #include "Menu.hpp"
+#include "GuiManager.hpp"
 
 Menu::Menu(){}
 
@@ -15,6 +16,13 @@ void Menu::insertSlider(Slider slider, sf::Vector2f pos)
 {
 	sliders.push_back(slider);
 	sliders.back().move(sf::Vector2f(getPosition().x + pos.x, getPosition().y + pos.y)); // Sets Position of slider button as well;
+}
+
+void Menu::insertRow(std::string label)
+{
+	insertButton(Button(sf::Vector2f(60, 30), label, *parent->getText()), sf::Vector2f(x, y));
+	insertSlider(Slider(), sf::Vector2f(x + horizontalSpacing, y));
+	y += verticalSpacing;
 }
 
 int Menu::buttonListener(sf::Event* event)

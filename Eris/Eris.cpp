@@ -74,7 +74,7 @@ int main(int argc, char** argv)
 	gamewindow.GUImanager.loadHide("Graphics/Buttons-Icons/hide.png", sf::Vector2f(1, 1));
 	gamewindow.GUImanager.loadShow("Graphics/Buttons-Icons/show.png", sf::Vector2f(1, 1));
 	gamewindow.GUImanager.loadWASD("Graphics/Buttons-Icons/WASD.png");
-	gamewindow.GUImanager.loadWASD("Graphics/Buttons-Icons/Space.png");
+	gamewindow.GUImanager.loadSPACE("Graphics/Buttons-Icons/Space.png");
 
 	gamewindow.GUImanager.loadMenuBacking("Graphics/FuelMeter.png");
 	gamewindow.GUImanager.loadButtonTexture("Graphics/Buttons-Icons/Button.png");
@@ -86,6 +86,7 @@ int main(int argc, char** argv)
 	gamewindow.loadShipSpecs("ShipData.csv");
 	gamewindow.loadProjectileSpecs("ProjectileData.csv");
 	gamewindow.loadWaves("Waves.csv");
+	gamewindow.loadItems("Items.csv");
 	gamewindow.loadPlayer(sf::Vector2f(0, 0), sf::Vector2f(.3f, .3f), "Frigate");
 
 	gamewindow.genChunks(sf::Vector2f(50000, 50000));

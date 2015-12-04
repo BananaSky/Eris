@@ -29,6 +29,7 @@ GuiManager::GuiManager()
 	aimingLine.setOrigin(5000000, 2);
 
 	stationMenu.setPosition(154, 0);
+	stationMenu.setParent(this);
 	stationMenu.setSize(sf::Vector2f(200, 200));
 	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Upgrade", text), sf::Vector2f(10, 10));
 	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Refuel", text),  sf::Vector2f(10, 50));
@@ -39,14 +40,7 @@ GuiManager::GuiManager()
 	stationMenu.insertSlider(Slider(), sf::Vector2f(70, 130));
 
 	planetMenu.setPosition(154, 0);
-	planetMenu.setSize(sf::Vector2f(200, 200));
-	planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Buy Iron", text), sf::Vector2f(10, 10));
-	//planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Refuel", text), sf::Vector2f(10, 50));
-	//planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Refill", text), sf::Vector2f(10, 90));
-	//planetMenu.insertButton(Button(sf::Vector2f(60, 30), "Repair", text), sf::Vector2f(10, 130));
-	//planetMenu.insertSlider(Slider(), sf::Vector2f(70, 50));
-	//planetMenu.insertSlider(Slider(), sf::Vector2f(70, 90));
-	//planetMenu.insertSlider(Slider(), sf::Vector2f(70, 130));
+	planetMenu.setParent(this);
 } 
 
 GuiManager::~GuiManager(){}
@@ -217,6 +211,14 @@ void GuiManager::drawBacking(sf::RenderWindow* window)
 
 void GuiManager::draw(sf::RenderWindow* window)
 {
+	counter++;
+
+	if (counter < 600)
+	{
+		window->draw(wasd);
+		window->draw(space);
+	}
+
 	//window->draw(output);
 	output.draw(window);
 	output.update();
@@ -261,6 +263,12 @@ void GuiManager::draw(sf::RenderWindow* window)
 
 void GuiManager::update()
 {
+	if (counter < 600)
+	{
+		wasd.setPosition(target->getSize().x/2 - wasd.getGlobalBounds().width / 2, target->getSize().y/2 - 200);
+		space.setPosition(target->getSize().x / 2 - space.getGlobalBounds().width / 2, target->getSize().y/2 + 100);
+	}
+
 	aimingLine.setRotation(parent->getPlayer()->getRotation());
 	aimingLine.setPosition(parent->getPlayer()->getPosition());
 

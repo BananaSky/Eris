@@ -448,6 +448,41 @@ void Window::loadWaves(std::string filename)
 	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
 }
 
+void Window::loadItems(std::string filename)
+{
+	std::ifstream indata;
+
+	indata.open(filename);
+
+	std::string name;
+	std::string texture;
+
+	std::string                line;
+	std::getline(indata, line);
+	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
+	{
+		std::stringstream          lineStream(line);
+
+		//This would be better with some operator overloading, but for now....?
+
+		//std::string                cell;
+		std::getline(lineStream, name, ',');
+		std::getline(lineStream, texture, ',');
+
+		ItemSpecs item{ name, texture };
+
+		auto got = itemList.find(name);
+		if (got == itemList.end())
+		{
+			itemList.insert(std::pair<std::string, ItemSpecs>(name, item));
+		}
+		else
+		{
+			std::cout << "Already Loaded: " << name << std::endl;
+		}
+	}
+	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
+}
 
 void Window::loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name = "Frigate")
 {

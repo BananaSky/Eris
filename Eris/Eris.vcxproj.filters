@@ -124,7 +124,7 @@
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="Crate.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Environment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -216,7 +216,10 @@
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Crate.hpp">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemSpecs.hpp">
+      <Filter>Header Files\Board</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
