@@ -64,7 +64,6 @@ int main(int argc, char** argv)
 
 	gamewindow.GUImanager.loadFuel("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
 	gamewindow.GUImanager.loadHealth("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
-	gamewindow.GUImanager.loadAmmo("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
 
 	gamewindow.GUImanager.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
 	gamewindow.GUImanager.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));

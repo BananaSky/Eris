@@ -116,14 +116,6 @@ void GuiManager::loadGUI(std::string location, sf::Vector2f scale = sf::Vector2f
 	guiBox = *parent->loadTexture(location);
 }
 
-void GuiManager::loadAmmo(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
-{
-	ammo.setTexture(parent->loadTexture(location));
-	ammo.setSize(size);
-	ammo.setPosition(0, 330);
-	parent->getPlayer()->syncAmmo(&ammo);
-}
-
 void GuiManager::loadInfo(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
 {
 	info.setTexture(parent->loadTexture(location));
@@ -332,6 +324,7 @@ void Window::loadProjectileSpecs(std::string filename)
 	uint8_t amount;
 	uint8_t spread;
 	uint8_t accuracy;
+	std::string ammo_type;
 
 	std::string                line;
 	std::getline(indata, line);
@@ -370,6 +363,8 @@ void Window::loadProjectileSpecs(std::string filename)
 		std::getline(lineStream, cell, ',');
 		accuracy = std::stoi(cell);
 
+		std::getline(lineStream, ammo_type, ',');
+
 		p_specs.insert(
 			std::pair<std::string, ProjectileSpecs*>
 			(
@@ -384,7 +379,8 @@ void Window::loadProjectileSpecs(std::string filename)
 				baseRate,
 				amount,
 				spread,
-				accuracy
+				accuracy,
+				ammo_type
 		}
 				)
 			);

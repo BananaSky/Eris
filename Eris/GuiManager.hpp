@@ -20,7 +20,6 @@ public:
 	void loadShow        (std::string location, sf::Vector2f scale);
 	void loadFuel		 (std::string location, sf::Vector2f size);
 	void loadHealth		 (std::string location, sf::Vector2f size);
-	void loadAmmo		 (std::string location, sf::Vector2f size);
 	void loadInfo		 (std::string location, sf::Vector2f size);
 	void loadTextBox     (std::string location);
 	void loadWASD        (std::string location);
@@ -73,7 +72,6 @@ private:
 
 	sf::RectangleShape fuel;
 	sf::RectangleShape health;
-	sf::RectangleShape ammo;
 
 	sf::RectangleShape aimingLine;
 	sf::CircleShape    recticle;

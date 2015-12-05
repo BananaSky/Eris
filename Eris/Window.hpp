@@ -30,6 +30,9 @@ public:
 	typedef std::shared_ptr<Projectile> projectile_ptr;
 	typedef std::shared_ptr<Enemy>	    enemy_ptr;
 	typedef std::shared_ptr<AI>         ally_ptr;
+	typedef std::shared_ptr<Fragment>   frag_ptr;
+
+	void Init();
 
 	void run();
 	void draw();
@@ -44,6 +47,8 @@ public:
 	void updateEnemyProjectiles();
 
 	void updateExplosions();
+
+	void updateFragments();
 
 	//All Loading Functions here
 
@@ -124,6 +129,7 @@ public:
 	Player*           getPlayer()                                  { return &player; }
 	sf::View          getNormalView()							   { return view; }
 	sf::View          getGUIview()								   { return guiView; }
+	Inventory*        getInv()                                     { return &inventory; }
 
 	//Score-Related
 
@@ -172,7 +178,7 @@ private:
 
 	std::unordered_map<int, Chunk> chunks;
 	std::vector<Wave>              waves;
-	std::vector<Fragment>          fragments;
+	std::vector<frag_ptr>          fragments;
 	std::vector<explosion_ptr>     explosions;
 	std::vector<projectile_ptr>    projectiles;
 	std::vector<projectile_ptr>    enemyProjectiles;

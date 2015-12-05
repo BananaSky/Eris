@@ -184,7 +184,6 @@ void GuiManager::InfoGUI()
 	DrawCascadingText("Max Acceleration: " + std::to_string(parent->getPlayer()->getAccel()), spacing);
 	DrawCascadingText("Efficiency: "       + std::to_string(parent->getPlayer()->getEfficiency()), spacing);
 	DrawCascadingText("Fuel: "             + parent->getPlayer()->getFuelString(), spacing);
-	DrawCascadingText("Ammo: "             + parent->getPlayer()->getAmmoString(), spacing);
 	DrawCascadingText("Structure: "        + parent->getPlayer()->getStructString(), spacing);
 
 	text.setColor(sf::Color::White);
@@ -252,8 +251,6 @@ void GuiManager::draw(sf::RenderWindow* window)
 
 	window->draw(*parent->getPlayer()->getFuel());
 	window->draw(*parent->getPlayer()->getHealth());
-	window->draw(*parent->getPlayer()->getAmmo());
-	window->draw(ammo);
 	window->draw(fuel);
 	window->draw(health);
 

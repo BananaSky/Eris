@@ -12,33 +12,86 @@ Inventory::Inventory()
 	}
 }
 
-Inventory::~Inventory()
-{
-}
+Inventory::~Inventory(){}
 
-bool Inventory::insertNew(std::string type, Window* board)
+bool Inventory::insertNew(std::string type, Window* board, int amount)
 {
 	bool foundSpace = false;
 	for (auto it = contents.begin(); it != contents.end(); ++it)
 	{
-		if (it->isEmpty)
+		if (it->getName() == type)
 		{
-			*it = Item(false);
-			it->setName(board->getItems()->at(type).name);
-			it->setTexture(*board->loadTexture(board->getItems()->at(type).texture));
-			it->scale(sf::Vector2f(.9, .9));
+			it->addNum(amount);
+			it->increment();
 			foundSpace = true;
 			break;
 		}
 	}
+	if (!foundSpace)
+	{
+		for (auto it = contents.begin(); it != contents.end(); ++it)
+		{
+			if (it->isEmpty)
+			{
+				*it = Item(false);
+				it->setNum(amount);
+				it->setName(board->getItems()->at(type).name);
+				it->setTexture(*board->loadTexture(board->getItems()->at(type).texture));
+				it->scale(sf::Vector2f(.9, .9));
+				foundSpace = true;
+				break;
+			}
+		}
+	}
+
 	return foundSpace;
 }
+
+bool Inventory::take(std::string type, int amount)
+{
+	for (auto it = contents.begin(); it != contents.end(); ++it)
+	{
+		if (it->getName() == type)
+		{
+			if (it->take(amount))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+	}
+	return false;
+}
+
+int Inventory::getNumOf(std::string type)
+{
+	int accumulator = 0;
+
+	for (auto it = contents.begin(); it != contents.end(); ++it)
+	{
+		if (it->getName() == type)
+		{
+			accumulator += it->getAmountOf();
+		}
+	}
+	return accumulator;
+}
+
 
 void Inventory::displayInv(sf::RenderWindow* window)
 {
 	for (Item& item : contents)
 	{
-		window->draw(item);
+		if (!item.isEmpty)
+		{
+			text.setPosition(item.getPosition());
+			text.setString(item.getNumOf());
+			window->draw(item);
+			window->draw(text);
+		}
 	}
 }
 
