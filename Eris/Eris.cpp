@@ -83,6 +83,8 @@ int main(int argc, char** argv)
 
 	gamewindow.GUImanager.loadTextBox("Graphics/Buttons-Icons/TextBox.png");
 
+	gamewindow.GUImanager.Init();
+
 	gamewindow.loadShipSpecs("ShipData.csv");
 	gamewindow.loadProjectileSpecs("ProjectileData.csv");
 	gamewindow.loadWaves("Waves.csv");

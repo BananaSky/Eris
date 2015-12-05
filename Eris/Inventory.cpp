@@ -59,6 +59,8 @@ bool Inventory::take(std::string type, int amount)
 			}
 			else
 			{
+				it->decrement();
+				it->isEmpty = true;
 				return false;
 			}
 		}
@@ -77,6 +79,7 @@ int Inventory::getNumOf(std::string type)
 			accumulator += it->getAmountOf();
 		}
 	}
+
 	return accumulator;
 }
 

@@ -12,7 +12,12 @@ GuiManager::GuiManager()
 	text.setFont(font);
 	text.setColor(sf::Color::White);
 	text.setCharacterSize(16);
+} 
 
+GuiManager::~GuiManager(){}
+
+void GuiManager::Init()
+{
 	output.setSize(sf::Vector2f(200, 200));
 	output.loadTextSize(12);
 	output.setSpace(14);
@@ -34,18 +39,16 @@ GuiManager::GuiManager()
 	stationMenu.setSize(sf::Vector2f(200, 200));
 
 	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Upgrade", text), sf::Vector2f(10, 10));
-	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Refuel", text),  sf::Vector2f(10, 50));
-	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Refill", text),  sf::Vector2f(10, 90));
-	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Repair", text),  sf::Vector2f(10, 130));
+	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Refuel", text), sf::Vector2f(10, 50));
+	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Refill", text), sf::Vector2f(10, 90));
+	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Repair", text), sf::Vector2f(10, 130));
 	stationMenu.insertSlider(Slider(), sf::Vector2f(70, 50));
 	stationMenu.insertSlider(Slider(), sf::Vector2f(70, 90));
 	stationMenu.insertSlider(Slider(), sf::Vector2f(70, 130));
 
 	planetMenu.setPosition(154, 0);
 	planetMenu.setParent(this);
-} 
-
-GuiManager::~GuiManager(){}
+}
 
 void GuiManager::addBox(sf::Vector2f position, sf::Vector2f size)
 {
@@ -109,7 +112,8 @@ void GuiManager::planetMenuListener(sf::Event* event)
 		if (currentlyNear != NULL)
 		{
 			planetMenu.sliderListener(event);
-			currentlyNear->determineAction(planetMenu.buttonListener(event), parent);
+			int n = planetMenu.buttonListener(event);
+			currentlyNear->determineAction(n, parent, planetMenu.getRatioOf(n));
 		}
 
 	}

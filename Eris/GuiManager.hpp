@@ -13,6 +13,8 @@ public:
 	GuiManager();
 	~GuiManager();
 
+	void Init();
+
 	void update();
 	void draw(sf::RenderWindow * window);
 

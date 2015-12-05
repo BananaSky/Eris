@@ -93,9 +93,9 @@ public:
 	void genChunks(sf::Vector2f size);
 
 
-	void buy(std::string index, int amount = 1);
+	void buy(std::string index, int amount = 1, int price = 1);
 
-	void sell(std::string index, int amount = 1);
+	void sell(std::string index, int amount = 1, int price = 1);
 
 	void updateProjectiles();
 	void updateAllies();

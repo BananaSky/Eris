@@ -456,6 +456,7 @@ void Window::loadItems(std::string filename)
 
 	std::string name;
 	std::string texture;
+	int basePrice;
 
 	std::string                line;
 	std::getline(indata, line);
@@ -465,11 +466,14 @@ void Window::loadItems(std::string filename)
 
 		//This would be better with some operator overloading, but for now....?
 
-		//std::string                cell;
+		std::string                cell;
 		std::getline(lineStream, name, ',');
 		std::getline(lineStream, texture, ',');
 
-		ItemSpecs item{ name, texture };
+		std::getline(lineStream, cell, ',');
+		basePrice = std::stoi(cell);
+
+		ItemSpecs item{ name, texture, basePrice };
 
 		auto got = itemList.find(name);
 		if (got == itemList.end())
