@@ -137,7 +137,7 @@ public:
 	int getScore()   { return score; }
 
 	void addScore(int n)  { if (n > 0)       { score += n; credits += n; } }
-	void spend(int i = 1) { if (credits > i) { credits -= i; } }
+	void spend(int i = 1) { if (credits > i) { credits -= i; } else { credits = 0; addMessage("Insufficient Funds"); } }
 
 public: //Another public declaration to show intent
 	GuiManager GUImanager; //Only public temporarily- Will probably change this before the next update

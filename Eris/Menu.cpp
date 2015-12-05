@@ -43,7 +43,6 @@ int Menu::buttonListener(sf::Event* event)
 
 		for (int i = 0; i < buttons.size(); i++)
 		{
-			std::cout << "Checking against: " << i << std::endl;
 			if (buttons[i].listener((sf::Vector2f)pos))
 			{
 				return  i;

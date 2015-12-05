@@ -22,7 +22,6 @@ bool Inventory::insertNew(std::string type, Window* board, int amount)
 		if (it->getName() == type)
 		{
 			it->addNum(amount);
-			it->increment();
 			foundSpace = true;
 			break;
 		}
@@ -179,13 +178,12 @@ void Inventory::InvListener(sf::Event* event, Window* board, sf::RenderWindow* w
 		if (mousePos.x / cellSize < width && mousePos.y / cellSize < height)
 		{
 			int index = calcIndex(mousePos);
-			std::cout << index << std::endl;
 			if (index < contents.size())
 			{
-				std::cout << "Selected Item" << std::endl;
 				selected = index;
 			}
 		}
+		
 	}
 
 	if (event->type == sf::Event::MouseMoved)
@@ -201,16 +199,24 @@ void Inventory::InvListener(sf::Event* event, Window* board, sf::RenderWindow* w
 	{
 		sf::Vector2i mousePos = sf::Vector2i(event->mouseButton.x - pos.x, event->mouseButton.y - pos.y);
 
-		if (mousePos.x / cellSize < width && mousePos.y / cellSize < height && selected != -1)
+		if (this->getLocalBounds().contains((sf::Vector2f)mousePos))
 		{
-			int index = calcIndex(mousePos);
-			if (index < contents.size())
+			if (mousePos.x / cellSize < width && mousePos.y / cellSize < height && selected != -1)
 			{
-				std::iter_swap(contents.begin() + selected, contents.begin() + index);
-				this->format(window);
-				std::cout << "Moved Item to " << index << std::endl;
+				int index = calcIndex(mousePos);
+				if (index < contents.size())
+				{
+					std::iter_swap(contents.begin() + selected, contents.begin() + index);
+					format(window);
+					std::cout << "Moved Item to " << index << std::endl;
+				}
 			}
 		}
+		else
+		{
+			format(window);
+		}
+		
 		selected = -1;
 	}
 }

@@ -88,15 +88,12 @@ void GuiManager::stationMenuListener(sf::Event* event)
 			parent->getPlayer()->upgrade(parent);
 			break;
 		case 2:
-			std::cout << stationMenu.getRatioOf(0) << std::endl;
 			parent->getPlayer()->refuel(parent, stationMenu.getRatioOf(0));
 			break;
 		case 3:
-			std::cout << stationMenu.getRatioOf(1)  << std::endl;
 			parent->getPlayer()->refill(parent, stationMenu.getRatioOf(1));
 			break;
 		case 4:
-			std::cout << stationMenu.getRatioOf(2) << std::endl;
 			parent->getPlayer()->repair(parent, stationMenu.getRatioOf(2));
 			break;
 		default:
