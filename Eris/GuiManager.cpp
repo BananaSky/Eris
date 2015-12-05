@@ -113,7 +113,7 @@ void GuiManager::planetMenuListener(sf::Event* event)
 		{
 			planetMenu.sliderListener(event);
 			int n = planetMenu.buttonListener(event);
-			currentlyNear->determineAction(n, parent, planetMenu.getRatioOf(n));
+			currentlyNear->market.determineAction(n, parent, planetMenu.getRatioOf(n));
 		}
 
 	}
@@ -265,7 +265,7 @@ void GuiManager::setCurrentNear(Planet* near)
 	std::string label;
 	label.reserve();
 
-	for (auto& p : *currentlyNear->getMarket())
+	for (auto& p : *currentlyNear->market.getMarket())
 	{
 		if (p.first)
 		{
@@ -283,8 +283,8 @@ void GuiManager::update()
 {
 	if (counter < 600)
 	{
-		wasd.setPosition(target->getSize().x/2 - wasd.getGlobalBounds().width / 2, target->getSize().y/2 - 200);
-		space.setPosition(target->getSize().x / 2 - space.getGlobalBounds().width / 2, target->getSize().y/2 + 100);
+		wasd.setPosition(target->getSize().x/2 - wasd.getGlobalBounds().width / 2,     (float)(target->getSize().y/2 - 200));
+		space.setPosition(target->getSize().x / 2 - space.getGlobalBounds().width / 2, (float)(target->getSize().y/2 + 100));
 	}
 
 	aimingLine.setRotation(parent->getPlayer()->getRotation());

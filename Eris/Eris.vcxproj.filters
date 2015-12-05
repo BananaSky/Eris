@@ -126,6 +126,9 @@
     <ClCompile Include="Crate.cpp">
       <Filter>Source Files\Environment</Filter>
     </ClCompile>
+    <ClCompile Include="Market.cpp">
+      <Filter>Source Files\Board</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.hpp">
@@ -219,6 +222,9 @@
       <Filter>Header Files\Environment</Filter>
     </ClInclude>
     <ClInclude Include="ItemSpecs.hpp">
+      <Filter>Header Files\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Market.hpp">
       <Filter>Header Files\Board</Filter>
     </ClInclude>
   </ItemGroup>

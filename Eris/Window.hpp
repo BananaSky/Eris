@@ -92,10 +92,8 @@ public:
 
 	void genChunks(sf::Vector2f size);
 
-
-	void buy(std::string index, int amount = 1, int price = 1);
-
-	void sell(std::string index, int amount = 1, int price = 1);
+	void buy(std::string index, float percent=.1);
+	void sell(std::string index, float percent=.1);
 
 	void updateProjectiles();
 	void updateAllies();
@@ -111,7 +109,7 @@ public:
 	void displayGameOverScreen();
 
 	void addMessage(std::string m) { GUImanager.addMessage(m); }
-	void toggleInv()			   { invScreen = !invScreen; inventory.format(&window); pause(); }
+	void toggleInv()			   { invScreen = !invScreen; player.getInv()->format(&window); pause(); }
 	void pause()				   { paused = !paused; }
 
 	//Lots of getters
@@ -131,7 +129,7 @@ public:
 	Player*           getPlayer()                                  { return &player; }
 	sf::View          getNormalView()							   { return view; }
 	sf::View          getGUIview()								   { return guiView; }
-	Inventory*        getInv()                                     { return &inventory; }
+	Inventory*        getInv()                                     { return player.getInv(); }
 
 	//Score-Related
 
@@ -174,7 +172,6 @@ private:
 	std::unordered_map<std::string, ProjectileSpecs*> p_specs;
 
 	Player    player;
-	Inventory inventory;
 	int       score;
 	int       credits;
 

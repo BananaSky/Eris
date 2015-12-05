@@ -139,9 +139,9 @@ void GuiManager::loadShow(std::string location, sf::Vector2f scale = sf::Vector2
 
 void Window::loadInv(std::string location, sf::Vector2f size)
 {
-	inventory.setTexture(loadTexture(location));
-	inventory.setSize(size);
-	inventory.setPosition(window.getSize().x / 2 - inventory.getLocalBounds().width / 2, 0);
+	player.getInv()->setTexture(loadTexture(location));
+	player.getInv()->setSize(size);
+	player.getInv()->setPosition(window.getSize().x / 2 - player.getInv()->getLocalBounds().width / 2, 0);
 }
 
 void GuiManager::loadMenuBacking(std::string location)

@@ -18,7 +18,7 @@ void AI::turnTo()
 	{
 		float d_x = target->getPosition().x - getPosition().x;
 		float d_y = target->getPosition().y - getPosition().y;
-		float angle = atan2f(d_y, d_x) * 180 / 3.1415;
+		float angle = atan2f(d_y, d_x) * 180.0f / 3.1415f;
 
 		if (angle < 0)
 		{
@@ -84,7 +84,7 @@ void AI::update(Window* board, sf::RenderWindow* window)
 {
 	if (keepAtRange)
 	{
-		followDistance = (int)board->getPSpecs()->at(missleTypes[selectedType])->calcRange(velocity);
+		followDistance = board->getPSpecs()->at(missleTypes[selectedType])->calcRange(velocity);
 	}
 	turnTo();
 	forward();

@@ -32,4 +32,6 @@ int CascadingButtons::clickListener(sf::Vector2i pos)
 			return (i + 1);
 		}
 	}
+	
+	return -1;
 }

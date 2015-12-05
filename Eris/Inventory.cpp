@@ -37,7 +37,7 @@ bool Inventory::insertNew(std::string type, Window* board, int amount)
 				it->setNum(amount);
 				it->setName(board->getItems()->at(type).name);
 				it->setTexture(*board->loadTexture(board->getItems()->at(type).texture));
-				it->scale(sf::Vector2f(.9, .9));
+				it->scale(sf::Vector2f(.9f, .9f));
 				foundSpace = true;
 				break;
 			}
@@ -100,7 +100,7 @@ void Inventory::displayInv(sf::RenderWindow* window)
 
 void Inventory::format(sf::RenderWindow* window)
 {
-	sf::Vector2i pos = sf::Vector2i(getPosition().x, getPosition().y);
+	sf::Vector2i pos = sf::Vector2i((int)getPosition().x, (int)getPosition().y);
 
 	pos.x += 57;
 	int x_align = pos.x;
@@ -113,7 +113,7 @@ void Inventory::format(sf::RenderWindow* window)
 		{
 			if (i < contents.size())
 			{
-				contents[i].setPosition(pos.x, pos.y);
+				contents[i].setPosition((float)pos.x, (float)pos.y);
 			}
 			else
 			{
@@ -156,6 +156,8 @@ sf::Vector2i Inventory::calcPosition(int index, sf::RenderWindow* window)
 
 		pos.y += cellSize;
 	}
+
+	return pos;
 }
 
 int Inventory::calcIndex(sf::Vector2i position)
@@ -165,7 +167,7 @@ int Inventory::calcIndex(sf::Vector2i position)
 
 void Inventory::InvListener(sf::Event* event, Window* board, sf::RenderWindow* window)
 {
-	sf::Vector2i pos = sf::Vector2i(getPosition().x, getPosition().y);
+	sf::Vector2i pos = sf::Vector2i((int)getPosition().x, (int)getPosition().y);
 
 	pos.x += 57;
 	pos.y += 45;
@@ -191,7 +193,7 @@ void Inventory::InvListener(sf::Event* event, Window* board, sf::RenderWindow* w
 		sf::Vector2i mousePos = sf::Vector2i(event->mouseMove.x, event->mouseMove.y);
 		if (selected != -1)
 		{
-			contents[selected].setPosition(sf::Vector2f(mousePos.x - cellSize / 2, mousePos.y - cellSize / 2));
+			contents[selected].setPosition(sf::Vector2f((float)(mousePos.x - cellSize / 2), (float)(mousePos.y - cellSize / 2)));
 		}
 	}
 

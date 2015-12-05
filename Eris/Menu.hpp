@@ -22,7 +22,7 @@ public:
 
 	void draw(sf::RenderWindow * window);
 
-	float getRatioOf(int index) { if (index < sliders.size()) { return sliders[index].getRatio(); } }
+	float getRatioOf(int index) { if (index < sliders.size()) { return sliders[index].getRatio(); } else { return .1f; } }
 
 	void loadButtonTexture      (sf::Texture* t) { buttonTexture = *t;       for (Button& b : buttons) { b.setTexture(t); } }
 	void loadSliderTexture      (sf::Texture* t) { sliderTexture = *t;       for (Slider& s : sliders) { s.setTexture(t); } }
@@ -41,9 +41,9 @@ private:
 	static sf::Texture sliderTexture;
 	static sf::Texture sliderButtonTexture;
 
-	int x = 20; //Initial offsets from the menu's position
-	int y = 20;
-	int verticalSpacing = 40;
-	int horizontalSpacing = 40;
+	float x = 20; //Initial offsets from the menu's position
+	float y = 20;
+	float verticalSpacing = 40;
+	float horizontalSpacing = 60;
 };
 
