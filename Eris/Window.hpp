@@ -37,9 +37,6 @@ public:
 	void run();
 	void draw();
 
-
-	void buyIron(); //Move this to a different class, please :)
-
 	void updateCrates();
 
 	void updateEnemies();
@@ -94,6 +91,11 @@ public:
 	//Chunks and update
 
 	void genChunks(sf::Vector2f size);
+
+
+	void buy(std::string index, int amount = 1);
+
+	void sell(std::string index, int amount = 1);
 
 	void updateProjectiles();
 	void updateAllies();

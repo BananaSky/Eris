@@ -5,23 +5,33 @@ Menu::Menu(){}
 
 Menu::~Menu(){}
 
+sf::Texture Menu::buttonTexture;
+sf::Texture Menu::sliderTexture;
+sf::Texture Menu::sliderButtonTexture;
+
 void Menu::insertButton(Button button, sf::Vector2f pos) 
 {
 	buttons.push_back(button);
 	buttons.back().setPosition(getPosition().x + pos.x, getPosition().y + pos.y);
 	buttons.back().format();
+	buttons.back().setTexture(&buttonTexture);
 }
 
 void Menu::insertSlider(Slider slider, sf::Vector2f pos)
 {
 	sliders.push_back(slider);
 	sliders.back().move(sf::Vector2f(getPosition().x + pos.x, getPosition().y + pos.y)); // Sets Position of slider button as well;
+	sliders.back().setTexture(&sliderTexture);
+	sliders.back().setButtonTexture(&sliderButtonTexture);
 }
 
 void Menu::insertRow(std::string label)
 {
 	insertButton(Button(sf::Vector2f(60, 30), label, *parent->getText()), sf::Vector2f(x, y));
 	insertSlider(Slider(), sf::Vector2f(x + horizontalSpacing, y));
+	buttons.back().setTexture(&buttonTexture);
+	sliders.back().setTexture(&sliderTexture);
+	sliders.back().setButtonTexture(&sliderButtonTexture);
 	y += verticalSpacing;
 }
 
@@ -33,14 +43,15 @@ int Menu::buttonListener(sf::Event* event)
 
 		for (int i = 0; i < buttons.size(); i++)
 		{
+			std::cout << "Checking against: " << i << std::endl;
 			if (buttons[i].listener((sf::Vector2f)pos))
 			{
-				return  i + 1;
+				return  i;
 			}
 		}
 	}
 
-	return 0;
+	return -1;
 }
 
 void Menu::sliderListener(sf::Event* event)

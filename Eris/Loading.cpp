@@ -148,24 +148,28 @@ void GuiManager::loadMenuBacking(std::string location)
 {
 	menuBacking = *parent->loadTexture(location);
 	stationMenu.setTexture(&menuBacking);
+	planetMenu.setTexture(&menuBacking);
 }
 
 void GuiManager::loadButtonTexture(std::string location)
 {
 	buttonTexture = *parent->loadTexture(location);
 	stationMenu.loadButtonTexture(&buttonTexture);
+	planetMenu.loadButtonTexture(&buttonTexture);
 }
 
 void GuiManager::loadSliderButtonTexture(std::string location)
 {
 	sliderButtonTexture = *parent->loadTexture(location);
 	stationMenu.loadSliderButtonTexture(&sliderButtonTexture);
+	planetMenu.loadSliderButtonTexture(&sliderButtonTexture);
 }
 
 void GuiManager::loadSliderTexture(std::string location)
 {
 	sliderTexture = *parent->loadTexture(location);
 	stationMenu.loadSliderTexture(&sliderTexture);
+	planetMenu.loadButtonTexture(&sliderTexture);
 }
 
 void GuiManager::loadTextBox(std::string location)

@@ -76,6 +76,7 @@ int main(int argc, char** argv)
 	gamewindow.GUImanager.loadSPACE("Graphics/Buttons-Icons/Space.png");
 
 	gamewindow.GUImanager.loadMenuBacking("Graphics/FuelMeter.png");
+
 	gamewindow.GUImanager.loadButtonTexture("Graphics/Buttons-Icons/Button.png");
 	gamewindow.GUImanager.loadSliderTexture("Graphics/Buttons-Icons/slideBar.png");
 	gamewindow.GUImanager.loadSliderButtonTexture("Graphics/Buttons-Icons/slideButton.png");

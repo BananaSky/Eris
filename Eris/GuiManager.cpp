@@ -1,6 +1,7 @@
 #include "GuiManager.hpp"
 #include "Includes.hpp"
 #include "Window.hpp"
+#include "Planet.hpp"
 
 GuiManager::GuiManager()
 {
@@ -31,6 +32,7 @@ GuiManager::GuiManager()
 	stationMenu.setPosition(154, 0);
 	stationMenu.setParent(this);
 	stationMenu.setSize(sf::Vector2f(200, 200));
+
 	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Upgrade", text), sf::Vector2f(10, 10));
 	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Refuel", text),  sf::Vector2f(10, 50));
 	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Refill", text),  sf::Vector2f(10, 90));
@@ -69,6 +71,7 @@ void GuiManager::guiListener(sf::Event* event, Window* board, sf::RenderWindow* 
 	}
 
 	stationMenuListener(event);
+	planetMenuListener(event);
 }
 
 void GuiManager::stationMenuListener(sf::Event* event)
@@ -76,7 +79,7 @@ void GuiManager::stationMenuListener(sf::Event* event)
 	if (stationMenuOpen)
 	{
 		stationMenu.sliderListener(event);
-		switch (stationMenu.buttonListener(event))
+		switch (stationMenu.buttonListener(event) + 1)
 		{
 		case 1:
 			parent->getPlayer()->upgrade(parent);
@@ -103,21 +106,12 @@ void GuiManager::planetMenuListener(sf::Event* event)
 {
 	if (planetMenuOpen)
 	{
-		planetMenu.sliderListener(event);
-		switch (planetMenu.buttonListener(event))
+		if (currentlyNear != NULL)
 		{
-		case 1:
-			parent->buyIron();
-			break;
-		case 2:
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		default:
-			break;
+			planetMenu.sliderListener(event);
+			currentlyNear->determineAction(planetMenu.buttonListener(event), parent);
 		}
+
 	}
 }
 
@@ -125,7 +119,7 @@ void GuiManager::planetGUI(sf::RenderWindow* window)
 {
 	if (planetMenuOpen)
 	{
-		window->draw(planetMenu);
+		planetMenu.draw(window);
 	}
 }
 
@@ -173,12 +167,13 @@ void GuiManager::InfoGUI()
 	target->draw(text);
 
 	text.setCharacterSize(20);
-	DrawCascadingText("Equipped: " + parent->getPlayer()->getEquipped(), 75);
+	DrawCascadingText("Equipped: "         + parent->getPlayer()->getEquipped(), 75);
 	int spacing = 30;
 	DrawCascadingText("Range: "            + std::to_string(parent->getPlayer()->getRange(parent)), spacing);
 	DrawCascadingText("Max DPS: "          + std::to_string(parent->getPlayer()->getDPS(parent)), spacing);
 	DrawCascadingText("Accuracy: "         + parent->getPlayer()->getAccString(), spacing);
 	DrawCascadingText("Aiming: "           + parent->getPlayer()->getAiming(), spacing);
+	DrawCascadingText("Ammo: "             + std::to_string(parent->getPlayer()->getAmmoAmount()), spacing);
 	DrawCascadingText("Velocity: "         + std::to_string(parent->getPlayer()->getVelocity()), spacing);
 	DrawCascadingText("Strafe Velocity: "  + std::to_string((int)parent->getPlayer()->getStrafe()), spacing);
 	DrawCascadingText("Max Acceleration: " + std::to_string(parent->getPlayer()->getAccel()), spacing);
@@ -240,7 +235,7 @@ void GuiManager::draw(sf::RenderWindow* window)
 	text.setPosition(36, 32);
 	window->draw(text);
 
-	if (nearStation) { stationGUI(window); }
+	if (nearStation) { stationGUI(target); }
 	else             { stationMenuOpen = false; }
 
 	if (nearPlanet)  { planetGUI(target);  }
@@ -256,6 +251,28 @@ void GuiManager::draw(sf::RenderWindow* window)
 
 
 	
+}
+
+void GuiManager::setCurrentNear(Planet* near)
+{ 
+	currentlyNear = near;
+	planetMenu.clear();
+
+	std::string label;
+	label.reserve();
+
+	for (auto& p : *currentlyNear->getMarket())
+	{
+		if (p.first)
+		{
+			label = "Buy "  + p.second.name;
+		}
+		else
+		{
+			label = "Sell " + p.second.name;
+		}
+		planetMenu.insertRow(label);
+	}
 }
 
 void GuiManager::update()

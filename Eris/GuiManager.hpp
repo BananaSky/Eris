@@ -4,6 +4,7 @@
 #include "TimedTextBox.hpp"
 #include "Menu.hpp"
 
+class Planet;
 class Window;
 
 class GuiManager
@@ -53,6 +54,8 @@ public:
 	void setParent     (Window* board)            { parent = board; }
 	void setNearStation (bool set);
 	void setNearPlanet  (bool set);
+	void setCurrentNear(Planet* near);
+	Planet* getCurrentNear() { return currentlyNear; }
 
 	void openStationMenu();
 	void openPlanetMenu(); 
@@ -97,6 +100,7 @@ private:
 	sf::Sprite         hideButton; //Should be updated to be buttons instead of sprites
 	sf::Sprite         showButton;
 
+	Planet* currentlyNear = NULL;
 
 	bool infoHidden      = false;
 	bool nearStation     = false;
