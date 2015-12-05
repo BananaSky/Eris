@@ -6,6 +6,8 @@
 
 int main(int argc, char** argv)
 {
+	srand(time(NULL));
+
 	std::cout << "Eris.." << std::endl;
 
 	Window gamewindow("Eris");
@@ -89,6 +91,7 @@ int main(int argc, char** argv)
 	gamewindow.loadProjectileSpecs("ProjectileData.csv");
 	gamewindow.loadWaves("Waves.csv");
 	gamewindow.loadItems("Items.csv");
+	gamewindow.loadTurrets("Turrets.csv");
 	gamewindow.loadPlayer(sf::Vector2f(0, 0), sf::Vector2f(.3f, .3f), "Frigate");
 
 	gamewindow.genChunks(sf::Vector2f(50000, 50000));

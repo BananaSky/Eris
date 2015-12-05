@@ -169,7 +169,7 @@ void GuiManager::loadSliderTexture(std::string location)
 {
 	sliderTexture = *parent->loadTexture(location);
 	stationMenu.loadSliderTexture(&sliderTexture);
-	planetMenu.loadButtonTexture(&sliderTexture);
+	planetMenu.loadSliderTexture(&sliderTexture);
 }
 
 void GuiManager::loadTextBox(std::string location)
@@ -204,12 +204,14 @@ void Window::loadShipSpecs(std::string filename)
 	std::string texture;
 	std::vector<std::string> missleTypes;
 	int cost;
+	std::vector<std::string> turretTypes;
 
 	std::string                line;
 	std::getline(indata, line);
 	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
 	{
 		missleTypes.clear();
+		turretTypes.clear();
 
 		std::stringstream          lineStream(line);
 
@@ -261,6 +263,17 @@ void Window::loadShipSpecs(std::string filename)
 			}
 		}
 
+		while (std::getline(lineStream, cell, ','))
+		{
+			if (cell != "none")
+			{
+				turretTypes.push_back(cell);
+			}
+			else
+			{
+				break; //Discard the none value
+			}
+		}
 
 		spec_Keys.push_back(name);
 		specs.insert(
@@ -279,7 +292,8 @@ void Window::loadShipSpecs(std::string filename)
 			repair,
 			texture,
 			missleTypes, 
-			cost
+			cost,
+			turretTypes
 		}
 				)
 			);
@@ -487,6 +501,49 @@ void Window::loadItems(std::string filename)
 	}
 	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
 }
+
+void Window::loadTurrets(std::string filename)
+{
+	std::ifstream indata;
+
+	indata.open(filename);
+
+	std::string name;
+	std::string ammo_type;
+	std::string temp_p;
+	int baseRate;
+
+	std::string                line;
+	std::getline(indata, line);
+	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
+	{
+		std::stringstream          lineStream(line);
+
+		//This would be better with some operator overloading, but for now....?
+
+		std::string                cell;
+		std::getline(lineStream, name, ',');
+		std::getline(lineStream, ammo_type, ',');
+		std::getline(lineStream, temp_p, ',');
+
+		std::getline(lineStream, cell, ',');
+		baseRate = std::stoi(cell);
+
+		TurretSpecs turret{ name, ammo_type, temp_p, baseRate };
+
+		auto got = turretSpecs.find(name);
+		if (got == turretSpecs.end())
+		{
+			turretSpecs.insert(std::pair<std::string, TurretSpecs>(name, turret));
+		}
+		else
+		{
+			std::cout << "Already Loaded: " << name << std::endl;
+		}
+	}
+	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
+}
+
 
 void Window::loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name = "Frigate")
 {

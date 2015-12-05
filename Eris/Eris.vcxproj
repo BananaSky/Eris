@@ -152,6 +152,7 @@
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TimedText.cpp" />
     <ClCompile Include="TimedTextBox.cpp" />
+    <ClCompile Include="Turret.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -185,6 +186,8 @@
     <ClInclude Include="Tilemap.hpp" />
     <ClInclude Include="TimedText.hpp" />
     <ClInclude Include="TimedTextBox.hpp" />
+    <ClInclude Include="Turret.hpp" />
+    <ClInclude Include="TurretSpecs.h" />
     <ClInclude Include="Wave.hpp" />
     <ClInclude Include="Window.hpp" />
   </ItemGroup>

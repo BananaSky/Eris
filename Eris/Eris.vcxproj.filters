@@ -43,6 +43,12 @@
     <Filter Include="Source Files\GUI">
       <UniqueIdentifier>{f013646a-b4a3-4410-a739-57f24c9751e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Ship\ShipParts">
+      <UniqueIdentifier>{dbb86a08-74e8-471a-a86a-31aefbc30400}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Ship\ShipParts">
+      <UniqueIdentifier>{be737ade-c482-49bf-a583-04792e39673e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -128,6 +134,9 @@
     </ClCompile>
     <ClCompile Include="Market.cpp">
       <Filter>Source Files\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>Source Files\Ship\ShipParts</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -226,6 +235,12 @@
     </ClInclude>
     <ClInclude Include="Market.hpp">
       <Filter>Header Files\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Turret.hpp">
+      <Filter>Header Files\Ship\ShipParts</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretSpecs.h">
+      <Filter>Header Files\Ship\ShipParts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

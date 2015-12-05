@@ -11,6 +11,7 @@
 #include "GuiManager.hpp"
 #include "Crate.hpp"
 #include "ItemSpecs.hpp"
+#include "TurretSpecs.h"
 
 class  Chunk;
 struct ProjectileSpecs;
@@ -58,6 +59,7 @@ public:
 	void loadStart          (std::string location, sf::Vector2f scale);
 	void loadCrate          (std::string location);
 	void loadItems(std::string filename);
+	void loadTurrets(std::string filename);
 	void loadPlayer         (sf::Vector2f position, sf::Vector2f scale, std::string name);
 	void loadInv            (std::string location, sf::Vector2f size);
 
@@ -75,8 +77,6 @@ public:
 	//void addExplosion(Explosion* explosion);
 	void addFragments(sf::Vector2f position, int amount=40, int spread=1);
 	void addCrate(sf::Vector2f position);
-	void addProjectile(float rotation, sf::Vector2f position, float velocity, std::string type);
-	void addEnemyProjectile(float rotation, sf::Vector2f position, float velocity, std::string type);
 
 	void addExplosion(explosion_ptr explosion);
 
@@ -114,15 +114,18 @@ public:
 
 	//Lots of getters
 
-	std::vector<sf::Texture*>* getAsteroidTextures()               { return &asteroidTextures; }
-	std::vector<sf::Texture*>* getPlanetTextures()                 { return &planetTextures; }
-	std::vector<sf::Texture*>* getExplosionTextures()              { return &explosionTextures; }
-	std::vector<sf::Texture*>* getStationTextures()                { return &stationTextures; }
-	std::unordered_map<std::string, sf::Texture*>* getTextures()   { return &textures; }
-	std::unordered_map<std::string, ShipSpecs*>* getShipSpecs()    { return &specs; }
+	std::vector<sf::Texture*>*               getAsteroidTextures() { return &asteroidTextures; }
+	std::vector<sf::Texture*>*                 getPlanetTextures() { return &planetTextures; }
+	std::vector<sf::Texture*>*              getExplosionTextures() { return &explosionTextures; }
+	std::vector<sf::Texture*>*                getStationTextures() { return &stationTextures; }
+	std::unordered_map<std::string, sf::Texture*>*   getTextures() { return &textures; }
+	std::unordered_map<std::string, ShipSpecs*>*    getShipSpecs() { return &specs; }
 	std::unordered_map<std::string, ProjectileSpecs*>* getPSpecs() { return &p_specs; }
-	std::vector<std::string>* getSpec_Keys()                       { return &spec_Keys; }
-	std::unordered_map<std::string, ItemSpecs>* getItems()              { return &itemList; }
+	std::unordered_map<std::string, TurretSpecs>*      getTSpecs() { return &turretSpecs; }
+	std::vector<std::string>*                       getSpec_Keys() { return &spec_Keys; }
+	std::unordered_map<std::string, ItemSpecs>*         getItems() { return &itemList; }
+	std::vector<projectile_ptr>*                  getProjectiles() { return &projectiles; }
+	std::vector<projectile_ptr>*             getEnemyProjectiles() { return &enemyProjectiles; }
 
 	sf::RenderWindow* getWindow()                                  { return &window; }
 	float             getFps()                                     { return fps; }
@@ -170,6 +173,7 @@ private:
 
 	std::unordered_map<std::string, ShipSpecs*>       specs;
 	std::unordered_map<std::string, ProjectileSpecs*> p_specs;
+	std::unordered_map<std::string, TurretSpecs> turretSpecs;
 
 	Player    player;
 	int       score;

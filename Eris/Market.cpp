@@ -7,6 +7,8 @@ Market::~Market(){}
 
 void Market::addRandomMarketItem(Window* board)
 {
+	modifier = (float)(rand() % 100 + 50) / 100.0f;
+
 	std::vector<std::string> keys;
 	keys.reserve(board->getItems()->size());
 
