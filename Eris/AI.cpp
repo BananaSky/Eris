@@ -3,13 +3,14 @@
 #include "Window.hpp"
 #include "ProjectileSpecs.hpp"
 
-AI::AI() { this->shooting = true; selectedAmmoType = 0; }
+AI::AI() { this->shooting = true; selectedAmmoType = 0; health.setFillColor(sf::Color::Green); }
 AI::~AI(){}
 
 AI::AI(Ship* target)
 {
 	this->target = target;
 	this->shooting = true;
+	health.setFillColor(sf::Color::Green);
 }
 
 void AI::turnTo() 
@@ -82,6 +83,18 @@ void AI::forward()
 
 void AI::update(Window* board, sf::RenderWindow* window)
 {
+	health.setPosition(this->getPosition().x - health.getSize().x / 2, this->getPosition().y - 30);
+	health.setSize(sf::Vector2f(structuralIntegrity, 8));
+
+	if (structuralIntegrity < maxIntegrity / 2)
+	{
+		health.setFillColor(sf::Color::Yellow);
+	}
+	else if (structuralIntegrity < maxIntegrity / 3)
+	{
+		health.setFillColor(sf::Color::Red);
+	}
+
 	if (keepAtRange)
 	{
 		followDistance = board->getPSpecs()->at(ammoTypes[selectedAmmoType])->calcRange(velocity);

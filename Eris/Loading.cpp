@@ -489,8 +489,9 @@ void Window::loadTurrets(std::string filename)
 
 	std::string name;
 	std::string ammo_type;
-	std::string temp_p;
 	int baseRate;
+	float spreadModifier;
+	float accuracyModifier;
 
 	std::string                line;
 	std::getline(indata, line);
@@ -503,12 +504,17 @@ void Window::loadTurrets(std::string filename)
 		std::string                cell;
 		std::getline(lineStream, name, ',');
 		std::getline(lineStream, ammo_type, ',');
-		std::getline(lineStream, temp_p, ',');
 
 		std::getline(lineStream, cell, ',');
 		baseRate = std::stoi(cell);
 
-		TurretSpecs turret{ name, ammo_type, temp_p, baseRate };
+		std::getline(lineStream, cell, ',');
+		spreadModifier = std::stof(cell);
+
+		std::getline(lineStream, cell, ',');
+		accuracyModifier = std::stof(cell);
+
+		TurretSpecs turret{ name, ammo_type, baseRate, spreadModifier, accuracyModifier };
 
 		auto got = turretSpecs.find(name);
 		if (got == turretSpecs.end())

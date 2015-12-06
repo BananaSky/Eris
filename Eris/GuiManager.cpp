@@ -174,7 +174,8 @@ void GuiManager::InfoGUI()
 	DrawCascadingText("Max DPS: "          + std::to_string(parent->getPlayer()->getDPS(parent)), spacing);
 	DrawCascadingText("Accuracy: "         + parent->getPlayer()->getAccString(), spacing);
 	DrawCascadingText("Aiming: "           + parent->getPlayer()->getAiming(), spacing);
-	DrawCascadingText("Ammo: "             + std::to_string(parent->getPlayer()->getAmmoAmount()), spacing);
+	DrawCascadingText("Ammo: "             + std::to_string(parent->getPlayer()->getAmmoAmount()) + " " 
+		                                   + parent->getPlayer()->getAmmoType(), spacing);
 	DrawCascadingText("Velocity: "         + std::to_string(parent->getPlayer()->getVelocity()), spacing);
 	DrawCascadingText("Strafe Velocity: "  + std::to_string((int)parent->getPlayer()->getStrafe()), spacing);
 	DrawCascadingText("Max Acceleration: " + std::to_string(parent->getPlayer()->getAccel()), spacing);

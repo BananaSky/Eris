@@ -3,13 +3,15 @@
 #include "Projectile.hpp"
 
 class Window;
+struct TurretSpecs;
 
 class Turret
 {
 public:
 	Turret();
-	Turret(std::string name, std::string type) { this->name = name; ammo_type = type; }
 	~Turret();
+
+	void loadType(TurretSpecs type);
 
 	typedef std::shared_ptr<Projectile> projectile_ptr;
 
@@ -17,8 +19,11 @@ public:
 
 	std::string getName() { return name; }
 	std::string getAmmoType() { return ammo_type; }
+	int getBaseRate() { return baseRate; }
 
 private:
+	int baseRate;
+
 	float spreadModifier  = 1.0;
 	float accuracyModfier = 10.0;
 
