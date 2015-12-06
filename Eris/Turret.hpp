@@ -16,6 +16,7 @@ public:
 	void shoot(float rotation, sf::Vector2f pos, float velocity, std::string type, Window* board, bool enemy=false);
 
 	std::string getName() { return name; }
+	std::string getAmmoType() { return ammo_type; }
 
 private:
 	float spreadModifier  = 1.0;

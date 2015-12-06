@@ -202,7 +202,6 @@ void Window::loadShipSpecs(std::string filename)
 	float structuralIntegrity;
 	float repair;
 	std::string texture;
-	std::vector<std::string> missleTypes;
 	int cost;
 	std::vector<std::string> turretTypes;
 
@@ -210,7 +209,6 @@ void Window::loadShipSpecs(std::string filename)
 	std::getline(indata, line);
 	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
 	{
-		missleTypes.clear();
 		turretTypes.clear();
 
 		std::stringstream          lineStream(line);
@@ -243,25 +241,8 @@ void Window::loadShipSpecs(std::string filename)
 
 		std::getline(lineStream, texture, ',');
 
-		while (std::getline(lineStream, cell, ','))
-		{
-			if (cell != "none")
-			{
-				missleTypes.push_back(cell);
-			}
-			else
-			{
-				break; //Discard the none value
-			}
-		}
-
-		while (std::getline(lineStream, cell, ','))
-		{
-			if (cell != "none")
-			{
-				cost = std::stoi(cell); break;
-			}
-		}
+		std::getline(lineStream, cell, ',');
+		cost = std::stoi(cell);
 
 		while (std::getline(lineStream, cell, ','))
 		{
@@ -291,7 +272,6 @@ void Window::loadShipSpecs(std::string filename)
 			structuralIntegrity,
 			repair,
 			texture,
-			missleTypes, 
 			cost,
 			turretTypes
 		}
@@ -334,15 +314,13 @@ void Window::loadProjectileSpecs(std::string filename)
 
 	std::string name;
 	int lifetime;
-	float hitRadius;
 	float damage;
 	float acceleration;
-	std::string texture;
-	int baseRate;
-	uint8_t amount;
-	uint8_t spread;
 	uint8_t accuracy;
-	std::string ammo_type;
+	std::string Ammo_Type;
+	int basePrice;
+	std::string texture;
+	std::string itemTexture;
 
 	std::string                line;
 	std::getline(indata, line);
@@ -359,29 +337,21 @@ void Window::loadProjectileSpecs(std::string filename)
 		lifetime = std::stoi(cell);
 
 		std::getline(lineStream, cell, ',');
-		hitRadius = std::stof(cell);
-
-		std::getline(lineStream, cell, ',');
 		damage = std::stof(cell);
 
 		std::getline(lineStream, cell, ',');
 		acceleration = std::stof(cell);
 
-		std::getline(lineStream, texture, ',');
-
-		std::getline(lineStream, cell, ',');
-		baseRate = std::stoi(cell);
-
-		std::getline(lineStream, cell, ',');
-		amount = std::stoi(cell);
-
-		std::getline(lineStream, cell, ',');
-		spread = std::stoi(cell);
-
 		std::getline(lineStream, cell, ',');
 		accuracy = std::stoi(cell);
 
-		std::getline(lineStream, ammo_type, ',');
+		std::getline(lineStream, Ammo_Type, ',');
+
+		std::getline(lineStream, cell, ',');
+		basePrice = std::stoi(cell);
+
+		std::getline(lineStream, texture, ',');
+		std::getline(lineStream, itemTexture, ',');
 
 		p_specs.insert(
 			std::pair<std::string, ProjectileSpecs*>
@@ -389,21 +359,30 @@ void Window::loadProjectileSpecs(std::string filename)
 				name,
 				new ProjectileSpecs
 		{
-			lifetime,
-			hitRadius,
+				lifetime,
 				damage,
 				acceleration,
-				texture,
-				baseRate,
-				amount,
-				spread,
 				accuracy,
-				ammo_type
+				Ammo_Type,
+				texture
 		}
 				)
 			);
+		{
+			ItemSpecs item{ name, itemTexture, basePrice };
 
-		std::unordered_map<std::string, sf::Texture*>::const_iterator got = textures.find(texture);
+			auto got = itemList.find(name);
+			if (got == itemList.end())
+			{
+				itemList.insert(std::pair<std::string, ItemSpecs>(name, item));
+			}
+			else
+			{
+				std::cout << "Already Loaded: " << name << std::endl;
+			}
+		}
+
+		auto got = textures.find(texture);
 		if (got == textures.end())
 		{
 			textures.insert(std::pair<std::string, sf::Texture*>(texture, new sf::Texture()));

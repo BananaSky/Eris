@@ -30,6 +30,8 @@ public:
 
 	void InvListener(sf::Event *, Window * board, sf::RenderWindow * window);
 
+	std::vector<std::string> getTypesOf(std::string type, Window * board);
+
 	int cellSize = 58; //Three pixel Wide Dividers
 	int width = 6;
 	int height = 4;

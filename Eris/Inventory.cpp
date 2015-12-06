@@ -2,6 +2,7 @@
 #include "Includes.hpp"
 #include "Item.hpp"
 #include "Window.hpp"
+#include "ProjectileSpecs.hpp"
 
 Inventory::Inventory()
 {
@@ -219,4 +220,20 @@ void Inventory::InvListener(sf::Event* event, Window* board, sf::RenderWindow* w
 		
 		selected = -1;
 	}
+}
+
+std::vector<std::string> Inventory::getTypesOf(std::string type, Window* board)
+{
+	std::vector<std::string> typesOf;
+
+	for (auto& i : contents)
+	{
+		auto got = board->getPSpecs()->find(i.getName());
+		if (got != board->getPSpecs()->end() && got->second->Ammo_Type == type)
+		{
+			typesOf.push_back(i.getName());
+		}
+	}
+
+	return typesOf;
 }

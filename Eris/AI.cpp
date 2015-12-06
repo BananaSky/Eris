@@ -3,7 +3,7 @@
 #include "Window.hpp"
 #include "ProjectileSpecs.hpp"
 
-AI::AI() { this->shooting = true; selectedType = 0; }
+AI::AI() { this->shooting = true; selectedAmmoType = 0; }
 AI::~AI(){}
 
 AI::AI(Ship* target)
@@ -84,7 +84,7 @@ void AI::update(Window* board, sf::RenderWindow* window)
 {
 	if (keepAtRange)
 	{
-		followDistance = board->getPSpecs()->at(missleTypes[selectedType])->calcRange(velocity);
+		followDistance = board->getPSpecs()->at(ammoTypes[selectedAmmoType])->calcRange(velocity);
 	}
 	turnTo();
 	forward();
