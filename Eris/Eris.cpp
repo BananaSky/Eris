@@ -52,7 +52,11 @@ int main(int argc, char** argv)
 	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_9.png");
 	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_10.png");
 
+	gamewindow.loadPlanetTexture("Graphics/Planets/exo_1.jpg");
 	gamewindow.loadPlanetTexture("Graphics/Planets/exo_2.jpg");
+	gamewindow.loadPlanetTexture("Graphics/Planets/exo_3.png");
+	gamewindow.loadPlanetTexture("Graphics/Planets/exo_4.jpg");
+	gamewindow.loadPlanetTexture("Graphics/Planets/exo_6.jpg");
 
 	gamewindow.loadStationTexture("Graphics/Stations/station.png");
 	gamewindow.loadStationTexture("Graphics/Stations/station_2.png");
@@ -92,9 +96,10 @@ int main(int argc, char** argv)
 	gamewindow.loadWaves("Waves.csv");
 	gamewindow.loadItems("Items.csv");
 	gamewindow.loadTurrets("Turrets.csv");
+	gamewindow.loadBiomes("Biomes.csv");
 	gamewindow.loadPlayer(sf::Vector2f(0, 0), sf::Vector2f(.3f, .3f), "Frigate");
 
-	gamewindow.genChunks(sf::Vector2f(50000, 50000));
+	gamewindow.genChunks(sf::Vector2f(70000, 70000));
 
 	gamewindow.run();
 

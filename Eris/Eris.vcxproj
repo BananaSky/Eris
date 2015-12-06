@@ -158,6 +158,7 @@
   <ItemGroup>
     <ClInclude Include="AI.hpp" />
     <ClInclude Include="Asteroid.hpp" />
+    <ClInclude Include="Biome.hpp" />
     <ClInclude Include="Button.hpp" />
     <ClInclude Include="Chunk.hpp" />
     <ClInclude Include="Collidable.hpp" />

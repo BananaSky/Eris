@@ -7,6 +7,7 @@
 #include "Explosion.hpp"
 #include "Wave.hpp"
 #include "GuiManager.hpp"
+#include "Biome.hpp"
 
 void Window::loadPlanetTexture(std::string textureLocation)
 {
@@ -528,6 +529,96 @@ void Window::loadTurrets(std::string filename)
 		if (got == turretSpecs.end())
 		{
 			turretSpecs.insert(std::pair<std::string, TurretSpecs>(name, turret));
+		}
+		else
+		{
+			std::cout << "Already Loaded: " << name << std::endl;
+		}
+	}
+	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
+}
+
+void Window::loadBiomes(std::string filename)
+{
+	std::ifstream indata;
+
+	indata.open(filename);
+
+	std::string name;
+	int asteroidNum;
+	int maxAsteroidRadius;
+	int asteroidVelocityMax;
+
+	int maxPlanetNum;
+	int maxPlanetRadius;
+	int minPlanetRadius;
+	int maxStationNumber;
+	int closeness;
+
+	int planetChance;
+	int stationChance;
+
+	std::string                line;
+	std::getline(indata, line);
+	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
+	{
+		std::stringstream          lineStream(line);
+
+		//This would be better with some operator overloading, but for now....?
+
+		std::string                cell;
+
+		std::getline(lineStream, name, ',');
+
+		std::getline(lineStream, cell, ',');
+		asteroidNum = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		maxAsteroidRadius = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		asteroidVelocityMax = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		maxPlanetNum = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		maxPlanetRadius = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		minPlanetRadius = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		maxStationNumber = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		closeness = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		planetChance = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		stationChance = std::stoi(cell);
+
+		Biome biome
+		{
+		asteroidNum,
+		maxAsteroidRadius,
+		asteroidVelocityMax,
+		maxPlanetNum,
+		maxPlanetRadius,
+		minPlanetRadius,
+		maxStationNumber,
+		closeness,
+		planetChance,
+		stationChance 
+		};
+
+		auto got = biomes.find(name);
+		if (got == biomes.end())
+		{
+			biomes.insert(std::pair<std::string, Biome>(name, biome));
+			std::cout << "Loaded " << name << std::endl;
 		}
 		else
 		{

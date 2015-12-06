@@ -242,6 +242,9 @@
     <ClInclude Include="TurretSpecs.h">
       <Filter>Header Files\Ship\ShipParts</Filter>
     </ClInclude>
+    <ClInclude Include="Biome.hpp">
+      <Filter>Header Files\Environment</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Game-11-7-2015\Game-11-7-2015\Game-11-7-2015.vcxproj.filters">

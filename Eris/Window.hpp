@@ -12,6 +12,7 @@
 #include "Crate.hpp"
 #include "ItemSpecs.hpp"
 #include "TurretSpecs.h"
+#include "Biome.hpp"
 
 class  Chunk;
 struct ProjectileSpecs;
@@ -60,6 +61,7 @@ public:
 	void loadCrate          (std::string location);
 	void loadItems(std::string filename);
 	void loadTurrets(std::string filename);
+	void loadBiomes(std::string filename);
 	void loadPlayer         (sf::Vector2f position, sf::Vector2f scale, std::string name);
 	void loadInv            (std::string location, sf::Vector2f size);
 
@@ -173,7 +175,8 @@ private:
 
 	std::unordered_map<std::string, ShipSpecs*>       specs;
 	std::unordered_map<std::string, ProjectileSpecs*> p_specs;
-	std::unordered_map<std::string, TurretSpecs> turretSpecs;
+	std::unordered_map<std::string, TurretSpecs>      turretSpecs;
+	std::unordered_map<std::string, Biome>            biomes;
 
 	Player    player;
 	int       score;
