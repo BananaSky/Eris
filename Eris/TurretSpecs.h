@@ -8,4 +8,7 @@ struct TurretSpecs
 	int baseRate;
 	float spreadModifier;
 	float accuracyModifier;
+
+	int barrelSpacing;
+	int barrels;
 };

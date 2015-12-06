@@ -492,6 +492,8 @@ void Window::loadTurrets(std::string filename)
 	int baseRate;
 	float spreadModifier;
 	float accuracyModifier;
+	int barrelSpacing;
+	int barrels;
 
 	std::string                line;
 	std::getline(indata, line);
@@ -514,7 +516,13 @@ void Window::loadTurrets(std::string filename)
 		std::getline(lineStream, cell, ',');
 		accuracyModifier = std::stof(cell);
 
-		TurretSpecs turret{ name, ammo_type, baseRate, spreadModifier, accuracyModifier };
+		std::getline(lineStream, cell, ',');
+		barrelSpacing = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		barrels = std::stoi(cell);
+
+		TurretSpecs turret{ name, ammo_type, baseRate, spreadModifier, accuracyModifier, barrelSpacing, barrels };
 
 		auto got = turretSpecs.find(name);
 		if (got == turretSpecs.end())
@@ -528,7 +536,6 @@ void Window::loadTurrets(std::string filename)
 	}
 	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
 }
-
 
 void Window::loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name = "Frigate")
 {

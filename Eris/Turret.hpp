@@ -13,6 +13,8 @@ public:
 
 	void loadType(TurretSpecs type);
 
+	void findBarrelPositions(int n);
+
 	typedef std::shared_ptr<Projectile> projectile_ptr;
 
 	void shoot(float rotation, sf::Vector2f pos, float velocity, std::string type, Window* board, bool enemy=false);
@@ -20,6 +22,7 @@ public:
 	std::string getName() { return name; }
 	std::string getAmmoType() { return ammo_type; }
 	int getBaseRate() { return baseRate; }
+	int getBarrels() { return barrels; }
 
 private:
 	int baseRate;
@@ -29,5 +32,10 @@ private:
 
 	std::string name;
 	std::string ammo_type;
+
+	int barrelSpacing;
+	int barrels;
+
+	std::vector<sf::Vector2f> barrelPositions;
 };
 
