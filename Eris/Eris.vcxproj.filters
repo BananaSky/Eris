@@ -138,6 +138,12 @@
     <ClCompile Include="Turret.cpp">
       <Filter>Source Files\Ship\ShipParts</Filter>
     </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>Source Files\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserTurret.cpp">
+      <Filter>Source Files\Ship\ShipParts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.hpp">
@@ -244,6 +250,12 @@
     </ClInclude>
     <ClInclude Include="Biome.hpp">
       <Filter>Header Files\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.hpp">
+      <Filter>Header Files\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserTurret.hpp">
+      <Filter>Header Files\Ship\ShipParts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

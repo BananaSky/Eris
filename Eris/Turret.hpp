@@ -2,6 +2,7 @@
 #include "Includes.hpp"
 #include "Projectile.hpp"
 
+class Ship;
 class Window;
 struct TurretSpecs;
 
@@ -11,20 +12,23 @@ public:
 	Turret();
 	~Turret();
 
+	Turret(Ship * parent);
+
 	void loadType(TurretSpecs type);
 
 	void findBarrelPositions(int n);
 
 	typedef std::shared_ptr<Projectile> projectile_ptr;
 
-	void shoot(float rotation, sf::Vector2f pos, float velocity, std::string type, Window* board, bool enemy=false);
+	virtual void shoot(float rotation, sf::Vector2f pos, float velocity, std::string type, Window* board, bool enemy=false);
 
 	std::string getName() { return name; }
 	std::string getAmmoType() { return ammo_type; }
 	int getBaseRate() { return baseRate; }
 	int getBarrels() { return barrels; }
 
-private:
+protected:
+	Ship* parent;
 	int baseRate;
 
 	float spreadModifier  = 1.0;

@@ -6,7 +6,7 @@
 
 int main(int argc, char** argv)
 {
-	srand(time(NULL));
+	srand((uint64_t)time(NULL));
 
 	std::cout << "Eris.." << std::endl;
 
@@ -97,7 +97,7 @@ int main(int argc, char** argv)
 	gamewindow.loadItems("Items.csv");
 	gamewindow.loadTurrets("Turrets.csv");
 	gamewindow.loadBiomes("Biomes.csv");
-	gamewindow.loadPlayer(sf::Vector2f(0, 0), sf::Vector2f(.3f, .3f), "Frigate");
+	gamewindow.loadPlayer(sf::Vector2f(0, 0), sf::Vector2f(.6f, .6f), "Apache");
 
 	gamewindow.genChunks(sf::Vector2f(70000, 70000));
 

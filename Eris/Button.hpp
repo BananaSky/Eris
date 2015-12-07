@@ -7,11 +7,11 @@ public:
 	Button();
 	~Button();
 
-	Button(sf::Vector2f size, std::string string, sf::Text text);
+	Button(sf::Vector2f size, std::string string, sf::Text& text);
 
 	bool listener(sf::Vector2f pos);
 	void setText(std::string newText);
-	void loadText(sf::Text text);
+	void loadText(sf::Text& text);
 
 	void format();
 

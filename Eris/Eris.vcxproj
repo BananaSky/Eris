@@ -138,6 +138,8 @@
     <ClCompile Include="GuiManager.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Laser.cpp" />
+    <ClCompile Include="LaserTurret.cpp" />
     <ClCompile Include="Loading.cpp" />
     <ClCompile Include="CascadingButtons.cpp" />
     <ClCompile Include="Market.cpp" />
@@ -173,6 +175,8 @@
     <ClInclude Include="Item.hpp" />
     <ClInclude Include="CascadingButtons.hpp" />
     <ClInclude Include="ItemSpecs.hpp" />
+    <ClInclude Include="Laser.hpp" />
+    <ClInclude Include="LaserTurret.hpp" />
     <ClInclude Include="Market.hpp" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Perlin.hpp" />

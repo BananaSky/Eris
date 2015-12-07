@@ -39,6 +39,8 @@ public:
 	void run();
 	void draw();
 
+	Ship * getNearest(bool enemy, sf::Vector2f to);
+
 	void updateCrates();
 
 	void updateEnemies();
