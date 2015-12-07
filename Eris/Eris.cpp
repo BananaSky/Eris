@@ -97,9 +97,9 @@ int main(int argc, char** argv)
 	gamewindow.loadItems("Items.csv");
 	gamewindow.loadTurrets("Turrets.csv");
 	gamewindow.loadBiomes("Biomes.csv");
-	gamewindow.loadPlayer(sf::Vector2f(0, 0), sf::Vector2f(.6f, .6f), "Apache");
+	gamewindow.loadPlayer(sf::Vector2f(0, 0), sf::Vector2f(.6f, .6f), "Frigate");
 
-	gamewindow.genChunks(sf::Vector2f(70000, 70000));
+	gamewindow.genChunks(sf::Vector2f(128000, 128000));
 
 	gamewindow.run();
 
