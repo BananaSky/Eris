@@ -199,6 +199,9 @@
   <ItemGroup>
     <None Include="..\..\Game-11-7-2015\Game-11-7-2015\Game-11-7-2015.vcxproj.filters" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="Quotes.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

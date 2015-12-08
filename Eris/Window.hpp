@@ -82,6 +82,8 @@ public:
 	void addFragments(sf::Vector2f position, int amount=40, int spread=1);
 	void addCrate(sf::Vector2f position);
 
+	Chunk * findHome(sf::Vector2f pos);
+
 	void addExplosion(explosion_ptr explosion);
 
 	//Enemy management
@@ -185,6 +187,7 @@ private:
 	int       credits;
 
 	std::unordered_map<int, Chunk> chunks;
+
 	std::vector<Wave>              waves;
 	std::vector<frag_ptr>          fragments;
 	std::vector<explosion_ptr>     explosions;

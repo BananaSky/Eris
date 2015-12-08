@@ -188,6 +188,19 @@ void GuiManager::loadSPACE(std::string location)
 	space.setTexture(*parent->loadTexture(location));
 }
 
+void GuiManager::loadQuotes(std::string location)
+{
+	std::ifstream file(location);
+	std::string str;
+	std::getline(file, str);
+	while (std::getline(file, str))
+	{
+		std::cout << str << std::endl;
+		Quotes.push_back(str);
+	}
+	
+}
+
 void Window::loadShipSpecs(std::string filename)
 {
 	std::ifstream indata;

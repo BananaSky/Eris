@@ -88,6 +88,7 @@ int main(int argc, char** argv)
 	gamewindow.GUImanager.loadSliderButtonTexture("Graphics/Buttons-Icons/slideButton.png");
 
 	gamewindow.GUImanager.loadTextBox("Graphics/Buttons-Icons/TextBox.png");
+	gamewindow.GUImanager.loadQuotes("Quotes.txt");
 
 	gamewindow.GUImanager.Init();
 
@@ -97,7 +98,7 @@ int main(int argc, char** argv)
 	gamewindow.loadItems("Items.csv");
 	gamewindow.loadTurrets("Turrets.csv");
 	gamewindow.loadBiomes("Biomes.csv");
-	gamewindow.loadPlayer(sf::Vector2f(0, 0), sf::Vector2f(.6f, .6f), "Frigate");
+	gamewindow.loadPlayer(sf::Vector2f(100, 100), sf::Vector2f(.6f, .6f), "Frigate");
 
 	gamewindow.genChunks(sf::Vector2f(128000, 128000));
 

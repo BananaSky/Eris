@@ -24,6 +24,13 @@ void GuiManager::Init()
 	output.loadFont(font);
 	output.setPosition(32, 72);
 
+	story.setSize(sf::Vector2f(300, 600));
+	story.loadTextSize(24);
+	story.setSpace(30);
+	story.loadFont(font);
+	story.setPosition(target->getSize().x / 2 - story.getSize().x / 2, 15);
+	addStoryMessage("Test");
+
 	recticle.setOutlineColor(sf::Color(204, 255, 255, 200));
 	recticle.setFillColor(sf::Color::Transparent);
 	recticle.setOutlineThickness(10);
@@ -216,8 +223,9 @@ void GuiManager::draw(sf::RenderWindow* window)
 	}
 
 	//window->draw(output);
+	story.draw(window);
+
 	output.draw(window);
-	output.update();
 
 	for (sf::RectangleShape& box : guiBoxes)
 	{
@@ -237,14 +245,6 @@ void GuiManager::draw(sf::RenderWindow* window)
 	text.setPosition(36, 32);
 	window->draw(text);
 
-	if (nearStation) { stationGUI(target); }
-	else             { stationMenuOpen = false; }
-
-	if (nearPlanet)  { planetGUI(target);  }
-	else             { planetMenuOpen = false; }
-
-	if (!infoHidden) { InfoGUI(); }
-	else             { window->draw(showButton); }
 
 	window->draw(*parent->getPlayer()->getFuel());
 	window->draw(*parent->getPlayer()->getHealth());
@@ -252,6 +252,8 @@ void GuiManager::draw(sf::RenderWindow* window)
 	window->draw(health);
 
 
+	if (!infoHidden) { InfoGUI(); }
+	else { window->draw(showButton); }
 	
 }
 
@@ -279,10 +281,36 @@ void GuiManager::setCurrentNear(Planet* near)
 
 void GuiManager::update()
 {
+
+	if (nearStation) { stationGUI(target); }
+	else { stationMenuOpen = false; }
+
+	if (nearPlanet) { planetGUI(target); }
+	else { planetMenuOpen = false; }
+
+
+	output.update();
+	story.update();
+	story.setPosition(target->getSize().x / 2 - story.getSize().x / 2, 15);
+
 	if (counter < 600)
 	{
 		wasd.setPosition(target->getSize().x/2 - wasd.getGlobalBounds().width / 2,     (float)(target->getSize().y/2 - 200));
 		space.setPosition(target->getSize().x / 2 - space.getGlobalBounds().width / 2, (float)(target->getSize().y/2 + 100));
+	}
+
+	if (counter % 3000 == 0)
+	{
+		auto it = Quotes.begin();
+		while(*it != "@" && it != Quotes.end())
+		{
+			addStoryMessage(*it);
+			it = Quotes.erase(it);
+		}
+		if (it != Quotes.end())
+		{
+			it = Quotes.erase(it);
+		}
 	}
 
 	aimingLine.setRotation(parent->getPlayer()->getRotation());

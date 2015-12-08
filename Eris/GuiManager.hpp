@@ -27,6 +27,7 @@ public:
 	void loadTextBox     (std::string location);
 	void loadWASD        (std::string location);
 	void loadSPACE       (std::string location);
+	void loadQuotes(std::string location);
 	void loadMenuBacking (std::string location);
 
 	int counter = 1;
@@ -49,6 +50,7 @@ public:
 
 	void addBox            (sf::Vector2f position, sf::Vector2f size);
 	void addMessage        (std::string m) { output.insert(m); }
+	void addStoryMessage   (std::string m) { story.insert(m); }
 	void DrawCascadingText (std::string output, int offset);
 
 
@@ -71,6 +73,7 @@ public:
 private:
 	Window*           parent;
 	sf::RenderWindow* target;
+	std::vector<std::string> Quotes;
 
 	sf::Font font;
 	sf::Text text;
@@ -97,6 +100,7 @@ private:
 	Menu stationMenu;
 
 	TimedTextBox output;
+	TimedTextBox story;
 
 	sf::RectangleShape info;
 	sf::Sprite         hideButton; //Should be updated to be buttons instead of sprites
