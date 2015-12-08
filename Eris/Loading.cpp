@@ -112,6 +112,14 @@ void GuiManager::loadHealth(std::string location, sf::Vector2f size = sf::Vector
 	parent->getPlayer()->syncHealth(&health);
 }
 
+void GuiManager::loadEnergy(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
+{
+	energy.setTexture(parent->loadTexture(location));
+	energy.setSize(size);
+	energy.setPosition(fuel.getPosition().x, fuel.getSize().y + fuel.getPosition().y);
+	parent->getPlayer()->syncEnergy(&energy);
+}
+
 void GuiManager::loadGUI(std::string location, sf::Vector2f scale = sf::Vector2f(.5f, .5f))
 {
 	guiBox = *parent->loadTexture(location);
@@ -219,6 +227,9 @@ void Window::loadShipSpecs(std::string filename)
 	int cost;
 	std::vector<std::string> turretTypes;
 
+	float maxenergy;
+	float recharge;
+
 	std::string                line;
 	std::getline(indata, line);
 	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
@@ -270,6 +281,13 @@ void Window::loadShipSpecs(std::string filename)
 			}
 		}
 
+
+		std::getline(lineStream, cell, ',');
+		maxenergy = std::stof(cell);
+
+		std::getline(lineStream, cell, ',');
+		recharge = std::stof(cell);
+
 		spec_Keys.push_back(name);
 		specs.insert(
 			std::pair<std::string, ShipSpecs*>
@@ -287,7 +305,9 @@ void Window::loadShipSpecs(std::string filename)
 			repair,
 			texture,
 			cost,
-			turretTypes
+			turretTypes,
+				maxenergy,
+				recharge
 		}
 				)
 			);

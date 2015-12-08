@@ -12,7 +12,7 @@ int main(int argc, char** argv)
 
 	Window gamewindow("Eris");
 
-	gamewindow.loadMultiTexture("Graphics/Projectiles/ExplosionHD.png", gamewindow.getExplosionTextures(), 256, 4, 4);
+	gamewindow.loadMultiTexture("Graphics/Projectiles/explosion.png", gamewindow.getExplosionTextures(), 256, 4, 4);
 
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_1.png");
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_2.png");
@@ -70,6 +70,7 @@ int main(int argc, char** argv)
 
 	gamewindow.GUImanager.loadFuel("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
 	gamewindow.GUImanager.loadHealth("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
+	gamewindow.GUImanager.loadEnergy("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
 
 	gamewindow.GUImanager.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
 	gamewindow.GUImanager.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));

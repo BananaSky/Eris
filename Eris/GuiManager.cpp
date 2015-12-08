@@ -29,7 +29,6 @@ void GuiManager::Init()
 	story.setSpace(30);
 	story.loadFont(font);
 	story.setPosition(target->getSize().x / 2 - story.getSize().x / 2, 15);
-	addStoryMessage("Test");
 
 	recticle.setOutlineColor(sf::Color(204, 255, 255, 200));
 	recticle.setFillColor(sf::Color::Transparent);
@@ -55,6 +54,8 @@ void GuiManager::Init()
 
 	planetMenu.setPosition(154, 0);
 	planetMenu.setParent(this);
+
+	parent->getPlayer()->getEnergyBar()->setPosition(0, 330);
 }
 
 void GuiManager::addBox(sf::Vector2f position, sf::Vector2f size)
@@ -248,6 +249,8 @@ void GuiManager::draw(sf::RenderWindow* window)
 
 	window->draw(*parent->getPlayer()->getFuel());
 	window->draw(*parent->getPlayer()->getHealth());
+	window->draw(*parent->getPlayer()->getEnergyBar());
+	window->draw(energy);
 	window->draw(fuel);
 	window->draw(health);
 
