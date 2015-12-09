@@ -12,4 +12,7 @@ struct TurretSpecs
 	int barrelSpacing;
 	int barrels;
 	float range;
+	bool fixed;
+
+
 };

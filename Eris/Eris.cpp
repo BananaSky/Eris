@@ -6,7 +6,7 @@
 
 int main(int argc, char** argv)
 {
-	srand((uint64_t)time(NULL));
+	srand((unsigned)time(NULL));
 
 	std::cout << "Eris.." << std::endl;
 

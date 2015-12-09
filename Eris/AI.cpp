@@ -17,9 +17,7 @@ void AI::turnTo()
 {
 	if (target != NULL)
 	{
-		float d_x = target->getPosition().x - getPosition().x;
-		float d_y = target->getPosition().y - getPosition().y;
-		float angle = atan2f(d_y, d_x) * 180.0f / 3.1415f;
+		float angle = getAngleTo(target->getPosition());
 
 		if (angle < 0)
 		{

@@ -148,6 +148,8 @@
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Railgun.cpp" />
+    <ClCompile Include="RailgunSabot.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Slider.cpp" />
     <ClCompile Include="Station.cpp" />
@@ -184,6 +186,8 @@
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Projectile.hpp" />
     <ClInclude Include="ProjectileSpecs.hpp" />
+    <ClInclude Include="Railgun.hpp" />
+    <ClInclude Include="RailgunSabot.hpp" />
     <ClInclude Include="Ship.hpp" />
     <ClInclude Include="ShipSpecs.hpp" />
     <ClInclude Include="Slider.hpp" />

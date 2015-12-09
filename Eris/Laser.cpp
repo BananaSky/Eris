@@ -19,22 +19,22 @@ Laser::Laser(float angle, sf::Vector2f pos, float velocity, Ship* parent, Ship* 
 	beam.setFillColor(sf::Color::Red);
 }
 
+void Laser::explode(Window* board)
+{
+	//Do nothing :)
+}
+
 void Laser::update(Window* board)
 {
 	if (target != NULL)
 	{
-		float d_x = target->getPosition().x - parent->getPosition().x;
-		float d_y = target->getPosition().y - parent->getPosition().y;
-		float distance = sqrt(pow(d_x, 2) + pow(d_y, 2));
+		float distance = getDistanceTo(target->getPosition());
 		if (parent->getStructure() > 0)
 		{
 			if (distance < muzzle->getRange(board))
 			{
-				float angle = atan2f(d_y, d_x) * 180.0f / 3.1415f;
-				if (angle < 0)
-				{
-					angle = angle + 360;
-				}
+				float angle = getAngleTo(target->getPosition());
+
 				setPosition(target->getPosition());
 				beam.setPosition(parent->getPosition());
 				beam.setRotation(angle);

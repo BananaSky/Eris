@@ -144,6 +144,12 @@
     <ClCompile Include="LaserTurret.cpp">
       <Filter>Source Files\Ship\ShipParts</Filter>
     </ClCompile>
+    <ClCompile Include="RailgunSabot.cpp">
+      <Filter>Source Files\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Railgun.cpp">
+      <Filter>Source Files\Ship\ShipParts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.hpp">
@@ -256,6 +262,12 @@
     </ClInclude>
     <ClInclude Include="LaserTurret.hpp">
       <Filter>Header Files\Ship\ShipParts</Filter>
+    </ClInclude>
+    <ClInclude Include="Railgun.hpp">
+      <Filter>Header Files\Ship\ShipParts</Filter>
+    </ClInclude>
+    <ClInclude Include="RailgunSabot.hpp">
+      <Filter>Header Files\Projectile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

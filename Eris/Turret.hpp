@@ -28,6 +28,8 @@ public:
 	int getBarrels() { return barrels; }
 
 protected:
+	float range;
+
 	Ship* parent;
 	int baseRate;
 
@@ -41,5 +43,7 @@ protected:
 	int barrels;
 
 	std::vector<sf::Vector2f> barrelPositions;
+
+	bool fixed = true;
 };
 

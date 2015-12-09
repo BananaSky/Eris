@@ -13,6 +13,8 @@ public:
 
 	Laser(float angle, sf::Vector2f pos, float velocity, Ship* parent, Ship* target, bool isEnemy, LaserTurret*);
 
+	void explode(Window * board);
+
 	void draw(sf::RenderWindow* window)
 	{
 		window->draw(beam);

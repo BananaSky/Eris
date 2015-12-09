@@ -529,6 +529,7 @@ void Window::loadTurrets(std::string filename)
 	int barrelSpacing;
 	int barrels;
 	float range;
+	bool fixed;
 
 	std::string                line;
 	std::getline(indata, line);
@@ -560,7 +561,11 @@ void Window::loadTurrets(std::string filename)
 		std::getline(lineStream, cell, ',');
 		range = std::stof(cell);
 
-		TurretSpecs turret{ name, ammo_type, baseRate, spreadModifier, accuracyModifier, barrelSpacing, barrels, range };
+		std::getline(lineStream, cell, ',');
+		if (cell == "TRUE")  { fixed = true; }
+		else if (cell == "FALSE") { fixed = false; }
+
+		TurretSpecs turret{ name, ammo_type, baseRate, spreadModifier, accuracyModifier, barrelSpacing, barrels, range, fixed };
 
 		auto got = turretSpecs.find(name);
 		if (got == turretSpecs.end())
