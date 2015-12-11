@@ -8,6 +8,7 @@ int main(int argc, char** argv)
 {
 	srand((unsigned)time(NULL));
 
+
 	std::cout << "Eris.." << std::endl;
 
 	Window gamewindow("Eris");
@@ -52,12 +53,6 @@ int main(int argc, char** argv)
 	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_9.png");
 	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_10.png");
 
-	gamewindow.loadPlanetTexture("Graphics/Planets/exo_1.jpg");
-	gamewindow.loadPlanetTexture("Graphics/Planets/exo_2.jpg");
-	gamewindow.loadPlanetTexture("Graphics/Planets/exo_3.png");
-	gamewindow.loadPlanetTexture("Graphics/Planets/exo_4.jpg");
-	gamewindow.loadPlanetTexture("Graphics/Planets/exo_6.jpg");
-
 	gamewindow.loadStationTexture("Graphics/Stations/station.png");
 	gamewindow.loadStationTexture("Graphics/Stations/station_2.png");
 	gamewindow.loadStationTexture("Graphics/Stations/station_3.png");
@@ -93,12 +88,13 @@ int main(int argc, char** argv)
 
 	gamewindow.GUImanager.Init();
 
-	gamewindow.loadShipSpecs("ShipData.csv");
-	gamewindow.loadProjectileSpecs("ProjectileData.csv");
-	gamewindow.loadWaves("Waves.csv");
-	gamewindow.loadItems("Items.csv");
-	gamewindow.loadTurrets("Turrets.csv");
-	gamewindow.loadBiomes("Biomes.csv");
+	gamewindow.loadShipSpecs("Data/ShipData.csv");
+	gamewindow.loadProjectileSpecs("Data/ProjectileData.csv");
+	gamewindow.loadWaves("Data/Waves.csv");
+	gamewindow.loadItems("Data/Items.csv");
+	gamewindow.loadTurrets("Data/Turrets.csv");
+	gamewindow.loadBiomes("Data/Biomes.csv");
+	gamewindow.loadPlanets("Data/Planets.csv");
 	gamewindow.loadPlayer(sf::Vector2f(100, 100), sf::Vector2f(.6f, .6f), "Frigate");
 
 	gamewindow.genChunks(sf::Vector2f(128000, 128000));

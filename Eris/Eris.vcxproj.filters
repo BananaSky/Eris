@@ -150,6 +150,12 @@
     <ClCompile Include="Railgun.cpp">
       <Filter>Source Files\Ship\ShipParts</Filter>
     </ClCompile>
+    <ClCompile Include="SmartMissleLauncher.cpp">
+      <Filter>Source Files\Ship\ShipParts</Filter>
+    </ClCompile>
+    <ClCompile Include="SmartMissle.cpp">
+      <Filter>Source Files\Projectile</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.hpp">
@@ -267,6 +273,15 @@
       <Filter>Header Files\Ship\ShipParts</Filter>
     </ClInclude>
     <ClInclude Include="RailgunSabot.hpp">
+      <Filter>Header Files\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanetSpecs.hpp">
+      <Filter>Header Files\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartMissleLauncher.hpp">
+      <Filter>Header Files\Ship\ShipParts</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartMissle.hpp">
       <Filter>Header Files\Projectile</Filter>
     </ClInclude>
   </ItemGroup>

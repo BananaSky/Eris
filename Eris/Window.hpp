@@ -13,6 +13,7 @@
 #include "ItemSpecs.hpp"
 #include "TurretSpecs.h"
 #include "Biome.hpp"
+#include "PlanetSpecs.hpp"
 
 class  Chunk;
 struct ProjectileSpecs;
@@ -63,6 +64,7 @@ public:
 	void loadCrate          (std::string location);
 	void loadItems(std::string filename);
 	void loadTurrets(std::string filename);
+	void loadPlanets(std::string filename);
 	void loadBiomes(std::string filename);
 	void loadPlayer         (sf::Vector2f position, sf::Vector2f scale, std::string name);
 	void loadInv            (std::string location, sf::Vector2f size);
@@ -128,6 +130,7 @@ public:
 	std::unordered_map<std::string, ShipSpecs*>*    getShipSpecs() { return &specs; }
 	std::unordered_map<std::string, ProjectileSpecs*>* getPSpecs() { return &p_specs; }
 	std::unordered_map<std::string, TurretSpecs>*      getTSpecs() { return &turretSpecs; }
+	std::unordered_map<std::string, PlanetSpecs>* getPlanetSpecs() { return &planetSpecs; }
 	std::vector<std::string>*                       getSpec_Keys() { return &spec_Keys; }
 	std::unordered_map<std::string, ItemSpecs>*         getItems() { return &itemList; }
 	std::vector<projectile_ptr>*                  getProjectiles() { return &projectiles; }
@@ -180,6 +183,7 @@ private:
 	std::unordered_map<std::string, ShipSpecs*>       specs;
 	std::unordered_map<std::string, ProjectileSpecs*> p_specs;
 	std::unordered_map<std::string, TurretSpecs>      turretSpecs;
+	std::unordered_map<std::string, PlanetSpecs>      planetSpecs;
 	std::unordered_map<std::string, Biome>            biomes;
 
 	Player    player;

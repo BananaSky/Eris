@@ -152,6 +152,8 @@
     <ClCompile Include="RailgunSabot.cpp" />
     <ClCompile Include="Ship.cpp" />
     <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="SmartMissle.cpp" />
+    <ClCompile Include="SmartMissleLauncher.cpp" />
     <ClCompile Include="Station.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TimedText.cpp" />
@@ -183,6 +185,7 @@
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Perlin.hpp" />
     <ClInclude Include="Planet.hpp" />
+    <ClInclude Include="PlanetSpecs.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Projectile.hpp" />
     <ClInclude Include="ProjectileSpecs.hpp" />
@@ -191,6 +194,8 @@
     <ClInclude Include="Ship.hpp" />
     <ClInclude Include="ShipSpecs.hpp" />
     <ClInclude Include="Slider.hpp" />
+    <ClInclude Include="SmartMissle.hpp" />
+    <ClInclude Include="SmartMissleLauncher.hpp" />
     <ClInclude Include="Station.hpp" />
     <ClInclude Include="Tilemap.hpp" />
     <ClInclude Include="TimedText.hpp" />

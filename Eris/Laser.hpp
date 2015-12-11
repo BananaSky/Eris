@@ -13,17 +13,17 @@ public:
 
 	Laser(float angle, sf::Vector2f pos, float velocity, Ship* parent, Ship* target, bool isEnemy, LaserTurret*);
 
-	void explode(Window * board);
+	virtual void explode(Window * board);
 
-	void draw(sf::RenderWindow* window)
+	virtual void draw(sf::RenderWindow* window)
 	{
 		window->draw(beam);
 	}
 
-	void kill() { if (lifetime > 1) { lifetime --; } else { lifetime = 0; } }
-	void update(Window * board);
+	virtual void kill() { if (lifetime > 1) { lifetime --; } else { lifetime = 0; } }
+	virtual void update(Window * board);
 
-private:
+protected:
 	LaserTurret* muzzle;
 
 	bool isEnemy;

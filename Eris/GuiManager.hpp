@@ -23,12 +23,12 @@ public:
 	void loadShow        (std::string location, sf::Vector2f scale);
 	void loadFuel		 (std::string location, sf::Vector2f size);
 	void loadHealth		 (std::string location, sf::Vector2f size);
-	void loadEnergy(std::string location, sf::Vector2f size);
+	void loadEnergy      (std::string location, sf::Vector2f size);
 	void loadInfo		 (std::string location, sf::Vector2f size);
 	void loadTextBox     (std::string location);
 	void loadWASD        (std::string location);
 	void loadSPACE       (std::string location);
-	void loadQuotes(std::string location);
+	void loadQuotes      (std::string location);
 	void loadMenuBacking (std::string location);
 
 	int counter = 1;
@@ -40,12 +40,14 @@ public:
 	void loadSliderTexture(std::string location);
 
 	void guiListener         (sf::Event * event, Window * board, sf::RenderWindow * window);
-	void stationMenuListener(sf::Event * event);
-	void planetMenuListener (sf::Event * event);
+	void stationMenuListener (sf::Event * event);
+	void planetMenuListener  (sf::Event * event);
 
-	void planetGUI (sf::RenderWindow * window);
-	void stationGUI(sf::RenderWindow * window);
-	void drawBacking(sf::RenderWindow * window);
+	void upgradeMenuListener(sf::Event * event);
+
+	void planetGUI   (sf::RenderWindow * window);
+	void stationGUI  (sf::RenderWindow * window);
+	void drawBacking (sf::RenderWindow * window);
 
 	void InfoGUI();
 
@@ -100,6 +102,7 @@ private:
 
 	Menu planetMenu;
 	Menu stationMenu;
+	Menu upgradeMenu;
 
 	TimedTextBox output;
 	TimedTextBox story;
@@ -115,6 +118,7 @@ private:
 	bool nearPlanet      = false;
 	bool stationMenuOpen = false;
 	bool planetMenuOpen  = false;
+	bool upgradeMenuOpen     = false;
 
 	bool showAimingLine  = true;
 };

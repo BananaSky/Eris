@@ -52,6 +52,13 @@ void GuiManager::Init()
 	stationMenu.insertSlider(Slider(), sf::Vector2f(70, 90));
 	stationMenu.insertSlider(Slider(), sf::Vector2f(70, 130));
 
+	upgradeMenu.setPosition(154, 0);
+
+	upgradeMenu.insertButton(Button(sf::Vector2f(120, 30), "1", text), sf::Vector2f(10, 10));
+	upgradeMenu.insertButton(Button(sf::Vector2f(120, 30), "2", text), sf::Vector2f(10, 50));
+	upgradeMenu.insertButton(Button(sf::Vector2f(120, 30), "3", text), sf::Vector2f(10, 90));
+	upgradeMenu.insertButton(Button(sf::Vector2f(120, 30), "4", text), sf::Vector2f(10, 130));
+
 	planetMenu.setPosition(154, 0);
 	planetMenu.setParent(this);
 
@@ -81,19 +88,27 @@ void GuiManager::guiListener(sf::Event* event, Window* board, sf::RenderWindow* 
 		}
 	}
 
+	upgradeMenuListener(event);
 	stationMenuListener(event);
 	planetMenuListener(event);
 }
 
 void GuiManager::stationMenuListener(sf::Event* event)
 {
-	if (stationMenuOpen)
+	if (stationMenuOpen && !upgradeMenuOpen)
 	{
 		stationMenu.sliderListener(event);
+		int i = 10;
 		switch (stationMenu.buttonListener(event) + 1)
 		{
 		case 1:
-			parent->getPlayer()->upgrade(parent);
+			upgradeMenuOpen = true;
+			upgradeMenu.clear();
+			for (auto s : *parent->getSpec_Keys())
+			{
+				upgradeMenu.insertButton(Button(sf::Vector2f(120, 30), s, text), sf::Vector2f(10, i));
+				i += 30;
+			}
 			break;
 		case 2:
 			parent->getPlayer()->refuel(parent, stationMenu.getRatioOf(0));
@@ -121,6 +136,19 @@ void GuiManager::planetMenuListener(sf::Event* event)
 			currentlyNear->market.determineAction(n, parent, planetMenu.getRatioOf(n));
 		}
 
+	}
+}
+
+void GuiManager::upgradeMenuListener(sf::Event* event)
+{
+	if (upgradeMenuOpen)
+	{
+		int button = upgradeMenu.buttonListener(event);
+		if (button != -1 && button < parent->getSpec_Keys()->size())
+		{
+			parent->getPlayer()->upgrade(parent, parent->getSpec_Keys()->at(button));
+			upgradeMenuOpen = false;
+		};
 	}
 }
 
@@ -152,6 +180,10 @@ void GuiManager::setNearPlanet(bool set)
 void GuiManager::openStationMenu()
 {
 	stationMenuOpen = !stationMenuOpen; parent->pause();
+	if (stationMenuOpen)
+	{
+		upgradeMenuOpen = false;
+	}
 }
 
 void GuiManager::openPlanetMenu()
@@ -196,9 +228,13 @@ void GuiManager::InfoGUI()
 
 void GuiManager::stationGUI(sf::RenderWindow* window)
 {
-	if (stationMenuOpen)
+	if (stationMenuOpen && !upgradeMenuOpen)
 	{
 		stationMenu.draw(window);
+	}
+	else if (upgradeMenuOpen)
+	{
+		upgradeMenu.draw(window);
 	}
 }
 
@@ -223,7 +259,6 @@ void GuiManager::draw(sf::RenderWindow* window)
 		window->draw(space);
 	}
 
-	//window->draw(output);
 	story.draw(window);
 
 	output.draw(window);
@@ -232,6 +267,16 @@ void GuiManager::draw(sf::RenderWindow* window)
 	{
 		window->draw(box);
 	}
+
+	if (nearStation) { stationGUI(target); }
+	else { stationMenuOpen = false; }
+
+	if (nearPlanet) { planetGUI(target); }
+	else { planetMenuOpen = false; }
+
+	output.update();
+	story.update();
+	story.setPosition(target->getSize().x / 2 - story.getSize().x / 2, 15);
 
 	text.setPosition(2, 2);
 	text.setString(std::to_string((int)parent->getFps()));
@@ -254,10 +299,8 @@ void GuiManager::draw(sf::RenderWindow* window)
 	window->draw(fuel);
 	window->draw(health);
 
-
 	if (!infoHidden) { InfoGUI(); }
 	else { window->draw(showButton); }
-	
 }
 
 void GuiManager::setCurrentNear(Planet* near)
@@ -284,17 +327,6 @@ void GuiManager::setCurrentNear(Planet* near)
 
 void GuiManager::update()
 {
-
-	if (nearStation) { stationGUI(target); }
-	else { stationMenuOpen = false; }
-
-	if (nearPlanet) { planetGUI(target); }
-	else { planetMenuOpen = false; }
-
-
-	output.update();
-	story.update();
-	story.setPosition(target->getSize().x / 2 - story.getSize().x / 2, 15);
 
 	if (counter < 600)
 	{

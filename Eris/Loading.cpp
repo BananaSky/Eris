@@ -8,6 +8,7 @@
 #include "Wave.hpp"
 #include "GuiManager.hpp"
 #include "Biome.hpp"
+#include "PlanetSpecs.hpp"
 
 void Window::loadPlanetTexture(std::string textureLocation)
 {
@@ -571,6 +572,45 @@ void Window::loadTurrets(std::string filename)
 		if (got == turretSpecs.end())
 		{
 			turretSpecs.insert(std::pair<std::string, TurretSpecs>(name, turret));
+		}
+		else
+		{
+			std::cout << "Already Loaded: " << name << std::endl;
+		}
+	}
+	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
+}
+
+void Window::loadPlanets(std::string filename)
+{
+	std::ifstream indata;
+
+	indata.open(filename);
+
+	std::string name;
+	std::string texture;
+
+	std::string                line;
+	std::getline(indata, line);
+	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
+	{
+		std::stringstream          lineStream(line);
+
+		//This would be better with some operator overloading, but for now....?
+
+		std::string                cell;
+
+		getline(lineStream, name, ',');
+		getline(lineStream, texture, ',');
+
+		PlanetSpecs planet { name, false, texture };
+
+		loadPlanetTexture(texture);
+
+		auto got = planetSpecs.find(name);
+		if (got == planetSpecs.end())
+		{
+			planetSpecs.insert(std::pair<std::string, PlanetSpecs>(name, planet));
 		}
 		else
 		{
