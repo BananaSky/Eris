@@ -84,17 +84,7 @@ public:
 	void addFragments(sf::Vector2f position, int amount=40, int spread=1);
 	void addCrate(sf::Vector2f position);
 
-	Chunk * findHome(sf::Vector2f pos);
-
 	void addExplosion(explosion_ptr explosion);
-
-	//Enemy management
-
-	void spawn(sf::Vector2f position, sf::Vector2f scale, std::string name, bool enemy);
-	void spawnWave(const std::vector<std::string>& wave);
-	void cycleWave();
-
-	void calcNextWave();
 
 	//Chunks and update
 
@@ -136,6 +126,7 @@ public:
 	std::vector<projectile_ptr>*                  getProjectiles() { return &projectiles; }
 	std::vector<projectile_ptr>*             getEnemyProjectiles() { return &enemyProjectiles; }
 	std::vector<ally_ptr>*                             getAllies() { return &allies; };
+	std::vector<enemy_ptr>*                           getEnemies() { return &enemies; };
 
 	sf::RenderWindow* getWindow()                                  { return &window; }
 	float             getFps()                                     { return fps; }

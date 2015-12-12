@@ -3,6 +3,7 @@
 #include "Window.hpp"
 #include "Planet.hpp"
 #include "ShipSpecs.hpp"
+#include "Chunk.hpp"
 
 GuiManager::GuiManager()
 {
@@ -56,7 +57,7 @@ void GuiManager::Init()
 	fleetMenu.setParent(this);
 	fleetMenu.setSize(sf::Vector2f(200, 400));
 
-	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Upgrade", text), sf::Vector2f(10, 10));
+	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Buy Ships", text), sf::Vector2f(10, 10));
 	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Refuel", text), sf::Vector2f(10, 50));
 	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Refill", text), sf::Vector2f(10, 90));
 	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Repair", text), sf::Vector2f(10, 130));
@@ -137,7 +138,7 @@ void GuiManager::fleetListener(sf::Event* event)
 	if (i < parent->getAllies()->size() && i > 0)
 	{
 		parent->addMessage("Transferred Ships");
-		parent->spawn(parent->getPlayer()->getPosition(), sf::Vector2f(.6, .6), parent->getPlayer()->getType(), false);
+		parent->getPlayer()->getIn()->spawn(parent->getPlayer()->getPosition(), sf::Vector2f(.6, .6), parent->getPlayer()->getType(), false);
 		parent->getPlayer()->loadType(*parent->getShipSpecs()->at(parent->getAllies()->at(i)->getType()), parent); 
 		parent->getPlayer()->syncAmmoTypes(parent);
 		parent->getPlayer()->setTexture(*parent->getTextures()->at(parent->getShipSpecs()->at(parent->getAllies()->at(i)->getType())->texture), true);

@@ -642,6 +642,11 @@ void Window::loadBiomes(std::string filename)
 	int planetChance;
 	int stationChance;
 
+	int enemyChance;
+	int maxEnemies;
+	int upgradeLevel;
+	int spawnRate;
+
 	std::string                line;
 	std::getline(indata, line);
 	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
@@ -684,6 +689,18 @@ void Window::loadBiomes(std::string filename)
 		std::getline(lineStream, cell, ',');
 		stationChance = std::stoi(cell);
 
+		std::getline(lineStream, cell, ',');
+		enemyChance = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		maxEnemies = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		upgradeLevel = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		spawnRate = std::stoi(cell);
+
 		Biome biome
 		{
 		asteroidNum,
@@ -695,7 +712,11 @@ void Window::loadBiomes(std::string filename)
 		maxStationNumber,
 		closeness,
 		planetChance,
-		stationChance 
+		stationChance,
+		enemyChance,
+		maxEnemies,
+		upgradeLevel,
+		spawnRate
 		};
 
 		auto got = biomes.find(name);

@@ -96,10 +96,6 @@ int main(int argc, char** argv)
 	gamewindow.loadPlanets("Data/Planets.csv");
 	gamewindow.loadPlayer(sf::Vector2f(100, 100), sf::Vector2f(.6f, .6f), "Frigate");
 
-	gamewindow.spawn(sf::Vector2f(-100, -100), sf::Vector2f(.6f, .6f), "Droid", false);
-	gamewindow.spawn(sf::Vector2f(-200, -100), sf::Vector2f(.6f, .6f), "Droid", false);
-	gamewindow.spawn(sf::Vector2f(0, -100),    sf::Vector2f(.6f, .6f), "Droid", false);
-
 	gamewindow.genChunks(sf::Vector2f(128000, 128000));
 
 	gamewindow.run();

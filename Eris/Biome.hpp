@@ -13,4 +13,9 @@ struct Biome
 
 	int planetChance;
 	int stationChance;
+
+	int enemyChance;
+	int maxEnemies;
+	int upgradeLevel;
+	int spawnRate;
 };
