@@ -104,7 +104,7 @@ void GuiManager::guiListener(sf::Event* event, Window* board, sf::RenderWindow* 
 		{
 			if (fleetManager.listener((sf::Vector2f)pos))
 			{
-				managingFleet = !managingFleet;
+				managingFleet = true;
 				parent->pause();
 			}
 		}
@@ -132,8 +132,10 @@ void GuiManager::fleetListener(sf::Event* event)
 	for (auto& ally : *parent->getAllies())
 	{
 		fleetMenu.insertButton(Button(sf::Vector2f(80, 40), ally->getType(), text), sf::Vector2f(x, y));
+		fleetMenu.insertSecondaryButton(Button(sf::Vector2f(60, 40), "Cycle", text), sf::Vector2f(x + 80, y));
 		y += spacing;
 	}
+
 	int i = fleetMenu.buttonListener(event);
 	if (i < parent->getAllies()->size() && i > 0)
 	{
@@ -144,6 +146,13 @@ void GuiManager::fleetListener(sf::Event* event)
 		parent->getPlayer()->setTexture(*parent->getTextures()->at(parent->getShipSpecs()->at(parent->getAllies()->at(i)->getType())->texture), true);
 		parent->getPlayer()->setOrigin(parent->getPlayer()->getLocalBounds().width / 2, parent->getPlayer()->getLocalBounds().height / 2);
 		parent->getAllies()->erase(parent->getAllies()->begin() + i);
+	}
+
+	i = fleetMenu.secondaryButtonListener(event);
+	if (i < parent->getAllies()->size() && i > 0)
+	{
+		parent->addMessage("Attempted Cycle");
+		parent->getAllies()->at(i)->attemptCycle(parent);
 	}
 }
 

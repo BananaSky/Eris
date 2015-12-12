@@ -33,6 +33,14 @@ void Menu::insertButton(Button button, sf::Vector2f pos)
 	buttons.back().setTexture(&buttonTexture);
 }
 
+void Menu::insertSecondaryButton(Button button, sf::Vector2f pos)
+{
+	secondaryButtons.push_back(button);
+	secondaryButtons.back().setPosition(getPosition().x + pos.x, getPosition().y + pos.y);
+	secondaryButtons.back().format();
+	secondaryButtons.back().setTexture(&buttonTexture);
+}
+
 void Menu::insertSlider(Slider slider, sf::Vector2f pos)
 {
 	sliders.push_back(slider);
@@ -69,6 +77,24 @@ int Menu::buttonListener(sf::Event* event)
 	return -1;
 }
 
+int Menu::secondaryButtonListener(sf::Event* event)
+{
+	if (event->type == sf::Event::MouseButtonPressed && event->mouseButton.button == sf::Mouse::Left)
+	{
+		sf::Vector2i pos(event->mouseButton.x, event->mouseButton.y);
+
+		for (int i = 0; i < secondaryButtons.size(); i++)
+		{
+			if (secondaryButtons[i].listener((sf::Vector2f)pos))
+			{
+				return  i;
+			}
+		}
+	}
+
+	return -1;
+}
+
 void Menu::sliderListener(sf::Event* event)
 {
 	for (Slider& s : sliders)
@@ -87,7 +113,13 @@ void Menu::draw(sf::RenderWindow* window)
 	{
 		s.draw(window);
 	}
+
 	for (Button& b : buttons)
+	{
+		b.draw(window);
+	}
+	
+	for (Button& b : secondaryButtons)
 	{
 		b.draw(window);
 	}

@@ -13,11 +13,13 @@ public:
 	~Menu();
 
 	void insertButton(Button button, sf::Vector2f pos);
+	void insertSecondaryButton(Button button, sf::Vector2f pos);
 	void insertSlider(Slider slider, sf::Vector2f pos);
 
 	void insertRow(std::string label);
 
 	int  buttonListener(sf::Event * event);
+	int  secondaryButtonListener(sf::Event * event);
 	void sliderListener(sf::Event * event);
 	bool closeListener(sf::Event* event);
 
@@ -30,11 +32,12 @@ public:
 	void loadSliderButtonTexture(sf::Texture* t) { sliderButtonTexture = *t; for (Slider& s : sliders) { s.setButtonTexture(t); } }
 
 	void setParent(GuiManager* set) { parent = set; }
-	void clear()                    { sliders.clear(); buttons.clear(); x = 20; y = 20; }
+	void clear() { sliders.clear(); buttons.clear(); secondaryButtons.clear(); x = 20; y = 20; }
 
 private:
 	std::vector<Slider> sliders;
 	std::vector<Button> buttons;
+	std::vector<Button> secondaryButtons;
 	Button closeButton;
 
 	GuiManager* parent;

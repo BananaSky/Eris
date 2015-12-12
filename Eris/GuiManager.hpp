@@ -115,7 +115,6 @@ private:
 
 	Menu fleetMenu;
 	Button fleetManager;
-	Menu shipMenu;
 
 	Planet* currentlyNear = NULL;
 

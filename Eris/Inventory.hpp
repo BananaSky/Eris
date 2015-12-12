@@ -13,28 +13,24 @@ public:
 	Inventory();
 	~Inventory();
 
-	bool insertNew(std::string location, Window * board, int amount=1);
-	bool take(std::string type, int amount=1);
+	bool insertNew					    (std::string location, Window * board, int amount=1);
+	bool take							(std::string type, int amount=1);
+	int getNumOf                        (std::string type);
+	std::vector<std::string> getTypesOf (std::string type, Window * board);
 
-	int getNumOf(std::string type);
-
-	void displayInv(sf::RenderWindow*);
-
-	void format(sf::RenderWindow*);
+	void displayInv (sf::RenderWindow*);
+	void format     (sf::RenderWindow*);
 
 	sf::Vector2i calcPosition(int index, sf::RenderWindow * window);
-
-	int calcIndex(sf::Vector2i position);
-
-	void loadText(sf::Text t) { text = t; text.setCharacterSize(16); text.setColor(sf::Color(255, 255, 255, 180)); }
+	int          calcIndex   (sf::Vector2i position);
 
 	void InvListener(sf::Event *, Window * board, sf::RenderWindow * window);
 
-	std::vector<std::string> getTypesOf(std::string type, Window * board);
+	void loadText(sf::Text t) { text = t; text.setCharacterSize(16); text.setColor(sf::Color(255, 255, 255, 180)); }
 
 	int cellSize = 58; //Three pixel Wide Dividers
-	int width = 6;
-	int height = 4;
+	int width    = 6;
+	int height   = 4;
 
 	std::vector<Item> contents;
 	int selected = -1;
