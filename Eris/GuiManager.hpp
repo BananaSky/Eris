@@ -40,6 +40,7 @@ public:
 	void loadSliderTexture(std::string location);
 
 	void guiListener         (sf::Event * event, Window * board, sf::RenderWindow * window);
+	void fleetListener(sf::Event * event);
 	void stationMenuListener (sf::Event * event);
 	void planetMenuListener  (sf::Event * event);
 
@@ -104,12 +105,17 @@ private:
 	Menu stationMenu;
 	Menu upgradeMenu;
 
+
 	TimedTextBox output;
 	TimedTextBox story;
 
 	sf::RectangleShape info;
-	sf::Sprite         hideButton; //Should be updated to be buttons instead of sprites
-	sf::Sprite         showButton;
+	Button         hideButton;
+	Button        showButton;
+
+	Menu fleetMenu;
+	Button fleetManager;
+	Menu shipMenu;
 
 	Planet* currentlyNear = NULL;
 
@@ -119,6 +125,7 @@ private:
 	bool stationMenuOpen = false;
 	bool planetMenuOpen  = false;
 	bool upgradeMenuOpen     = false;
+	bool managingFleet = false;
 
 	bool showAimingLine  = true;
 };

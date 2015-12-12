@@ -81,6 +81,17 @@ void AI::forward()
 
 void AI::update(Window* board, sf::RenderWindow* window)
 {
+	target = board->getNearest(false, getPosition());
+	if (target == NULL) //If no enemies
+	{
+		target = board->getPlayer();
+		shooting = false;
+	}
+	else
+	{
+		shooting = true;
+	}
+
 	health.setPosition(this->getPosition().x - health.getSize().x / 2, this->getPosition().y - 30);
 	health.setSize(sf::Vector2f(structuralIntegrity, 8));
 

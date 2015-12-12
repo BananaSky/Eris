@@ -19,6 +19,7 @@ public:
 
 	int  buttonListener(sf::Event * event);
 	void sliderListener(sf::Event * event);
+	bool closeListener(sf::Event* event);
 
 	void draw(sf::RenderWindow * window);
 
@@ -34,6 +35,7 @@ public:
 private:
 	std::vector<Slider> sliders;
 	std::vector<Button> buttons;
+	Button closeButton;
 
 	GuiManager* parent;
 

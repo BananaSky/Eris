@@ -1,13 +1,29 @@
 #include "Menu.hpp"
 #include "GuiManager.hpp"
 
-Menu::Menu(){}
+Menu::Menu()
+{
+	closeButton.setSize(sf::Vector2f(10, 10));
+	closeButton.setFillColor(sf::Color::Red);
+}
 
 Menu::~Menu(){}
 
 sf::Texture Menu::buttonTexture;
 sf::Texture Menu::sliderTexture;
 sf::Texture Menu::sliderButtonTexture;
+
+bool Menu::closeListener(sf::Event* event)
+{
+	if (event->type == sf::Event::MouseButtonPressed && event->mouseButton.button == sf::Mouse::Left)
+	{
+		if (closeButton.listener(sf::Vector2f(event->mouseButton.x, event->mouseButton.y)))
+		{
+			return true;
+		}
+	}
+	return false;
+}
 
 void Menu::insertButton(Button button, sf::Vector2f pos) 
 {
@@ -64,6 +80,8 @@ void Menu::sliderListener(sf::Event* event)
 void Menu::draw(sf::RenderWindow* window)
 {
 	window->draw(*this);
+	closeButton.setPosition(this->getPosition().x - closeButton.getSize().x + this->getSize().x, this->getPosition().y);
+	closeButton.draw(window);
 
 	for (Slider& s : sliders)
 	{

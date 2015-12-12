@@ -135,14 +135,14 @@ void GuiManager::loadInfo(std::string location, sf::Vector2f size = sf::Vector2f
 
 void GuiManager::loadHide(std::string location, sf::Vector2f scale = sf::Vector2f(1, 1))
 {
-	hideButton.setTexture(*parent->loadTexture(location));
+	hideButton.setTexture(parent->loadTexture(location));
 	hideButton.setScale(scale);
 	hideButton.setPosition(target->getSize().x - hideButton.getGlobalBounds().width, info.getSize().y);
 }
 
 void GuiManager::loadShow(std::string location, sf::Vector2f scale = sf::Vector2f(1, 1))
 {
-	showButton.setTexture(*parent->loadTexture(location));
+	showButton.setTexture(parent->loadTexture(location));
 	showButton.setScale(scale);
 	showButton.setPosition(target->getSize().x - showButton.getGlobalBounds().width, 0);
 }
@@ -159,6 +159,7 @@ void GuiManager::loadMenuBacking(std::string location)
 	menuBacking = *parent->loadTexture(location);
 	stationMenu.setTexture(&menuBacking);
 	planetMenu.setTexture(&menuBacking);
+	fleetMenu.setTexture(&menuBacking);
 }
 
 void GuiManager::loadButtonTexture(std::string location)
@@ -166,6 +167,7 @@ void GuiManager::loadButtonTexture(std::string location)
 	buttonTexture = *parent->loadTexture(location);
 	stationMenu.loadButtonTexture(&buttonTexture);
 	planetMenu.loadButtonTexture(&buttonTexture);
+	fleetManager.setTexture(&buttonTexture);
 }
 
 void GuiManager::loadSliderButtonTexture(std::string location)

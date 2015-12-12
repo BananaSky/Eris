@@ -135,6 +135,7 @@ public:
 	std::unordered_map<std::string, ItemSpecs>*         getItems() { return &itemList; }
 	std::vector<projectile_ptr>*                  getProjectiles() { return &projectiles; }
 	std::vector<projectile_ptr>*             getEnemyProjectiles() { return &enemyProjectiles; }
+	std::vector<ally_ptr>*                             getAllies() { return &allies; };
 
 	sf::RenderWindow* getWindow()                                  { return &window; }
 	float             getFps()                                     { return fps; }

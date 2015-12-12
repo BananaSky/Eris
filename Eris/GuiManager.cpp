@@ -2,6 +2,7 @@
 #include "Includes.hpp"
 #include "Window.hpp"
 #include "Planet.hpp"
+#include "ShipSpecs.hpp"
 
 GuiManager::GuiManager()
 {
@@ -12,6 +13,8 @@ GuiManager::GuiManager()
 	text.setFont(font);
 	text.setColor(sf::Color::White);
 	text.setCharacterSize(16);
+
+	fleetManager.loadText(text);
 } 
 
 GuiManager::~GuiManager(){}
@@ -43,6 +46,15 @@ void GuiManager::Init()
 	stationMenu.setPosition(154, 0);
 	stationMenu.setParent(this);
 	stationMenu.setSize(sf::Vector2f(200, 200));
+
+	fleetManager.setPosition(154, 0);
+	fleetManager.setSize(sf::Vector2f(90, 30));
+	fleetManager.setText("Manage Fleet");
+	fleetManager.format();
+
+	fleetMenu.setPosition(154, 0);
+	fleetMenu.setParent(this);
+	fleetMenu.setSize(sf::Vector2f(200, 400));
 
 	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Upgrade", text), sf::Vector2f(10, 10));
 	stationMenu.insertButton(Button(sf::Vector2f(60, 30), "Refuel", text), sf::Vector2f(10, 50));
@@ -78,23 +90,68 @@ void GuiManager::guiListener(sf::Event* event, Window* board, sf::RenderWindow* 
 	{
 		sf::Vector2i pos = sf::Vector2i(event->mouseButton.x, event->mouseButton.y);
 
-		if (hideButton.getGlobalBounds().contains((sf::Vector2f)pos))
+		if (hideButton.listener((sf::Vector2f)pos))
 		{
 			infoHidden = true;
 		}
-		else if (showButton.getGlobalBounds().contains((sf::Vector2f)pos))
+		else if (showButton.listener((sf::Vector2f)pos))
 		{
 			infoHidden = false;
 		}
+		
+		if (!managingFleet && !stationMenuOpen && !planetMenuOpen)
+		{
+			if (fleetManager.listener((sf::Vector2f)pos))
+			{
+				managingFleet = !managingFleet;
+				parent->pause();
+			}
+		}
 	}
 
+	if (managingFleet)
+	{
+		fleetListener(event);
+	}
 	upgradeMenuListener(event);
 	stationMenuListener(event);
 	planetMenuListener(event);
 }
 
+void GuiManager::fleetListener(sf::Event* event)
+{
+	if (fleetMenu.closeListener(event))
+	{
+		managingFleet = false;
+		parent->pause();
+	}
+
+	fleetMenu.clear();
+	int x = 10; int y = 10; int spacing = 50;
+	for (auto& ally : *parent->getAllies())
+	{
+		fleetMenu.insertButton(Button(sf::Vector2f(80, 40), ally->getType(), text), sf::Vector2f(x, y));
+		y += spacing;
+	}
+	int i = fleetMenu.buttonListener(event);
+	if (i < parent->getAllies()->size() && i > 0)
+	{
+		parent->addMessage("Transferred Ships");
+		parent->spawn(parent->getPlayer()->getPosition(), sf::Vector2f(.6, .6), parent->getPlayer()->getType(), false);
+		parent->getPlayer()->loadType(*parent->getShipSpecs()->at(parent->getAllies()->at(i)->getType()), parent); 
+		parent->getPlayer()->syncAmmoTypes(parent);
+		parent->getPlayer()->setTexture(*parent->getTextures()->at(parent->getShipSpecs()->at(parent->getAllies()->at(i)->getType())->texture), true);
+		parent->getPlayer()->setOrigin(parent->getPlayer()->getLocalBounds().width / 2, parent->getPlayer()->getLocalBounds().height / 2);
+		parent->getAllies()->erase(parent->getAllies()->begin() + i);
+	}
+}
+
 void GuiManager::stationMenuListener(sf::Event* event)
 {
+	if (stationMenu.closeListener(event))
+	{
+		stationMenuOpen = false;
+	}
 	if (stationMenuOpen && !upgradeMenuOpen)
 	{
 		stationMenu.sliderListener(event);
@@ -127,13 +184,20 @@ void GuiManager::stationMenuListener(sf::Event* event)
 
 void GuiManager::planetMenuListener(sf::Event* event)
 {
+	if (planetMenu.closeListener(event))
+	{
+		planetMenuOpen = false;
+	}
 	if (planetMenuOpen)
 	{
 		if (currentlyNear != NULL)
 		{
 			planetMenu.sliderListener(event);
 			int n = planetMenu.buttonListener(event);
-			currentlyNear->market.determineAction(n, parent, planetMenu.getRatioOf(n));
+			if (n > 0)
+			{
+				currentlyNear->market.determineAction(n, parent, planetMenu.getRatioOf(n));
+			}
 		}
 
 	}
@@ -203,12 +267,12 @@ void GuiManager::InfoGUI()
 	target->draw(hideButton);
 	target->draw(info);
 
-	text.setPosition(info.getPosition().x + 25, info.getPosition().y + 13);
+	text.setPosition(info.getPosition().x + 16, info.getPosition().y + 16);
 	text.setString(parent->getPlayer()->getType());
 	target->draw(text);
 
 	text.setCharacterSize(20);
-	DrawCascadingText("Equipped: "         + parent->getPlayer()->getEquipped(), 75);
+	DrawCascadingText("Equipped: "         + parent->getPlayer()->getEquipped(), 65);
 	int spacing = 30;
 	DrawCascadingText("Range: "            + std::to_string(parent->getPlayer()->getRange(parent)), spacing);
 	DrawCascadingText("Max DPS: "          + std::to_string(parent->getPlayer()->getDPS(parent)), spacing);
@@ -266,6 +330,16 @@ void GuiManager::draw(sf::RenderWindow* window)
 	for (sf::RectangleShape& box : guiBoxes)
 	{
 		window->draw(box);
+	}
+
+
+	if (managingFleet)
+	{
+		fleetMenu.draw(window);
+	}
+	else if(!stationMenuOpen && !planetMenuOpen)
+	{
+		fleetManager.draw(window);
 	}
 
 	if (nearStation) { stationGUI(target); }
