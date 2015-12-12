@@ -110,10 +110,23 @@ void GuiManager::guiListener(sf::Event* event, Window* board, sf::RenderWindow* 
 		}
 	}
 
+	if (planetMenu.closeListener(event))
+	{
+		planetMenuOpen = false;
+		parent->unpause();
+	}
+	if (stationMenu.closeListener(event) || upgradeMenu.closeListener(event))
+	{
+		stationMenuOpen = false;
+		upgradeMenuOpen = false;
+		parent->unpause();
+	}
+
 	if (managingFleet)
 	{
 		fleetListener(event);
 	}
+
 	upgradeMenuListener(event);
 	stationMenuListener(event);
 	planetMenuListener(event);
@@ -124,7 +137,7 @@ void GuiManager::fleetListener(sf::Event* event)
 	if (fleetMenu.closeListener(event))
 	{
 		managingFleet = false;
-		parent->pause();
+		parent->unpause();
 	}
 
 	fleetMenu.clear();
@@ -139,12 +152,25 @@ void GuiManager::fleetListener(sf::Event* event)
 	int i = fleetMenu.buttonListener(event);
 	if (i < parent->getAllies()->size() && i > 0)
 	{
+		//Really..?
 		parent->addMessage("Transferred Ships");
+
+		//Spawn a copy of our current ship
 		parent->getPlayer()->getIn()->spawn(parent->getPlayer()->getPosition(), sf::Vector2f(.6, .6), parent->getPlayer()->getType(), false);
-		parent->getPlayer()->loadType(*parent->getShipSpecs()->at(parent->getAllies()->at(i)->getType()), parent); 
+
+		//Make transfer damage to our copy
+		parent->getAllies()->at(i)->applyDamage(parent->getPlayer()->getMaxStructure() - parent->getPlayer()->getStructure());
+
+		//Load our ship as the new ship
+		parent->getPlayer()->loadType(*parent->getShipSpecs()->at(parent->getAllies()->at(i)->getType()), parent);
 		parent->getPlayer()->syncAmmoTypes(parent);
 		parent->getPlayer()->setTexture(*parent->getTextures()->at(parent->getShipSpecs()->at(parent->getAllies()->at(i)->getType())->texture), true);
 		parent->getPlayer()->setOrigin(parent->getPlayer()->getLocalBounds().width / 2, parent->getPlayer()->getLocalBounds().height / 2);
+
+		//Apply its damage
+		parent->getPlayer()->applyDamage(parent->getShipSpecs()->at(parent->getAllies()->at(i)->getType())->structuralIntegrity - parent->getAllies()->at(i)->getStructure());
+		
+		//Delete the old ship
 		parent->getAllies()->erase(parent->getAllies()->begin() + i);
 	}
 
@@ -253,16 +279,24 @@ void GuiManager::setNearPlanet(bool set)
 
 void GuiManager::openStationMenu()
 {
-	stationMenuOpen = !stationMenuOpen; parent->pause();
-	if (stationMenuOpen)
+	if (!managingFleet)
 	{
-		upgradeMenuOpen = false;
+		stationMenuOpen = !stationMenuOpen; 
+		parent->pause();
+		if (stationMenuOpen)
+		{
+			upgradeMenuOpen = false;
+		}
 	}
 }
 
 void GuiManager::openPlanetMenu()
 {
-	planetMenuOpen = !planetMenuOpen;  parent->pause();
+	if (!managingFleet)
+	{
+		planetMenuOpen = !planetMenuOpen;  
+		parent->pause();
+	}
 }
 
 void GuiManager::InfoGUI()

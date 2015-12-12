@@ -59,29 +59,29 @@ public:
 	void loadTextureSquare(std::string textureLocation, sf::IntRect rect, std::vector<sf::Texture*>* storeLocation);
 	void loadMultiTexture(std::string location, std::vector<sf::Texture*>* storeLocation, int size, int rows, int columns);
 
-	void loadBackground     (std::string location, sf::Vector2f scale);
-	void loadStart          (std::string location, sf::Vector2f scale);
-	void loadCrate          (std::string location);
+	void loadBackground(std::string location, sf::Vector2f scale);
+	void loadStart(std::string location, sf::Vector2f scale);
+	void loadCrate(std::string location);
 	void loadItems(std::string filename);
 	void loadTurrets(std::string filename);
 	void loadPlanets(std::string filename);
 	void loadBiomes(std::string filename);
-	void loadPlayer         (sf::Vector2f position, sf::Vector2f scale, std::string name);
-	void loadInv            (std::string location, sf::Vector2f size);
+	void loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name);
+	void loadInv(std::string location, sf::Vector2f size);
 
-	void loadPlanetTexture  (std::string textureLocation);
+	void loadPlanetTexture(std::string textureLocation);
 	void loadAsteroidTexture(std::string textureLocation);
 	void loadFragmentTexture(std::string textureLocation);
-	void loadStationTexture (std::string textureLocation);
+	void loadStationTexture(std::string textureLocation);
 
-	void loadShipSpecs      (std::string filename);
+	void loadShipSpecs(std::string filename);
 	void loadProjectileSpecs(std::string filename);
-	void loadWaves          (std::string filename);
+	void loadWaves(std::string filename);
 
 	//Functions for adding types of projectiles
 
 	//void addExplosion(Explosion* explosion);
-	void addFragments(sf::Vector2f position, int amount=40, int spread=1);
+	void addFragments(sf::Vector2f position, int amount = 40, int spread = 1);
 	void addCrate(sf::Vector2f position);
 
 	void addExplosion(explosion_ptr explosion);
@@ -90,8 +90,8 @@ public:
 
 	void genChunks(sf::Vector2f size);
 
-	void buy(std::string index, float percent=.1);
-	void sell(std::string index, float percent=.1);
+	void buy(std::string index, float percent = .1);
+	void sell(std::string index, float percent = .1);
 
 	void updateProjectiles();
 	void updateAllies();
@@ -107,8 +107,15 @@ public:
 	void displayGameOverScreen();
 
 	void addMessage(std::string m) { GUImanager.addMessage(m); }
-	void toggleInv()			   { invScreen = !invScreen; player.getInv()->format(&window); pause(); }
-	void pause()				   { paused = !paused; }
+	void toggleInv() 
+	{ 
+		invScreen = !invScreen; 
+		player.getInv()->format(&window); 
+		if (!paused) { pause(); } 
+		else { unpause(); } 
+	}
+	void pause()     { paused = true;  }
+	void unpause()   { paused = false; }
 
 	//Lots of getters
 
