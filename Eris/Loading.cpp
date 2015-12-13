@@ -10,6 +10,20 @@
 #include "Biome.hpp"
 #include "PlanetSpecs.hpp"
 
+void Window::loadMinimapTexture(std::string textureLocation)
+{
+	minimapSprite.setTexture(*loadTexture(textureLocation));
+	minimapSprite.setOrigin(minimapSprite.getGlobalBounds().width / 2, minimapSprite.getGlobalBounds().height / 2);
+
+	minimapSprite.setScale(sf::Vector2f(20, 20));
+}
+
+void Window::loadMinimapBacking(std::string textureLocation)
+{
+	minimapBacking.setTexture(loadTexture(textureLocation));
+	minimapBacking.setSize(sf::Vector2f(300, 200));
+}
+
 void Window::loadPlanetTexture(std::string textureLocation)
 {
 	planetTextures.push_back(loadTexture(textureLocation));
@@ -445,6 +459,7 @@ void Window::loadWaves(std::string filename)
 	indata.open(filename);
 
 	int dispersion;
+	int danger;
 	std::string type;
 
 	std::string                line;
@@ -460,6 +475,9 @@ void Window::loadWaves(std::string filename)
 		std::getline(lineStream, cell, ',');
 		dispersion = std::stoi(cell);
 
+		std::getline(lineStream, cell, ',');
+		danger = std::stoi(cell);
+
 		while (std::getline(lineStream, type, ','))
 		{
 			if (type != "")
@@ -469,11 +487,10 @@ void Window::loadWaves(std::string filename)
 			else
 			{
 				break;
-
 			}
 		}
 
-		waves.push_back(Wave{ dispersion, units });
+		waves.push_back(Wave{ dispersion, danger, units });
 	}
 	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
 }
@@ -642,9 +659,7 @@ void Window::loadBiomes(std::string filename)
 	int planetChance;
 	int stationChance;
 
-	int enemyChance;
-	int maxEnemies;
-	int upgradeLevel;
+	int danger;
 	int spawnRate;
 
 	std::string                line;
@@ -690,16 +705,10 @@ void Window::loadBiomes(std::string filename)
 		stationChance = std::stoi(cell);
 
 		std::getline(lineStream, cell, ',');
-		enemyChance = std::stoi(cell);
-
-		std::getline(lineStream, cell, ',');
-		maxEnemies = std::stoi(cell);
-
-		std::getline(lineStream, cell, ',');
-		upgradeLevel = std::stoi(cell);
-
-		std::getline(lineStream, cell, ',');
 		spawnRate = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		danger = std::stoi(cell);
 
 		Biome biome
 		{
@@ -713,10 +722,8 @@ void Window::loadBiomes(std::string filename)
 		closeness,
 		planetChance,
 		stationChance,
-		enemyChance,
-		maxEnemies,
-		upgradeLevel,
-		spawnRate
+		spawnRate,
+			danger
 		};
 
 		auto got = biomes.find(name);

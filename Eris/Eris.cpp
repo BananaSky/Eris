@@ -70,11 +70,13 @@ int main(int argc, char** argv)
 	gamewindow.GUImanager.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
 	gamewindow.GUImanager.addBox(sf::Vector2f(32, 0), sf::Vector2f(120, 70));
 
-	gamewindow.GUImanager.loadInfo("Graphics/Buttons-Icons/Info_2.png", sf::Vector2f(180, 600));
+	gamewindow.GUImanager.loadInfo("Graphics/Buttons-Icons/Info_2.png", sf::Vector2f(180, 300));
 	gamewindow.GUImanager.loadHide("Graphics/Buttons-Icons/hide.png", sf::Vector2f(1, 1));
 	gamewindow.GUImanager.loadShow("Graphics/Buttons-Icons/show.png", sf::Vector2f(1, 1));
 	gamewindow.GUImanager.loadWASD("Graphics/Buttons-Icons/WASD.png");
 	gamewindow.GUImanager.loadSPACE("Graphics/Buttons-Icons/Space.png");
+	gamewindow.loadMinimapTexture("Graphics/Buttons-Icons/MinimapSprite.png");
+	gamewindow.loadMinimapBacking("Graphics/Buttons-Icons/MinimapBacking.png");
 
 	gamewindow.GUImanager.loadMenuBacking("Graphics/FuelMeter.png");
 
@@ -82,7 +84,6 @@ int main(int argc, char** argv)
 	gamewindow.GUImanager.loadSliderTexture("Graphics/Buttons-Icons/slideBar.png");
 	gamewindow.GUImanager.loadSliderButtonTexture("Graphics/Buttons-Icons/slideButton.png");
 
-	gamewindow.GUImanager.loadTextBox("Graphics/Buttons-Icons/TextBox.png");
 	gamewindow.GUImanager.loadQuotes("Quotes.txt");
 
 	gamewindow.GUImanager.Init();

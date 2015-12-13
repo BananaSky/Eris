@@ -150,7 +150,7 @@ void GuiManager::fleetListener(sf::Event* event)
 	}
 
 	int i = fleetMenu.buttonListener(event);
-	if (i < parent->getAllies()->size() && i > 0)
+	if (i < parent->getAllies()->size() && i >= 0)
 	{
 		//Really..?
 		parent->addMessage("Transferred Ships");
@@ -175,7 +175,7 @@ void GuiManager::fleetListener(sf::Event* event)
 	}
 
 	i = fleetMenu.secondaryButtonListener(event);
-	if (i < parent->getAllies()->size() && i > 0)
+	if (i < parent->getAllies()->size() && i >= 0)
 	{
 		parent->addMessage("Attempted Cycle");
 		parent->getAllies()->at(i)->attemptCycle(parent);
@@ -230,7 +230,7 @@ void GuiManager::planetMenuListener(sf::Event* event)
 		{
 			planetMenu.sliderListener(event);
 			int n = planetMenu.buttonListener(event);
-			if (n > 0)
+			if (n >= 0)
 			{
 				currentlyNear->market.determineAction(n, parent, planetMenu.getRatioOf(n));
 			}
@@ -281,7 +281,7 @@ void GuiManager::openStationMenu()
 {
 	if (!managingFleet)
 	{
-		stationMenuOpen = !stationMenuOpen; 
+		stationMenuOpen = true; 
 		parent->pause();
 		if (stationMenuOpen)
 		{
@@ -294,7 +294,7 @@ void GuiManager::openPlanetMenu()
 {
 	if (!managingFleet)
 	{
-		planetMenuOpen = !planetMenuOpen;  
+		planetMenuOpen = true;  
 		parent->pause();
 	}
 }
@@ -302,7 +302,7 @@ void GuiManager::openPlanetMenu()
 void GuiManager::InfoGUI()
 {
 	text.setFont(font);
-	text.setCharacterSize(25);
+	text.setCharacterSize(20);
 	text.setColor(sf::Color(255, 212, 128));
 
 	hideButton.setPosition(target->getSize().x - hideButton.getGlobalBounds().width, info.getSize().y);
@@ -311,13 +311,13 @@ void GuiManager::InfoGUI()
 	target->draw(hideButton);
 	target->draw(info);
 
-	text.setPosition(info.getPosition().x + 16, info.getPosition().y + 16);
+	text.setPosition(info.getPosition().x + 16, info.getPosition().y + 8);
 	text.setString(parent->getPlayer()->getType());
 	target->draw(text);
 
-	text.setCharacterSize(20);
-	DrawCascadingText("Equipped: "         + parent->getPlayer()->getEquipped(), 65);
-	int spacing = 30;
+	text.setCharacterSize(16);
+	DrawCascadingText("Equipped: "         + parent->getPlayer()->getEquipped(), 35);
+	int spacing = 20;
 	DrawCascadingText("Range: "            + std::to_string(parent->getPlayer()->getRange(parent)), spacing);
 	DrawCascadingText("Max DPS: "          + std::to_string(parent->getPlayer()->getDPS(parent)), spacing);
 	DrawCascadingText("Accuracy: "         + parent->getPlayer()->getAccString(), spacing);

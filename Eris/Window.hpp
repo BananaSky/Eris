@@ -40,6 +40,8 @@ public:
 	void run();
 	void draw();
 
+	void drawMinimap();
+
 	Ship * getNearest(bool enemy, sf::Vector2f to);
 
 	void updateCrates();
@@ -68,6 +70,10 @@ public:
 	void loadBiomes(std::string filename);
 	void loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name);
 	void loadInv(std::string location, sf::Vector2f size);
+
+	void loadMinimapTexture(std::string textureLocation);
+
+	void loadMinimapBacking(std::string textureLocation);
 
 	void loadPlanetTexture(std::string textureLocation);
 	void loadAsteroidTexture(std::string textureLocation);
@@ -134,6 +140,7 @@ public:
 	std::vector<projectile_ptr>*             getEnemyProjectiles() { return &enemyProjectiles; }
 	std::vector<ally_ptr>*                             getAllies() { return &allies; };
 	std::vector<enemy_ptr>*                           getEnemies() { return &enemies; };
+	std::vector<Wave>*                                  getWaves() { return &waves; };
 
 	sf::RenderWindow* getWindow()                                  { return &window; }
 	float             getFps()                                     { return fps; }
@@ -161,6 +168,12 @@ private:
 	sf::RenderWindow window;
 	sf::View         view;
 	sf::View         guiView;
+	sf::View         minimap;
+
+	sf::Sprite         minimapSprite;
+	sf::CircleShape    asteroidMap;
+	sf::CircleShape    planetMap;
+	sf::RectangleShape minimapBacking;
 
 	float modifier = 1.0;
 

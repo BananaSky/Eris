@@ -15,7 +15,7 @@ AI::AI(Ship* target)
 
 void AI::turnTo() 
 {
-	if (target != NULL)
+	if (target != NULL && target->getDistanceTo(getPosition()) < 100000)
 	{
 		float angle = getAngleTo(target->getPosition());
 
@@ -47,11 +47,9 @@ void AI::turnTo()
 
 void AI::forward()
 {
-	if (target != NULL)
+	float distance = target->getDistanceTo(getPosition());
+	if (target != NULL && distance < 100000)
 	{
-		float d_x = target->getPosition().x - getPosition().x;
-		float d_y = target->getPosition().y - getPosition().y;
-		float distance = sqrt(abs(d_x * d_x + d_y *d_y));
 		if (distance > followDistance)
 		{
 			accelerating = true;
