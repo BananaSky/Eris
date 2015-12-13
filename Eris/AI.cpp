@@ -84,6 +84,8 @@ void AI::update(Window* board, sf::RenderWindow* window)
 	{
 		target = board->getPlayer();
 		shooting = false;
+		turningLeft = false;
+		accelerating = false;
 	}
 	else
 	{

@@ -9,5 +9,7 @@ class Crate :
 public:
 	Crate();
 	~Crate();
+
+	float rarity;
 };
 

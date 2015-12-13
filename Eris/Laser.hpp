@@ -20,7 +20,7 @@ public:
 		window->draw(beam);
 	}
 
-	virtual void kill() { if (lifetime > 1) { lifetime --; } else { lifetime = 0; } }
+	void kill() { if (lifetime > 0) { lifetime --; } else { lifetime = 0; } }
 	virtual void update(Window * board);
 
 protected:

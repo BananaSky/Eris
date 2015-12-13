@@ -88,7 +88,7 @@ public:
 
 	//void addExplosion(Explosion* explosion);
 	void addFragments(sf::Vector2f position, int amount = 40, int spread = 1);
-	void addCrate(sf::Vector2f position);
+	void addCrate(sf::Vector2f position, float rarity);
 
 	void addExplosion(explosion_ptr explosion);
 

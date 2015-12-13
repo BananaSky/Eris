@@ -415,12 +415,12 @@ void Window::loadProjectileSpecs(std::string filename)
 				acceleration,
 				accuracy,
 				Ammo_Type,
-				texture
+				texture,
 		}
 				)
 			);
 		{
-			ItemSpecs item{ name, itemTexture, basePrice };
+			ItemSpecs item{ name, itemTexture, basePrice, 100 };
 
 			auto got = itemList.find(name);
 			if (got == itemList.end())
@@ -504,6 +504,7 @@ void Window::loadItems(std::string filename)
 	std::string name;
 	std::string texture;
 	int basePrice;
+	int rarity;
 
 	std::string                line;
 	std::getline(indata, line);
@@ -520,7 +521,10 @@ void Window::loadItems(std::string filename)
 		std::getline(lineStream, cell, ',');
 		basePrice = std::stoi(cell);
 
-		ItemSpecs item{ name, texture, basePrice };
+		std::getline(lineStream, cell, ',');
+		rarity = std::stoi(cell);
+
+		ItemSpecs item{ name, texture, basePrice, rarity };
 
 		auto got = itemList.find(name);
 		if (got == itemList.end())
