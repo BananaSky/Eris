@@ -19,11 +19,6 @@ int main(int argc, char** argv)
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_3.png");
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_4.png");
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_5.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_6.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_7.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_8.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_9.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_10.png");
 
 	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_1.png");
 	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_2.png");
@@ -31,9 +26,7 @@ int main(int argc, char** argv)
 	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_4.png");
 	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_5.png");
 
-	gamewindow.loadStationTexture("Graphics/Stations/station.png");
-	gamewindow.loadStationTexture("Graphics/Stations/station_2.png");
-	gamewindow.loadStationTexture("Graphics/Stations/station_3.png");
+	gamewindow.loadStationTexture("Graphics/Stations/lowPolySation.png");
 
 	gamewindow.loadBackground("Graphics/Backgrounds/lowPoly.jpg", sf::Vector2f(.2, .2));
 	gamewindow.loadStart("Eris.jpg", sf::Vector2f(.25, .25));
@@ -45,9 +38,9 @@ int main(int argc, char** argv)
 	gamewindow.GUImanager.loadHealth("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
 	gamewindow.GUImanager.loadEnergy("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
 
-	gamewindow.GUImanager.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
-	gamewindow.GUImanager.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
-	gamewindow.GUImanager.addBox(sf::Vector2f(32, 0), sf::Vector2f(120, 70));
+	//gamewindow.GUImanager.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
+	//gamewindow.GUImanager.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
+	//gamewindow.GUImanager.addBox(sf::Vector2f(32, 0), sf::Vector2f(120, 70));
 
 	gamewindow.GUImanager.loadInfo("Graphics/Buttons-Icons/Info_2.png", sf::Vector2f(180, 300));
 	gamewindow.GUImanager.loadHide("Graphics/Buttons-Icons/hide.png", sf::Vector2f(1, 1));
@@ -57,7 +50,7 @@ int main(int argc, char** argv)
 	gamewindow.loadMinimapTexture("Graphics/Buttons-Icons/MinimapSprite.png");
 	gamewindow.loadMinimapBacking("Graphics/Buttons-Icons/MinimapBacking.png");
 
-	gamewindow.GUImanager.loadMenuBacking("Graphics/FuelMeter.png");
+	//gamewindow.GUImanager.loadMenuBacking("Graphics/FuelMeter.png");
 
 	gamewindow.GUImanager.loadButtonTexture("Graphics/Buttons-Icons/Button.png");
 	gamewindow.GUImanager.loadSliderTexture("Graphics/Buttons-Icons/slideBar.png");

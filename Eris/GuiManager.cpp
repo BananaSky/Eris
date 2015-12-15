@@ -7,7 +7,7 @@
 
 GuiManager::GuiManager()
 {
-	if (!font.loadFromFile("Graphics/Fonts/SUSANNA_.ttf"))
+	if (!font.loadFromFile("Graphics/Fonts/Fabiolo-Light.otf"))
 	{
 
 	}
@@ -149,6 +149,11 @@ void GuiManager::fleetListener(sf::Event* event)
 		y += spacing;
 	}
 
+	if (parent->getAllies()->size() < 1)
+	{
+		addMessage("No Fleet");
+	}
+
 	int i = fleetMenu.buttonListener(event);
 	if (i < parent->getAllies()->size() && i >= 0)
 	{
@@ -169,7 +174,7 @@ void GuiManager::fleetListener(sf::Event* event)
 
 		//Apply its damage
 		parent->getPlayer()->applyDamage(parent->getShipSpecs()->at(parent->getAllies()->at(i)->getType())->structuralIntegrity - parent->getAllies()->at(i)->getStructure());
-		
+
 		//Delete the old ship
 		parent->getAllies()->erase(parent->getAllies()->begin() + i);
 	}
@@ -303,22 +308,23 @@ void GuiManager::InfoGUI()
 {
 	text.setFont(font);
 	text.setCharacterSize(20);
-	text.setColor(sf::Color(255, 212, 128));
+	text.setColor(sf::Color(255, 221, 153));
 
 	hideButton.setPosition(target->getSize().x - hideButton.getGlobalBounds().width, info.getSize().y);
 	showButton.setPosition(target->getSize().x - showButton.getGlobalBounds().width, 0);
 	info.setPosition(target->getSize().x - info.getGlobalBounds().width, 0);
 	target->draw(hideButton);
-	target->draw(info);
+	//target->draw(info);
 
 	text.setPosition(info.getPosition().x + 16, info.getPosition().y + 8);
 	text.setString(parent->getPlayer()->getType());
 	target->draw(text);
 
 	text.setCharacterSize(16);
-	DrawCascadingText("Equipped: "         + parent->getPlayer()->getEquipped(), 35);
 	int spacing = 20;
-	DrawCascadingText("Range: "            + std::to_string(parent->getPlayer()->getRange(parent)), spacing);
+
+	DrawCascadingText("Equipped: "         + parent->getPlayer()->getEquipped(), 25);
+	DrawCascadingText("Range: "            + std::to_string((int)parent->getPlayer()->getRange(parent)), spacing);
 	DrawCascadingText("Max DPS: "          + std::to_string(parent->getPlayer()->getDPS(parent)), spacing);
 	DrawCascadingText("Accuracy: "         + parent->getPlayer()->getAccString(), spacing);
 	DrawCascadingText("Aiming: "           + parent->getPlayer()->getAiming(), spacing);
@@ -368,14 +374,7 @@ void GuiManager::draw(sf::RenderWindow* window)
 	}
 
 	story.draw(window);
-
 	output.draw(window);
-
-	for (sf::RectangleShape& box : guiBoxes)
-	{
-		window->draw(box);
-	}
-
 
 	if (managingFleet)
 	{

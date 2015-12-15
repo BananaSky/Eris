@@ -105,7 +105,7 @@ void Menu::sliderListener(sf::Event* event)
 
 void Menu::draw(sf::RenderWindow* window)
 {
-	window->draw(*this);
+	//window->draw(*this);
 	closeButton.setPosition(this->getPosition().x - closeButton.getSize().x + this->getSize().x, this->getPosition().y);
 	closeButton.draw(window);
 
