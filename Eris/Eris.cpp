@@ -6,79 +6,71 @@
 
 int main(int argc, char** argv)
 {
+	srand((unsigned)time(NULL));
+
 	std::cout << "Eris.." << std::endl;
 
 	Window gamewindow("Eris");
 
-	gamewindow.loadMultiTexture("Graphics/Projectiles/ExplosionHD.png", gamewindow.getExplosionTextures(), 256, 4, 4);
+	gamewindow.loadMultiTexture("Graphics/Projectiles/explosion.png", gamewindow.getExplosionTextures(), 256, 4, 4);
 
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_1.png");
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_2.png");
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_3.png");
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_4.png");
 	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_5.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_6.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_7.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_8.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_9.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/Asteroid_10.png");
 
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_2.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_3.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_4.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_5.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_6.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_7.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_8.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_9.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_10.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_11.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_12.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_13.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_14.png");
-	gamewindow.loadAsteroidTexture("Graphics/Asteroids/scrap_15.png");
-
-	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag.png");
+	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_1.png");
 	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_2.png");
 	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_3.png");
 	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_4.png");
 	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_5.png");
-	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_6.png");
-	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_7.png");
-	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_8.png");
-	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_9.png");
-	gamewindow.loadFragmentTexture("Graphics/Projectiles/Fragment/frag_10.png");
 
-	gamewindow.loadPlanetTexture("Graphics/Planets/exo_2.jpg");
+	gamewindow.loadStationTexture("Graphics/Stations/lowPolySation.png");
 
-	gamewindow.loadStationTexture("Graphics/Stations/station.png");
-	gamewindow.loadStationTexture("Graphics/Stations/station_2.png");
-	gamewindow.loadStationTexture("Graphics/Stations/station_3.png");
-
-	gamewindow.loadBackground("Graphics/Backgrounds/space_12.jpg", sf::Vector2f(0.5, 0.5));
+	gamewindow.loadBackground("Graphics/Backgrounds/lowPoly.jpg", sf::Vector2f(.2, .2));
 	gamewindow.loadStart("Eris.jpg", sf::Vector2f(.25, .25));
 	gamewindow.loadInv("Graphics/Buttons-Icons/Inv6x4.png", sf::Vector2f(472, 365));
 
+	gamewindow.loadCrate("Graphics/Items/crate.jpg");
+
 	gamewindow.GUImanager.loadFuel("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
 	gamewindow.GUImanager.loadHealth("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
-	gamewindow.GUImanager.loadAmmo("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
-	gamewindow.GUImanager.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
-	gamewindow.GUImanager.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
-	gamewindow.GUImanager.addBox(sf::Vector2f(32, 0), sf::Vector2f(200, 70));
-	gamewindow.GUImanager.loadInfo("Graphics/Buttons-Icons/Info_2.png", sf::Vector2f(180, 400));
+	gamewindow.GUImanager.loadEnergy("Graphics/FuelMeter.png", sf::Vector2f(15, 300));
+
+	//gamewindow.GUImanager.loadGUI("Graphics/GuiBox.png", sf::Vector2f(0, 0));
+	//gamewindow.GUImanager.addBox(sf::Vector2f(0, 0), sf::Vector2f(30, 30));
+	//gamewindow.GUImanager.addBox(sf::Vector2f(32, 0), sf::Vector2f(120, 70));
+
+	gamewindow.GUImanager.loadInfo("Graphics/Buttons-Icons/Info_2.png", sf::Vector2f(180, 300));
 	gamewindow.GUImanager.loadHide("Graphics/Buttons-Icons/hide.png", sf::Vector2f(1, 1));
 	gamewindow.GUImanager.loadShow("Graphics/Buttons-Icons/show.png", sf::Vector2f(1, 1));
-	gamewindow.GUImanager.loadStationMenu("Graphics/Buttons-Icons/StationMenu.png", sf::Vector2f(64, 128));
-	gamewindow.GUImanager.loadPlanetMenu("Graphics/Buttons-Icons/PlanetMenu.png",   sf::Vector2f(64, 128));
-	gamewindow.GUImanager.loadTextBox("Graphics/Buttons-Icons/TextBox.png");
+	gamewindow.GUImanager.loadWASD("Graphics/Buttons-Icons/WASD.png");
+	gamewindow.GUImanager.loadSPACE("Graphics/Buttons-Icons/Space.png");
+	gamewindow.loadMinimapTexture("Graphics/Buttons-Icons/MinimapSprite.png");
+	gamewindow.loadMinimapBacking("Graphics/Buttons-Icons/MinimapBacking.png");
 
-	gamewindow.loadShipSpecs("ShipData.csv");
-	gamewindow.loadProjectileSpecs("ProjectileData.csv");
-	gamewindow.loadWaves("Waves.csv");
-	gamewindow.loadPlayer(sf::Vector2f(0, 0), sf::Vector2f(.3f, .3f), "Frigate");
+	//gamewindow.GUImanager.loadMenuBacking("Graphics/FuelMeter.png");
 
-	gamewindow.genChunks(sf::Vector2f(50000, 50000));
+	gamewindow.GUImanager.loadButtonTexture("Graphics/Buttons-Icons/Button.png");
+	gamewindow.GUImanager.loadSliderTexture("Graphics/Buttons-Icons/slideBar.png");
+	gamewindow.GUImanager.loadSliderButtonTexture("Graphics/Buttons-Icons/slideButton.png");
+
+	gamewindow.GUImanager.loadQuotes("Quotes.txt");
+
+	gamewindow.GUImanager.Init();
+
+	gamewindow.loadShipSpecs("Data/ShipData.csv");
+	gamewindow.loadProjectileSpecs("Data/ProjectileData.csv");
+	gamewindow.loadWaves("Data/Waves.csv");
+	gamewindow.loadItems("Data/Items.csv");
+	gamewindow.loadTurrets("Data/Turrets.csv");
+	gamewindow.loadBiomes("Data/Biomes.csv");
+	gamewindow.loadPlanets("Data/Planets.csv");
+
+	gamewindow.loadPlayer(sf::Vector2f(100, 100), sf::Vector2f(.6f, .6f), "Frigate");
+
+	gamewindow.genChunks(sf::Vector2f(128000, 128000));
 
 	gamewindow.run();
 

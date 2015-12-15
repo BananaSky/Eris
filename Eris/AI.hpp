@@ -19,13 +19,17 @@ public:
 
 	virtual void shoot(Window* board) { Ship::shoot(board); }
 
+	virtual void applyDamage(float damage) { structuralIntegrity -= damage; }
+
+	void drawHealth(sf::RenderWindow* window) { window->draw(health); }
+
 protected:
 	bool keepAtRange = true;
 
-private:
 	Ship* target;
 	float angleRange = 30;
 	float followDistance = 200;
 
+	sf::RectangleShape health;
 };
 

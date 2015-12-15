@@ -113,18 +113,24 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>C:\Users\Lucas\Desktop\C++\SFML-2.3.2-windows-vc14-64-bit\SFML-2.3.2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>SFML_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>C:\Users\Lucas\Desktop\C++\SFML-2.3.2-windows-vc14-64-bit\SFML-2.3.2\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>sfml-graphics-s.lib;sfml-window-s.lib;sfml-system-s.lib;opengl32.lib;freetype.lib;jpeg.lib;winmm.lib;gdi32.lib;sfml-audio-s.lib;openal32.lib;flac.lib;vorbisenc.lib;vorbisfile.lib;vorbis.lib;ogg.lib;sfml-network-s.lib 	;ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AI.cpp" />
     <ClCompile Include="Asteroid.cpp" />
+    <ClCompile Include="Button.cpp" />
     <ClCompile Include="Chunk.cpp" />
     <ClCompile Include="Collidable.cpp" />
+    <ClCompile Include="Crate.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Eris.cpp" />
     <ClCompile Include="Explosion.cpp" />
@@ -132,25 +138,38 @@
     <ClCompile Include="GuiManager.cpp" />
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="Item.cpp" />
+    <ClCompile Include="Laser.cpp" />
+    <ClCompile Include="LaserTurret.cpp" />
     <ClCompile Include="Loading.cpp" />
+    <ClCompile Include="CascadingButtons.cpp" />
+    <ClCompile Include="Market.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Perlin.cpp" />
     <ClCompile Include="Planet.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Projectile.cpp" />
+    <ClCompile Include="Railgun.cpp" />
+    <ClCompile Include="RailgunSabot.cpp" />
     <ClCompile Include="Ship.cpp" />
+    <ClCompile Include="Slider.cpp" />
+    <ClCompile Include="SmartMissle.cpp" />
+    <ClCompile Include="SmartMissleLauncher.cpp" />
     <ClCompile Include="Station.cpp" />
     <ClCompile Include="Tilemap.cpp" />
     <ClCompile Include="TimedText.cpp" />
     <ClCompile Include="TimedTextBox.cpp" />
+    <ClCompile Include="Turret.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AI.hpp" />
     <ClInclude Include="Asteroid.hpp" />
+    <ClInclude Include="Biome.hpp" />
+    <ClInclude Include="Button.hpp" />
     <ClInclude Include="Chunk.hpp" />
     <ClInclude Include="Collidable.hpp" />
     <ClInclude Include="Constants.hpp" />
+    <ClInclude Include="Crate.hpp" />
     <ClInclude Include="Enemy.hpp" />
     <ClInclude Include="Explosion.hpp" />
     <ClInclude Include="Fragment.hpp" />
@@ -158,23 +177,39 @@
     <ClInclude Include="Includes.hpp" />
     <ClInclude Include="Inventory.hpp" />
     <ClInclude Include="Item.hpp" />
+    <ClInclude Include="CascadingButtons.hpp" />
+    <ClInclude Include="ItemSpecs.hpp" />
+    <ClInclude Include="Laser.hpp" />
+    <ClInclude Include="LaserTurret.hpp" />
+    <ClInclude Include="Market.hpp" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Perlin.hpp" />
     <ClInclude Include="Planet.hpp" />
+    <ClInclude Include="PlanetSpecs.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Projectile.hpp" />
     <ClInclude Include="ProjectileSpecs.hpp" />
+    <ClInclude Include="Railgun.hpp" />
+    <ClInclude Include="RailgunSabot.hpp" />
     <ClInclude Include="Ship.hpp" />
     <ClInclude Include="ShipSpecs.hpp" />
+    <ClInclude Include="Slider.hpp" />
+    <ClInclude Include="SmartMissle.hpp" />
+    <ClInclude Include="SmartMissleLauncher.hpp" />
     <ClInclude Include="Station.hpp" />
     <ClInclude Include="Tilemap.hpp" />
     <ClInclude Include="TimedText.hpp" />
     <ClInclude Include="TimedTextBox.hpp" />
+    <ClInclude Include="Turret.hpp" />
+    <ClInclude Include="TurretSpecs.h" />
     <ClInclude Include="Wave.hpp" />
     <ClInclude Include="Window.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Game-11-7-2015\Game-11-7-2015\Game-11-7-2015.vcxproj.filters" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Quotes.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -7,6 +7,22 @@
 #include "Explosion.hpp"
 #include "Wave.hpp"
 #include "GuiManager.hpp"
+#include "Biome.hpp"
+#include "PlanetSpecs.hpp"
+
+void Window::loadMinimapTexture(std::string textureLocation)
+{
+	minimapSprite.setTexture(*loadTexture(textureLocation));
+	minimapSprite.setOrigin(minimapSprite.getGlobalBounds().width / 2, minimapSprite.getGlobalBounds().height / 2);
+
+	minimapSprite.setScale(sf::Vector2f(20, 20));
+}
+
+void Window::loadMinimapBacking(std::string textureLocation)
+{
+	minimapBacking.setTexture(loadTexture(textureLocation));
+	minimapBacking.setSize(sf::Vector2f(300, 200));
+}
 
 void Window::loadPlanetTexture(std::string textureLocation)
 {
@@ -58,17 +74,24 @@ sf::Texture* Window::loadTexture(std::string textureLocation)
 	//This is to keep track of our textures, and ensure they are freed when we delete the gameboard
 	textureID++;
 
-	textures.insert(std::pair<std::string, sf::Texture*>(std::to_string(textureID), new sf::Texture));
-	//Allocate and load a new texture into memory
-
-	if (!textures[std::to_string(textureID)]->loadFromFile(textureLocation))
+	auto got = textures.find(textureLocation);
+	if (got == textures.end())
 	{
-		std::cout << "Error Loading Texture" << std::endl;
+		textures.insert(std::pair<std::string, sf::Texture*>(textureLocation, new sf::Texture()));
+		if (!textures[textureLocation]->loadFromFile(textureLocation))
+		{
+			std::cout << "Error Loading Texture" << std::endl;
+		}
+		
+	}
+	else
+	{
+		std::cout << "Already Loaded: " << textureLocation << std::endl;
 	}
 
-	textures[std::to_string(textureID)]->setSmooth(smoothTextures);
+	textures[textureLocation]->setSmooth(smoothTextures);
 
-	return textures[std::to_string(textureID)];
+	return textures[textureLocation];
 }
 
 void Window::loadBackground(std::string location, sf::Vector2f scale = sf::Vector2f(.5f,.5f))
@@ -81,6 +104,11 @@ void Window::loadStart(std::string location, sf::Vector2f scale = sf::Vector2f(.
 {
 	startScreen.setTexture(*loadTexture(location));
 	startScreen.setScale(scale);
+}
+
+void Window::loadCrate(std::string location)
+{
+	crateTexture = *loadTexture(location);
 }
 
 void GuiManager::loadFuel(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
@@ -99,17 +127,17 @@ void GuiManager::loadHealth(std::string location, sf::Vector2f size = sf::Vector
 	parent->getPlayer()->syncHealth(&health);
 }
 
+void GuiManager::loadEnergy(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
+{
+	energy.setTexture(parent->loadTexture(location));
+	energy.setSize(size);
+	energy.setPosition(fuel.getPosition().x, fuel.getSize().y + fuel.getPosition().y);
+	parent->getPlayer()->syncEnergy(&energy);
+}
+
 void GuiManager::loadGUI(std::string location, sf::Vector2f scale = sf::Vector2f(.5f, .5f))
 {
 	guiBox = *parent->loadTexture(location);
-}
-
-void GuiManager::loadAmmo(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
-{
-	ammo.setTexture(parent->loadTexture(location));
-	ammo.setSize(size);
-	ammo.setPosition(0, 330);
-	parent->getPlayer()->syncAmmo(&ammo);
 }
 
 void GuiManager::loadInfo(std::string location, sf::Vector2f size = sf::Vector2f(50, 100))
@@ -121,44 +149,81 @@ void GuiManager::loadInfo(std::string location, sf::Vector2f size = sf::Vector2f
 
 void GuiManager::loadHide(std::string location, sf::Vector2f scale = sf::Vector2f(1, 1))
 {
-	hideButton.setTexture(*parent->loadTexture(location));
+	hideButton.setTexture(parent->loadTexture(location));
 	hideButton.setScale(scale);
 	hideButton.setPosition(target->getSize().x - hideButton.getGlobalBounds().width, info.getSize().y);
 }
 
 void GuiManager::loadShow(std::string location, sf::Vector2f scale = sf::Vector2f(1, 1))
 {
-	showButton.setTexture(*parent->loadTexture(location));
+	showButton.setTexture(parent->loadTexture(location));
 	showButton.setScale(scale);
 	showButton.setPosition(target->getSize().x - showButton.getGlobalBounds().width, 0);
 }
 
 void Window::loadInv(std::string location, sf::Vector2f size)
 {
-	inventory.setTexture(loadTexture(location));
-	inventory.setSize(size);
-	inventory.setPosition(window.getSize().x / 2 - inventory.getLocalBounds().width / 2, 0);
+	player.getInv()->setTexture(loadTexture(location));
+	player.getInv()->setSize(size);
+	player.getInv()->setPosition(window.getSize().x / 2 - player.getInv()->getLocalBounds().width / 2, 0);
 }
 
-void GuiManager::loadStationMenu(std::string location, sf::Vector2f size)
+void GuiManager::loadMenuBacking(std::string location)
 {
-	stationMenu.setTexture(parent->loadTexture(location));
-	stationMenu.setSize(size);
-	stationMenu.setPosition(132, 2);
-	stationMenu.setSections(4);
+	menuBacking = *parent->loadTexture(location);
+	stationMenu.setTexture(&menuBacking);
+	planetMenu.setTexture(&menuBacking);
+	fleetMenu.setTexture(&menuBacking);
 }
 
-void GuiManager::loadPlanetMenu(std::string location, sf::Vector2f size)
+void GuiManager::loadButtonTexture(std::string location)
 {
-	planetMenu.setTexture(parent->loadTexture(location));
-	planetMenu.setSize(size);
-	planetMenu.setPosition(132, 2);
-	planetMenu.setSections(4);
+	buttonTexture = *parent->loadTexture(location);
+	stationMenu.loadButtonTexture(&buttonTexture);
+	planetMenu.loadButtonTexture(&buttonTexture);
+	fleetManager.setTexture(&buttonTexture);
+}
+
+void GuiManager::loadSliderButtonTexture(std::string location)
+{
+	sliderButtonTexture = *parent->loadTexture(location);
+	stationMenu.loadSliderButtonTexture(&sliderButtonTexture);
+	planetMenu.loadSliderButtonTexture(&sliderButtonTexture);
+}
+
+void GuiManager::loadSliderTexture(std::string location)
+{
+	sliderTexture = *parent->loadTexture(location);
+	stationMenu.loadSliderTexture(&sliderTexture);
+	planetMenu.loadSliderTexture(&sliderTexture);
 }
 
 void GuiManager::loadTextBox(std::string location)
 {
 	output.setTexture(parent->loadTexture(location));
+}
+
+void GuiManager::loadWASD(std::string location)
+{
+	wasd.setTexture(*parent->loadTexture(location));
+}
+
+void GuiManager::loadSPACE(std::string location)
+{
+	space.setTexture(*parent->loadTexture(location));
+}
+
+void GuiManager::loadQuotes(std::string location)
+{
+	std::ifstream file(location);
+	std::string str;
+	std::getline(file, str);
+	while (std::getline(file, str))
+	{
+		std::cout << str << std::endl;
+		Quotes.push_back(str);
+	}
+	
 }
 
 void Window::loadShipSpecs(std::string filename)
@@ -176,14 +241,17 @@ void Window::loadShipSpecs(std::string filename)
 	float structuralIntegrity;
 	float repair;
 	std::string texture;
-	std::vector<std::string> missleTypes;
 	int cost;
+	std::vector<std::string> turretTypes;
+
+	float maxenergy;
+	float recharge;
 
 	std::string                line;
 	std::getline(indata, line);
 	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
 	{
-		missleTypes.clear();
+		turretTypes.clear();
 
 		std::stringstream          lineStream(line);
 
@@ -215,11 +283,14 @@ void Window::loadShipSpecs(std::string filename)
 
 		std::getline(lineStream, texture, ',');
 
+		std::getline(lineStream, cell, ',');
+		cost = std::stoi(cell);
+
 		while (std::getline(lineStream, cell, ','))
 		{
 			if (cell != "none")
 			{
-				missleTypes.push_back(cell);
+				turretTypes.push_back(cell);
 			}
 			else
 			{
@@ -227,18 +298,12 @@ void Window::loadShipSpecs(std::string filename)
 			}
 		}
 
-		while (std::getline(lineStream, cell, ','))
-		{
-			if (cell != "none")
-			{
-				cost = std::stoi(cell);
-			}
-			else if (cell == "")
-			{
-				break;
-			}
-		}
 
+		std::getline(lineStream, cell, ',');
+		maxenergy = std::stof(cell);
+
+		std::getline(lineStream, cell, ',');
+		recharge = std::stof(cell);
 
 		spec_Keys.push_back(name);
 		specs.insert(
@@ -256,8 +321,10 @@ void Window::loadShipSpecs(std::string filename)
 			structuralIntegrity,
 			repair,
 			texture,
-			missleTypes, 
-			cost
+			cost,
+			turretTypes,
+				maxenergy,
+				recharge
 		}
 				)
 			);
@@ -298,14 +365,13 @@ void Window::loadProjectileSpecs(std::string filename)
 
 	std::string name;
 	int lifetime;
-	float hitRadius;
 	float damage;
 	float acceleration;
-	std::string texture;
-	int baseRate;
-	uint8_t amount;
-	uint8_t spread;
 	uint8_t accuracy;
+	std::string Ammo_Type;
+	int basePrice;
+	std::string texture;
+	std::string itemTexture;
 
 	std::string                line;
 	std::getline(indata, line);
@@ -322,27 +388,21 @@ void Window::loadProjectileSpecs(std::string filename)
 		lifetime = std::stoi(cell);
 
 		std::getline(lineStream, cell, ',');
-		hitRadius = std::stof(cell);
-
-		std::getline(lineStream, cell, ',');
 		damage = std::stof(cell);
 
 		std::getline(lineStream, cell, ',');
 		acceleration = std::stof(cell);
 
-		std::getline(lineStream, texture, ',');
-
-		std::getline(lineStream, cell, ',');
-		baseRate = std::stoi(cell);
-
-		std::getline(lineStream, cell, ',');
-		amount = std::stoi(cell);
-
-		std::getline(lineStream, cell, ',');
-		spread = std::stoi(cell);
-
 		std::getline(lineStream, cell, ',');
 		accuracy = std::stoi(cell);
+
+		std::getline(lineStream, Ammo_Type, ',');
+
+		std::getline(lineStream, cell, ',');
+		basePrice = std::stoi(cell);
+
+		std::getline(lineStream, texture, ',');
+		std::getline(lineStream, itemTexture, ',');
 
 		p_specs.insert(
 			std::pair<std::string, ProjectileSpecs*>
@@ -350,20 +410,30 @@ void Window::loadProjectileSpecs(std::string filename)
 				name,
 				new ProjectileSpecs
 		{
-			lifetime,
-			hitRadius,
+				lifetime,
 				damage,
 				acceleration,
+				accuracy,
+				Ammo_Type,
 				texture,
-				baseRate,
-				amount,
-				spread,
-				accuracy
 		}
 				)
 			);
+		{
+			ItemSpecs item{ name, itemTexture, basePrice, 100 };
 
-		std::unordered_map<std::string, sf::Texture*>::const_iterator got = textures.find(texture);
+			auto got = itemList.find(name);
+			if (got == itemList.end())
+			{
+				itemList.insert(std::pair<std::string, ItemSpecs>(name, item));
+			}
+			else
+			{
+				std::cout << "Already Loaded: " << name << std::endl;
+			}
+		}
+
+		auto got = textures.find(texture);
 		if (got == textures.end())
 		{
 			textures.insert(std::pair<std::string, sf::Texture*>(texture, new sf::Texture()));
@@ -389,6 +459,7 @@ void Window::loadWaves(std::string filename)
 	indata.open(filename);
 
 	int dispersion;
+	int danger;
 	std::string type;
 
 	std::string                line;
@@ -404,6 +475,9 @@ void Window::loadWaves(std::string filename)
 		std::getline(lineStream, cell, ',');
 		dispersion = std::stoi(cell);
 
+		std::getline(lineStream, cell, ',');
+		danger = std::stoi(cell);
+
 		while (std::getline(lineStream, type, ','))
 		{
 			if (type != "")
@@ -413,15 +487,262 @@ void Window::loadWaves(std::string filename)
 			else
 			{
 				break;
-
 			}
 		}
 
-		waves.push_back(Wave{ dispersion, units });
+		waves.push_back(Wave{ dispersion, danger, units });
 	}
 	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
 }
 
+void Window::loadItems(std::string filename)
+{
+	std::ifstream indata;
+
+	indata.open(filename);
+
+	std::string name;
+	std::string texture;
+	int basePrice;
+	int rarity;
+
+	std::string                line;
+	std::getline(indata, line);
+	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
+	{
+		std::stringstream          lineStream(line);
+
+		//This would be better with some operator overloading, but for now....?
+
+		std::string                cell;
+		std::getline(lineStream, name, ',');
+		std::getline(lineStream, texture, ',');
+
+		std::getline(lineStream, cell, ',');
+		basePrice = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		rarity = std::stoi(cell);
+
+		ItemSpecs item{ name, texture, basePrice, rarity };
+
+		auto got = itemList.find(name);
+		if (got == itemList.end())
+		{
+			itemList.insert(std::pair<std::string, ItemSpecs>(name, item));
+		}
+		else
+		{
+			std::cout << "Already Loaded: " << name << std::endl;
+		}
+	}
+	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
+}
+
+void Window::loadTurrets(std::string filename)
+{
+	std::ifstream indata;
+
+	indata.open(filename);
+
+	std::string name;
+	std::string ammo_type;
+	int baseRate;
+	float spreadModifier;
+	float accuracyModifier;
+	int barrelSpacing;
+	int barrels;
+	float range;
+	bool fixed;
+
+	std::string                line;
+	std::getline(indata, line);
+	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
+	{
+		std::stringstream          lineStream(line);
+
+		//This would be better with some operator overloading, but for now....?
+
+		std::string                cell;
+		std::getline(lineStream, name, ',');
+		std::getline(lineStream, ammo_type, ',');
+
+		std::getline(lineStream, cell, ',');
+		baseRate = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		spreadModifier = std::stof(cell);
+
+		std::getline(lineStream, cell, ',');
+		accuracyModifier = std::stof(cell);
+
+		std::getline(lineStream, cell, ',');
+		barrelSpacing = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		barrels = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		range = std::stof(cell);
+
+		std::getline(lineStream, cell, ',');
+		if (cell == "TRUE")  { fixed = true; }
+		else if (cell == "FALSE") { fixed = false; }
+
+		TurretSpecs turret{ name, ammo_type, baseRate, spreadModifier, accuracyModifier, barrelSpacing, barrels, range, fixed };
+
+		auto got = turretSpecs.find(name);
+		if (got == turretSpecs.end())
+		{
+			turretSpecs.insert(std::pair<std::string, TurretSpecs>(name, turret));
+		}
+		else
+		{
+			std::cout << "Already Loaded: " << name << std::endl;
+		}
+	}
+	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
+}
+
+void Window::loadPlanets(std::string filename)
+{
+	std::ifstream indata;
+
+	indata.open(filename);
+
+	std::string name;
+	std::string texture;
+
+	std::string                line;
+	std::getline(indata, line);
+	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
+	{
+		std::stringstream          lineStream(line);
+
+		//This would be better with some operator overloading, but for now....?
+
+		std::string                cell;
+
+		getline(lineStream, name, ',');
+		getline(lineStream, texture, ',');
+
+		PlanetSpecs planet { name, false, texture };
+
+		loadPlanetTexture(texture);
+
+		auto got = planetSpecs.find(name);
+		if (got == planetSpecs.end())
+		{
+			planetSpecs.insert(std::pair<std::string, PlanetSpecs>(name, planet));
+		}
+		else
+		{
+			std::cout << "Already Loaded: " << name << std::endl;
+		}
+	}
+	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
+}
+
+void Window::loadBiomes(std::string filename)
+{
+	std::ifstream indata;
+
+	indata.open(filename);
+
+	std::string name;
+	int asteroidNum;
+	int maxAsteroidRadius;
+	int asteroidVelocityMax;
+
+	int maxPlanetNum;
+	int maxPlanetRadius;
+	int minPlanetRadius;
+	int maxStationNumber;
+	int closeness;
+
+	int planetChance;
+	int stationChance;
+
+	int danger;
+	int spawnRate;
+
+	std::string                line;
+	std::getline(indata, line);
+	while (getline(indata, line)) //For every line of csv, gather the data for each ship type and push it to a map
+	{
+		std::stringstream          lineStream(line);
+
+		//This would be better with some operator overloading, but for now....?
+
+		std::string                cell;
+
+		std::getline(lineStream, name, ',');
+
+		std::getline(lineStream, cell, ',');
+		asteroidNum = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		maxAsteroidRadius = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		asteroidVelocityMax = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		maxPlanetNum = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		maxPlanetRadius = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		minPlanetRadius = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		maxStationNumber = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		closeness = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		planetChance = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		stationChance = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		spawnRate = std::stoi(cell);
+
+		std::getline(lineStream, cell, ',');
+		danger = std::stoi(cell);
+
+		Biome biome
+		{
+		asteroidNum,
+		maxAsteroidRadius,
+		asteroidVelocityMax,
+		maxPlanetNum,
+		maxPlanetRadius,
+		minPlanetRadius,
+		maxStationNumber,
+		closeness,
+		planetChance,
+		stationChance,
+		spawnRate,
+			danger
+		};
+
+		auto got = biomes.find(name);
+		if (got == biomes.end())
+		{
+			biomes.insert(std::pair<std::string, Biome>(name, biome));
+			std::cout << "Loaded " << name << std::endl;
+		}
+		else
+		{
+			std::cout << "Already Loaded: " << name << std::endl;
+		}
+	}
+	std::cout << "\n\n Type Loading Complete.. \n\n" << std::endl;
+}
 
 void Window::loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name = "Frigate")
 {
@@ -438,10 +759,4 @@ void Window::loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string n
 	player.setPosition(position);
 	player.scale(scale);
 	player.setOrigin(player.getLocalBounds().width / 2, player.getLocalBounds().height / 2);
-}
-
-void Window::loadStartScreen(std::string location, sf::Vector2f scale)
-{
-	startScreen.setTexture(*loadTexture(location));
-	startScreen.setScale(scale);
 }

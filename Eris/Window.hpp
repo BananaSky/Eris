@@ -9,6 +9,11 @@
 #include "Fragment.hpp"
 #include "Wave.hpp"
 #include "GuiManager.hpp"
+#include "Crate.hpp"
+#include "ItemSpecs.hpp"
+#include "TurretSpecs.h"
+#include "Biome.hpp"
+#include "PlanetSpecs.hpp"
 
 class  Chunk;
 struct ProjectileSpecs;
@@ -23,11 +28,31 @@ public:
 	Window(std::string title);
 	~Window();
 
+	//Some typdefs to make migration to safer memory management also look clean (Limit these)
+	typedef std::shared_ptr<Explosion>  explosion_ptr;
+	typedef std::shared_ptr<Projectile> projectile_ptr;
+	typedef std::shared_ptr<Enemy>	    enemy_ptr;
+	typedef std::shared_ptr<AI>         ally_ptr;
+	typedef std::shared_ptr<Fragment>   frag_ptr;
+
+	void Init();
+
 	void run();
 	void draw();
 
+	void drawMinimap();
 
-	void buyIron(); //Move this to a different class, please :)
+	Ship * getNearest(bool enemy, sf::Vector2f to);
+
+	void updateCrates();
+
+	void updateEnemies();
+
+	void updateEnemyProjectiles();
+
+	void updateExplosions();
+
+	void updateFragments();
 
 	//All Loading Functions here
 
@@ -36,39 +61,47 @@ public:
 	void loadTextureSquare(std::string textureLocation, sf::IntRect rect, std::vector<sf::Texture*>* storeLocation);
 	void loadMultiTexture(std::string location, std::vector<sf::Texture*>* storeLocation, int size, int rows, int columns);
 
-	void loadBackground     (std::string location, sf::Vector2f scale);
-	void loadStart          (std::string location, sf::Vector2f scale);
+	void loadBackground(std::string location, sf::Vector2f scale);
+	void loadStart(std::string location, sf::Vector2f scale);
+	void loadCrate(std::string location);
+	void loadItems(std::string filename);
+	void loadTurrets(std::string filename);
+	void loadPlanets(std::string filename);
+	void loadBiomes(std::string filename);
 	void loadPlayer(sf::Vector2f position, sf::Vector2f scale, std::string name);
-	void loadInv            (std::string location, sf::Vector2f size);
+	void loadInv(std::string location, sf::Vector2f size);
 
-	void loadPlanetTexture  (std::string textureLocation);
+	void loadMinimapTexture(std::string textureLocation);
+
+	void loadMinimapBacking(std::string textureLocation);
+
+	void loadPlanetTexture(std::string textureLocation);
 	void loadAsteroidTexture(std::string textureLocation);
 	void loadFragmentTexture(std::string textureLocation);
-	void loadStationTexture (std::string textureLocation);
+	void loadStationTexture(std::string textureLocation);
 
-	void loadShipSpecs      (std::string filename);
+	void loadShipSpecs(std::string filename);
 	void loadProjectileSpecs(std::string filename);
-	void loadWaves          (std::string filename);
+	void loadWaves(std::string filename);
 
 	//Functions for adding types of projectiles
 
-	void addExplosion(Explosion* explosion);
-	void addFragments(sf::Vector2f position);
-	void addProjectile(float rotation, sf::Vector2f position, float velocity, std::string type);
-	void addEnemyProjectile(float rotation, sf::Vector2f position, float velocity, std::string type);
+	//void addExplosion(Explosion* explosion);
+	void addFragments(sf::Vector2f position, int amount = 40, int spread = 1);
+	void addCrate(sf::Vector2f position, float rarity);
 
-	//Enemy management
-
-	void spawn(sf::Vector2f position, sf::Vector2f scale, std::string name, bool enemy);
-	void spawnWave(const std::vector<std::string>& wave);
-	void cycleWave();
+	void addExplosion(explosion_ptr explosion);
 
 	//Chunks and update
 
 	void genChunks(sf::Vector2f size);
 
+	void buy(std::string index, float percent = .1);
+	void sell(std::string index, float percent = .1);
+
 	void updateProjectiles();
-	void updateShips();
+	void updateAllies();
+	void updatePlayer();
 	void updateChunks();
 	void update();
 
@@ -80,25 +113,41 @@ public:
 	void displayGameOverScreen();
 
 	void addMessage(std::string m) { GUImanager.addMessage(m); }
-	void toggleInv()			   { invScreen = !invScreen; inventory.format(&window); pause(); }
-	void pause()				   { paused = !paused; }
+	void toggleInv() 
+	{ 
+		invScreen = !invScreen; 
+		player.getInv()->format(&window); 
+		if (!paused) { pause(); } 
+		else { unpause(); } 
+	}
+	void pause()     { paused = true;  }
+	void unpause()   { paused = false; }
 
 	//Lots of getters
 
-	std::vector<sf::Texture*>* getAsteroidTextures()               { return &asteroidTextures; }
-	std::vector<sf::Texture*>* getPlanetTextures()                 { return &planetTextures; }
-	std::vector<sf::Texture*>* getExplosionTextures()              { return &explosionTextures; }
-	std::vector<sf::Texture*>* getStationTextures()                { return &stationTextures; }
-	std::unordered_map<std::string, sf::Texture*>* getTextures()   { return &textures; }
-	std::unordered_map<std::string, ShipSpecs*>* getShipSpecs()    { return &specs; }
+	std::vector<sf::Texture*>*               getAsteroidTextures() { return &asteroidTextures; }
+	std::vector<sf::Texture*>*                 getPlanetTextures() { return &planetTextures; }
+	std::vector<sf::Texture*>*              getExplosionTextures() { return &explosionTextures; }
+	std::vector<sf::Texture*>*                getStationTextures() { return &stationTextures; }
+	std::unordered_map<std::string, sf::Texture*>*   getTextures() { return &textures; }
+	std::unordered_map<std::string, ShipSpecs*>*    getShipSpecs() { return &specs; }
 	std::unordered_map<std::string, ProjectileSpecs*>* getPSpecs() { return &p_specs; }
-	std::vector<std::string>* getSpec_Keys()                       { return &spec_Keys; }
+	std::unordered_map<std::string, TurretSpecs>*      getTSpecs() { return &turretSpecs; }
+	std::unordered_map<std::string, PlanetSpecs>* getPlanetSpecs() { return &planetSpecs; }
+	std::vector<std::string>*                       getSpec_Keys() { return &spec_Keys; }
+	std::unordered_map<std::string, ItemSpecs>*         getItems() { return &itemList; }
+	std::vector<projectile_ptr>*                  getProjectiles() { return &projectiles; }
+	std::vector<projectile_ptr>*             getEnemyProjectiles() { return &enemyProjectiles; }
+	std::vector<ally_ptr>*                             getAllies() { return &allies; };
+	std::vector<enemy_ptr>*                           getEnemies() { return &enemies; };
+	std::vector<Wave>*                                  getWaves() { return &waves; };
 
 	sf::RenderWindow* getWindow()                                  { return &window; }
 	float             getFps()                                     { return fps; }
 	Player*           getPlayer()                                  { return &player; }
 	sf::View          getNormalView()							   { return view; }
 	sf::View          getGUIview()								   { return guiView; }
+	Inventory*        getInv()                                     { return player.getInv(); }
 
 	//Score-Related
 
@@ -106,10 +155,10 @@ public:
 	int getScore()   { return score; }
 
 	void addScore(int n)  { if (n > 0)       { score += n; credits += n; } }
-	void spend(int i = 1) { if (credits > i) { credits -= i; } }
+	void spend(int i = 1) { if (credits > i) { credits -= i; } else { credits = 0; addMessage("Insufficient Funds"); } }
 
-public:
-	GuiManager GUImanager;
+public: //Another public declaration to show intent
+	GuiManager GUImanager; //Only public temporarily- Will probably change this before the next update
 
 private:
 
@@ -119,6 +168,12 @@ private:
 	sf::RenderWindow window;
 	sf::View         view;
 	sf::View         guiView;
+	sf::View         minimap;
+
+	sf::Sprite         minimapSprite;
+	sf::CircleShape    asteroidMap;
+	sf::CircleShape    planetMap;
+	sf::RectangleShape minimapBacking;
 
 	float modifier = 1.0;
 
@@ -135,23 +190,30 @@ private:
 	std::vector<sf::Texture*>                     stationTextures;
 	std::vector<sf::Texture*>                     fragTextures;
 	std::vector<std::string>                      spec_Keys;
+	sf::Texture                                   crateTexture;
 
 	std::unordered_map<std::string, ShipSpecs*>       specs;
 	std::unordered_map<std::string, ProjectileSpecs*> p_specs;
+	std::unordered_map<std::string, TurretSpecs>      turretSpecs;
+	std::unordered_map<std::string, PlanetSpecs>      planetSpecs;
+	std::unordered_map<std::string, Biome>            biomes;
 
 	Player    player;
-	Inventory inventory;
 	int       score;
 	int       credits;
 
 	std::unordered_map<int, Chunk> chunks;
+
 	std::vector<Wave>              waves;
-	std::vector<Fragment>          fragments;
-	std::vector<Explosion*>        explosions;
-	std::vector<Projectile*>       projectiles;
-	std::vector<Projectile*>       enemyProjectiles;
-	std::vector<Enemy>             enemies;
-	std::vector<AI>                allies;
+	std::vector<frag_ptr>          fragments;
+	std::vector<explosion_ptr>     explosions;
+	std::vector<projectile_ptr>    projectiles;
+	std::vector<projectile_ptr>    enemyProjectiles;
+	std::vector<enemy_ptr>         enemies;
+	std::vector<ally_ptr>          allies;
+	std::vector<Crate>             crates;
+
+	std::unordered_map<std::string, ItemSpecs> itemList;
 
 	static bool smoothTextures;
 	static int  textureID;

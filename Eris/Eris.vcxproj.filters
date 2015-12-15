@@ -43,6 +43,12 @@
     <Filter Include="Source Files\GUI">
       <UniqueIdentifier>{f013646a-b4a3-4410-a739-57f24c9751e8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Ship\ShipParts">
+      <UniqueIdentifier>{dbb86a08-74e8-471a-a86a-31aefbc30400}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Ship\ShipParts">
+      <UniqueIdentifier>{be737ade-c482-49bf-a583-04792e39673e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Window.cpp">
@@ -105,14 +111,50 @@
     <ClCompile Include="GuiManager.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Menu.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
     <ClCompile Include="TimedText.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="TimedTextBox.cpp">
       <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Slider.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="CascadingButtons.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Button.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Menu.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Crate.cpp">
+      <Filter>Source Files\Environment</Filter>
+    </ClCompile>
+    <ClCompile Include="Market.cpp">
+      <Filter>Source Files\Board</Filter>
+    </ClCompile>
+    <ClCompile Include="Turret.cpp">
+      <Filter>Source Files\Ship\ShipParts</Filter>
+    </ClCompile>
+    <ClCompile Include="Laser.cpp">
+      <Filter>Source Files\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserTurret.cpp">
+      <Filter>Source Files\Ship\ShipParts</Filter>
+    </ClCompile>
+    <ClCompile Include="RailgunSabot.cpp">
+      <Filter>Source Files\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="Railgun.cpp">
+      <Filter>Source Files\Ship\ShipParts</Filter>
+    </ClCompile>
+    <ClCompile Include="SmartMissleLauncher.cpp">
+      <Filter>Source Files\Ship\ShipParts</Filter>
+    </ClCompile>
+    <ClCompile Include="SmartMissle.cpp">
+      <Filter>Source Files\Projectile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,19 +227,72 @@
     <ClInclude Include="GuiManager.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Menu.hpp">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
     <ClInclude Include="TimedText.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="TimedTextBox.hpp">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="Slider.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="CascadingButtons.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Button.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Menu.hpp">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Crate.hpp">
+      <Filter>Header Files\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemSpecs.hpp">
+      <Filter>Header Files\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Market.hpp">
+      <Filter>Header Files\Board</Filter>
+    </ClInclude>
+    <ClInclude Include="Turret.hpp">
+      <Filter>Header Files\Ship\ShipParts</Filter>
+    </ClInclude>
+    <ClInclude Include="TurretSpecs.h">
+      <Filter>Header Files\Ship\ShipParts</Filter>
+    </ClInclude>
+    <ClInclude Include="Biome.hpp">
+      <Filter>Header Files\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="Laser.hpp">
+      <Filter>Header Files\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserTurret.hpp">
+      <Filter>Header Files\Ship\ShipParts</Filter>
+    </ClInclude>
+    <ClInclude Include="Railgun.hpp">
+      <Filter>Header Files\Ship\ShipParts</Filter>
+    </ClInclude>
+    <ClInclude Include="RailgunSabot.hpp">
+      <Filter>Header Files\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="PlanetSpecs.hpp">
+      <Filter>Header Files\Environment</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartMissleLauncher.hpp">
+      <Filter>Header Files\Ship\ShipParts</Filter>
+    </ClInclude>
+    <ClInclude Include="SmartMissle.hpp">
+      <Filter>Header Files\Projectile</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\Game-11-7-2015\Game-11-7-2015\Game-11-7-2015.vcxproj.filters">
       <Filter>Resource Files</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Quotes.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

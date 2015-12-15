@@ -2,6 +2,7 @@
 #include "Includes.hpp"
 #include "Item.hpp"
 #include "Window.hpp"
+#include "ProjectileSpecs.hpp"
 
 Inventory::Inventory()
 {
@@ -12,38 +13,94 @@ Inventory::Inventory()
 	}
 }
 
-Inventory::~Inventory()
-{
-}
+Inventory::~Inventory(){}
 
-bool Inventory::insertNew(std::string location, Window* board)
+bool Inventory::insertNew(std::string type, Window* board, int amount)
 {
 	bool foundSpace = false;
 	for (auto it = contents.begin(); it != contents.end(); ++it)
 	{
-		if (it->isEmpty)
+		if (it->getName() == type)
 		{
-			*it = Item(false);
-			it->setTexture(*board->loadTexture(location));
-			it->scale(sf::Vector2f(.9, .9));
+			it->addNum(amount);
 			foundSpace = true;
 			break;
 		}
 	}
+	if (!foundSpace)
+	{
+		for (auto it = contents.begin(); it != contents.end(); ++it)
+		{
+			if (it->isEmpty)
+			{
+				*it = Item(false);
+				it->setNum(amount);
+				it->setName(board->getItems()->at(type).name);
+				it->setTexture(*board->loadTexture(board->getItems()->at(type).texture));
+				it->scale(sf::Vector2f(.9f, .9f));
+				foundSpace = true;
+				break;
+			}
+		}
+	}
+
 	return foundSpace;
 }
+
+bool Inventory::take(std::string type, int amount)
+{
+	for (auto it = contents.begin(); it != contents.end(); ++it)
+	{
+		if (it->getName() == type)
+		{
+			if (it->take(amount))
+			{
+				return true;
+			}
+			else
+			{
+				it->decrement();
+				it->isEmpty = true;
+				return false;
+			}
+		}
+	}
+	return false;
+}
+
+int Inventory::getNumOf(std::string type)
+{
+	int accumulator = 0;
+
+	for (auto it = contents.begin(); it != contents.end(); ++it)
+	{
+		if (it->getName() == type)
+		{
+			accumulator += it->getAmountOf();
+		}
+	}
+
+	return accumulator;
+}
+
 
 void Inventory::displayInv(sf::RenderWindow* window)
 {
 	for (Item& item : contents)
 	{
-		window->draw(item);
+		if (!item.isEmpty)
+		{
+			text.setPosition(item.getPosition());
+			text.setString(item.getNumOf());
+			window->draw(item);
+			window->draw(text);
+		}
 	}
 }
 
 void Inventory::format(sf::RenderWindow* window)
 {
-	sf::Vector2i pos = sf::Vector2i(getPosition().x, getPosition().y);
+	sf::Vector2i pos = sf::Vector2i((int)getPosition().x, (int)getPosition().y);
 
 	pos.x += 57;
 	int x_align = pos.x;
@@ -56,7 +113,7 @@ void Inventory::format(sf::RenderWindow* window)
 		{
 			if (i < contents.size())
 			{
-				contents[i].setPosition(pos.x, pos.y);
+				contents[i].setPosition((float)pos.x, (float)pos.y);
 			}
 			else
 			{
@@ -99,6 +156,8 @@ sf::Vector2i Inventory::calcPosition(int index, sf::RenderWindow* window)
 
 		pos.y += cellSize;
 	}
+
+	return pos;
 }
 
 int Inventory::calcIndex(sf::Vector2i position)
@@ -108,7 +167,7 @@ int Inventory::calcIndex(sf::Vector2i position)
 
 void Inventory::InvListener(sf::Event* event, Window* board, sf::RenderWindow* window)
 {
-	sf::Vector2i pos = sf::Vector2i(getPosition().x, getPosition().y);
+	sf::Vector2i pos = sf::Vector2i((int)getPosition().x, (int)getPosition().y);
 
 	pos.x += 57;
 	pos.y += 45;
@@ -120,13 +179,12 @@ void Inventory::InvListener(sf::Event* event, Window* board, sf::RenderWindow* w
 		if (mousePos.x / cellSize < width && mousePos.y / cellSize < height)
 		{
 			int index = calcIndex(mousePos);
-			std::cout << index << std::endl;
 			if (index < contents.size())
 			{
-				std::cout << "Selected Item" << std::endl;
 				selected = index;
 			}
 		}
+		
 	}
 
 	if (event->type == sf::Event::MouseMoved)
@@ -134,7 +192,7 @@ void Inventory::InvListener(sf::Event* event, Window* board, sf::RenderWindow* w
 		sf::Vector2i mousePos = sf::Vector2i(event->mouseMove.x, event->mouseMove.y);
 		if (selected != -1)
 		{
-			contents[selected].setPosition(sf::Vector2f(mousePos.x - cellSize / 2, mousePos.y - cellSize / 2));
+			contents[selected].setPosition(sf::Vector2f((float)(mousePos.x - cellSize / 2), (float)(mousePos.y - cellSize / 2)));
 		}
 	}
 
@@ -142,16 +200,40 @@ void Inventory::InvListener(sf::Event* event, Window* board, sf::RenderWindow* w
 	{
 		sf::Vector2i mousePos = sf::Vector2i(event->mouseButton.x - pos.x, event->mouseButton.y - pos.y);
 
-		if (mousePos.x / cellSize < width && mousePos.y / cellSize < height && selected != -1)
+		if (this->getLocalBounds().contains((sf::Vector2f)mousePos))
 		{
-			int index = calcIndex(mousePos);
-			if (index < contents.size())
+			if (mousePos.x / cellSize < width && mousePos.y / cellSize < height && selected != -1)
 			{
-				std::iter_swap(contents.begin() + selected, contents.begin() + index);
-				this->format(window);
-				std::cout << "Moved Item to " << index << std::endl;
+				int index = calcIndex(mousePos);
+				if (index < contents.size())
+				{
+					std::iter_swap(contents.begin() + selected, contents.begin() + index);
+					format(window);
+					std::cout << "Moved Item to " << index << std::endl;
+				}
 			}
 		}
+		else
+		{
+			format(window);
+		}
+		
 		selected = -1;
 	}
+}
+
+std::vector<std::string> Inventory::getTypesOf(std::string type, Window* board)
+{
+	std::vector<std::string> typesOf;
+
+	for (auto& i : contents)
+	{
+		auto got = board->getPSpecs()->find(i.getName());
+		if (got != board->getPSpecs()->end() && got->second->Ammo_Type == type)
+		{
+			typesOf.push_back(i.getName());
+		}
+	}
+
+	return typesOf;
 }

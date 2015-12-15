@@ -3,22 +3,21 @@
 #include "Window.hpp"
 #include "ProjectileSpecs.hpp"
 
-AI::AI() { this->shooting = true; selectedType = 0; }
+AI::AI() { this->shooting = true; selectedAmmoType = 0; health.setFillColor(sf::Color::Green); }
 AI::~AI(){}
 
 AI::AI(Ship* target)
 {
-	target = target;
+	this->target = target;
 	this->shooting = true;
+	health.setFillColor(sf::Color::Green);
 }
 
 void AI::turnTo() 
 {
-	if (target != NULL)
+	if (target != NULL && target->getDistanceTo(getPosition()) < 100000)
 	{
-		float d_x = target->getPosition().x - getPosition().x;
-		float d_y = target->getPosition().y - getPosition().y;
-		float angle = atan2f(d_y, d_x) * 180 / 3.1415;
+		float angle = getAngleTo(target->getPosition());
 
 		if (angle < 0)
 		{
@@ -48,11 +47,9 @@ void AI::turnTo()
 
 void AI::forward()
 {
-	if (target != NULL)
+	float distance = target->getDistanceTo(getPosition());
+	if (target != NULL && distance < 100000)
 	{
-		float d_x = target->getPosition().x - getPosition().x;
-		float d_y = target->getPosition().y - getPosition().y;
-		float distance = sqrt(abs(d_x * d_x + d_y *d_y));
 		if (distance > followDistance)
 		{
 			accelerating = true;
@@ -61,14 +58,20 @@ void AI::forward()
 		else
 		{
 			accelerating = false;
-
-			if (getVelocity() > 0)
+			if (keepAtRange)
 			{
 				decelerating = true;
 			}
 			else
 			{
-				decelerating = false;
+				if (getVelocity() > 0)
+				{
+					decelerating = true;
+				}
+				else
+				{
+					decelerating = false;
+				}
 			}
 		}
 	}
@@ -76,33 +79,36 @@ void AI::forward()
 
 void AI::update(Window* board, sf::RenderWindow* window)
 {
+	target = board->getNearest(false, getPosition());
+	if (target == NULL) //If no enemies
+	{
+		target = board->getPlayer();
+		shooting = false;
+		turningLeft = false;
+		accelerating = false;
+	}
+	else
+	{
+		shooting = true;
+	}
+
+	health.setPosition(this->getPosition().x - health.getSize().x / 2, this->getPosition().y - 30);
+	health.setSize(sf::Vector2f(structuralIntegrity, 8));
+
+	if (structuralIntegrity < maxIntegrity / 2)
+	{
+		health.setFillColor(sf::Color::Yellow);
+	}
+	else if (structuralIntegrity < maxIntegrity / 3)
+	{
+		health.setFillColor(sf::Color::Red);
+	}
+
 	if (keepAtRange)
 	{
-		followDistance = board->getPSpecs()->at(missleTypes[selectedType])->calcRange(velocity);
+		followDistance = board->getPSpecs()->at(ammoTypes[selectedAmmoType])->calcRange(velocity);
 	}
-	turnTo(); // Will also call forward()
-	turn();
+	turnTo();
 	forward();
-	if (shootCount > 0)
-	{
-		shootCount--;
-	}
-	if (shooting)
-	{
-		shoot(board);
-	}
-
-	if (accelerating)
-	{
-		accelerate();
-	}
-	if (decelerating)
-	{
-		decelerate();
-	}
-
-	float yChange = getVelocity() * sinf(getRotation() * (float)0.01745329); //Radian Conversion
-	float xChange = getVelocity() * cosf(getRotation() * (float)0.01745329);
-
-	move(xChange, yChange);
+	Ship::update(board, window);
 }

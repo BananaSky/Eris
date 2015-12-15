@@ -4,5 +4,6 @@
 struct Wave
 {
 	int dispersion;
+	int danger;
 	std::vector<std::string> units;
 };
