@@ -1,0 +1,10 @@
+new abilities > stat increases
+semi-procedural exploration (some hand-crafted) > full procedural
+ships have visible components colored by quality
+minimum viable product > proof of concept
+
+Some tasks:
+  - improved resource loading (dictionary of textures, of fonts, etc)
+  - modular ships
+  - core mechanics: are they fun? (physics!)
+  - minimal UI
