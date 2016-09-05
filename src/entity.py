@@ -3,11 +3,12 @@ from math import cos, sin, radians
 
 class Entity(sf.Sprite):
 
-    def __init__(self, texture):
+    def __init__(self, texture, position=(0,0), velocity=0, rotation=0):
         super().__init__(texture)
-        print(self.local_bounds)
         self.origin   = (self.local_bounds.width/2, self.local_bounds.height/2) 
-        self.velocity = 0
+        self.position = position
+        self.velocity = velocity
+        self.rotation = rotation
 
     def update(self, board):
         rotation = radians((self.rotation + 90) % 360)

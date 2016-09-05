@@ -9,8 +9,12 @@ class Board():
     def __init__(self, resources, title='', width=680, height=440):
         self.window    = sf.RenderWindow(sf.VideoMode(width, height), title)
         self.resources = resources
+        self.queued    = []
         self.entities  = {}
         self.entityID  = 0
+
+    def queue(self, entity):
+        self.queued.append(entity)
 
     def add_entity(self, entity):
         self.entities[self.entityID] = entity
@@ -27,6 +31,9 @@ class Board():
             entity.render(self.window)
 
     def _update(self):
+        for entity in self.queued:
+            self.add_entity(entity)
+        del self.queued[:]
         for entity in self.entities.values():
             entity.update(self)
 
