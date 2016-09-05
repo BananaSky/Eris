@@ -1,7 +1,4 @@
-#!/usr/bin/env python3
-from ..tools import sf
-from ..tools import load
-
+from ..tools import sf, load, collide
 
 class Board():
     def __init__(self, resources, title='', width=680, height=440):
@@ -16,6 +13,7 @@ class Board():
 
     def add_entity(self, entity):
         self.entities[self.entityID] = entity
+        entity.ident = self.entityID
         self.entityID += 1
 
     def _handle(self, event):
@@ -32,8 +30,18 @@ class Board():
         for entity in self.queued:
             self.add_entity(entity)
         del self.queued[:]
-        for entity in self.entities.values():
+        entities = list(self.entities.values())
+        for i, entity in enumerate(entities):
             entity.update(self)
+            for other in entities[i+1:]:
+                if other.touches(entity):
+                    collide(entity, other)
+            if not entity.alive():
+                del self.entities[entity.ident]
+            else:
+                print(entity.life)
+
+
 
     def run(self):
         while self.window.is_open:

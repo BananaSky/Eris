@@ -2,30 +2,21 @@ from time        import time
 from .projectile import Projectile
 
 from ..tools import sf
+from ..tools import gen_texture
 
 class Weapon:
-    def __init__(self, period=1, damage=10, x=10, y=10):
+    def __init__(self, period=.5, damage=10, x=10, y=10):
         self.period = period
         self.damage = damage
         self.last   = time()
 
-        image   = sf.Image.create(x, y, sf.Color(0, 0, 0,0))
+        self.projectileTexture = gen_texture(x, y)
 
-        for j in range(y):
-            for i in range(x):
-                pixel = image[i, j]
-                image[i, j] = sf.Color(0, 0, 255, 255)
-
-        texture = sf.Texture.create(image.width, image.height)
-        texture = texture.from_image(image)
-
-        self.projectileTexture = texture
-
-    def use(self, position, velocity, rotation):
+    def use(self, position, velocity, rotation, ident):
         passed = time() - self.last
         if passed > self.period:
             self.last = time()
-            return Projectile(self.projectileTexture, position, velocity, rotation)
+            return Projectile(self.projectileTexture, position, velocity, rotation, ident)
         else:
             return None
 

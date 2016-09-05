@@ -20,6 +20,4 @@ class Player(Ship):
             self.velocity += .00005
 
         if key('SPACE'):
-            projectile = self.weapon.use(self.position, self.velocity, self.rotation)
-            if projectile is not None:
-                board.queue(projectile)
+            self.shoot(board)
