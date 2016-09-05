@@ -14,7 +14,7 @@ if __name__ == '__main__':
     player.move((board.window.width/2, board.window.height/2))
     board.add_entity(player)
 
-    enemy = Ship()
+    enemy = Enemy('enemy')
     board.add_entity(enemy)
 
     board.run()

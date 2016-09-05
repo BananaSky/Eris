@@ -1,4 +1,6 @@
 from .player     import Player
+from .character  import Character
+from .enemy      import Enemy
 from .ship       import Ship
 from .entity     import Entity
 from .projectile import Projectile

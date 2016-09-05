@@ -7,7 +7,6 @@ class Ship(Entity):
     def __init__(self, x=20, y=20):
         texture = gen_texture(x, y)
         super().__init__(texture)
-
         self.weapon = Weapon()
 
     def shoot(self, board):
@@ -16,5 +15,5 @@ class Ship(Entity):
             board.queue(projectile)
 
     def collide(self, other):
-        pass
+        other.damage(self.velocity)
 

@@ -1,9 +1,12 @@
-from .ship       import Ship
+from .character import Character
 
 from ..tools import sf
 from ..tools.sf import key
 
-class Player(Ship):
+class Player(Character):
+
+    def __init__(self):
+        super().__init__('player')
 
     def update(self, board):
         super().update(board)
@@ -21,3 +24,6 @@ class Player(Ship):
 
         if key('SPACE'):
             self.shoot(board)
+
+    def interact(self, other):
+        pass

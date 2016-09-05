@@ -35,11 +35,13 @@ class Board():
             entity.update(self)
             for other in entities[i+1:]:
                 if other.touches(entity):
-                    collide(entity, other)
+                    entity.collide(other)
+                    other.collide(entity)
+                if other.interacts(entity):
+                    entity.interact(other)
+                    other.interact(entity)
             if not entity.alive():
                 del self.entities[entity.ident]
-            else:
-                print(entity.life)
 
 
 

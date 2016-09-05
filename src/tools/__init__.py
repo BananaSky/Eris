@@ -1,2 +1,2 @@
-from .tools import gen_texture, collide
+from .tools import *
 from .load  import *
