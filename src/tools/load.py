@@ -1,4 +1,6 @@
-import sf
+
+from . import sf
+
 import os
 
 from collections import namedtuple

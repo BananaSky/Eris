@@ -1,4 +1,4 @@
-import sf
+from ..tools import sf
 from math import cos, sin, radians
 
 class Entity(sf.Sprite):

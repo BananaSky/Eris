@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
-import sf
-from load    import load
-
-from textbox import Textbox
+from ..tools import sf
+from ..tools import load
 
 
 class Board():

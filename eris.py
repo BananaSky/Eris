@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 
-import sf
+import src.tools.sf as sf
 
-from load   import load
-from board  import Board
-from player import Player
+from src.tools   import *
+from src.objects import *
 
 if __name__ == '__main__':
     resources = load()

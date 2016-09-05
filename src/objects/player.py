@@ -1,7 +1,7 @@
-from ship       import Ship
+from .ship       import Ship
 
-import sf
-from sf import key
+from ..tools import sf
+from ..tools.sf import key
 
 class Player(Ship):
 
@@ -20,6 +20,6 @@ class Player(Ship):
             self.velocity += .00005
 
         if key('SPACE'):
-            projectile = self.weapon.use(self.texture, self.position, self.velocity, self.rotation)
+            projectile = self.weapon.use(self.position, self.velocity, self.rotation)
             if projectile is not None:
                 board.queue(projectile)
